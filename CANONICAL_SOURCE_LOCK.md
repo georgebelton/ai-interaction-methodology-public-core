@@ -16,7 +16,7 @@ The authoritative canonical source artifacts in this repository are:
 
 ## Default Pinned Public Reference
 
-`v1.0.0`
+`v1.0.1`
 
 This release tag is the default pinned public compatibility reference for methodology assembly.
 

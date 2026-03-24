@@ -1,6 +1,6 @@
 ---
 Status: Canonical
-Version: 1.0.0
+Version: 1.0.1
 Canonical: true
 Canonical File: ai-collaboration-guidelines/ai-collaboration-guidelines.md
 Creator: George Belton
