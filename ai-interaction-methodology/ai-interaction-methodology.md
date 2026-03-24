@@ -668,7 +668,9 @@ It does not constrain purely analytical reasoning that does not depend on eviden
 
 ---
 
-## 1. Load the Methodology
+## Runtime Stage Detail — Load the Bootstrap Methodology Document
+
+These stage-detail sections elaborate the Runtime Lifecycle defined earlier in this document. They do not define a separate execution sequence.
 
 Execution begins by loading the **AI Interaction Methodology** document as the
 authoritative bootstrap artifact.
@@ -685,7 +687,7 @@ follows.
 
 ---
 
-## 2. Resolve Canonical Artifacts
+## Runtime Stage Detail — Resolve Canonical Artifacts
 
 After loading the methodology, the implementation must resolve the canonical
 artifacts declared by the methodology.
@@ -703,7 +705,7 @@ complete runtime configuration.
 
 ---
 
-## 3. Apply Configuration and Directive Precedence Rules
+## Runtime Stage Detail — Apply Configuration and Directive Precedence Rules
 
 Once the canonical artifacts are resolved, the implementation must assemble the
 runtime configuration using the configuration classes and directive precedence
@@ -722,7 +724,7 @@ effective runtime configuration.
 
 ---
 
-## 4. Determine the Active Framework Tier
+## Runtime Stage Detail — Determine the Active Framework Tier
 
 After configuration assembly, the implementation must determine the active
 framework tier required by the task.
@@ -741,7 +743,7 @@ process.
 
 ---
 
-## 5. Apply Any Valid Collaboration Profile
+## Runtime Stage Detail — Apply Any Valid Collaboration Profile
 
 If a collaboration profile is provided, it must be applied only after canonical
 artifacts have been resolved and only within the profile boundaries defined by
@@ -761,7 +763,7 @@ the methodology itself.
 
 ---
 
-## 6. Perform Structured Reasoning
+## Runtime Stage Detail — Perform Structured Reasoning
 
 Once the active framework tier and effective runtime configuration are known,
 the implementation performs structured reasoning using the AI Interaction
@@ -774,7 +776,7 @@ This stage is where the actual analytical work is performed.
 
 ---
 
-## 7. Validate Reliability Conditions
+## Runtime Stage Detail — Validate Reliability Conditions
 
 Before producing a response, the implementation must verify that the completed
 analysis satisfies the methodology’s required reliability conditions.
@@ -792,7 +794,7 @@ final response is produced.
 
 ---
 
-## 8. Classify Workflow and Prepare Output
+## Runtime Stage Detail — Classify Workflow and Prepare Output
 
 After reliability validation, the implementation must classify the workflow and prepare the appropriate terminal output.
 
@@ -852,7 +854,7 @@ This ensures that runtime behavior remains consistent with the intended executio
 
 ---
 
-## 9. Produce the Final Response or Handoff Artifact
+## Runtime Stage Detail — Produce the Final Response or Handoff Artifact
 
 After workflow classification and output preparation, the implementation may produce the terminal output.
 
@@ -2803,10 +2805,17 @@ This model preserves:
 The runtime configuration may be conceptually expressed as:
 
 ```
-load_methodology()
+load_bootstrap_methodology()
 
+read_canonical_source_lock()
+resolve_pinned_public_reference()
+
+resolve_canonical_methodology()
 resolve_framework()
 resolve_collaboration_guidelines()
+
+verify_canonical_set_compatibility()
+verify_canonical_set_integrity()
 
 runtime_configuration.canonical_semantics =
     methodology + framework
@@ -2821,6 +2830,8 @@ if collaboration_profile_present:
 runtime_configuration.runtime_context =
     derived_from_task
 ```
+
+This pseudocode is conceptual, but it must not be interpreted to permit a weaker startup sequence than the normative Runtime Lifecycle.
 
 This layered assembly ensures:
 
@@ -2957,9 +2968,10 @@ This produces the following valid runtime states:
 
 - Core Framework
 - Advanced Framework
+- Core Framework + Governance Extensions
 - Advanced Framework + Governance Extensions
 
-If governance controls are required for a task that would otherwise fit within Core reasoning, implementations may apply governance extensions together with the appropriate lower analytical tier.
+Governance Extensions apply in addition to the otherwise required reasoning tier and may therefore be used together with either Core Framework or Advanced Framework, depending on task requirements.
 
 ---
 
