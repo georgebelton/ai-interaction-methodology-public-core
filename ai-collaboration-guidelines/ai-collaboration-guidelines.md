@@ -57,6 +57,8 @@ The full document can be adopted as the standard interaction model when working 
 
 This provides the most consistent analytical behavior.
 
+Collaboration behavior may be specialized by task requirements, operational context, or other runtime conditions, but those specializations remain bounded by the directive, profile, and override rules defined by the canonical methodology artifacts.
+
 ## Section-Level Usage
 
 Individual sections may be used independently.
