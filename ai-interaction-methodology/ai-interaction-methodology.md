@@ -84,12 +84,12 @@ The methodology supports three levels of adoption:
 ### 1. Standard Adoption
 Provide this methodology document.
 
-The AI system should resolve and apply the canonical framework and collaboration guidelines from the canonical public-core repository using the declared canonical file paths in this document.
+The AI system should treat this document as a bootstrap artifact, read `CANONICAL_SOURCE_LOCK.md`, obtain the declared pinned public reference, and resolve the canonical methodology, framework, and collaboration-guidelines artifacts from the declared repository and canonical file paths before execution.
 
 ### 2. Configured Adoption
 Provide this methodology document and a local collaboration profile.
 
-The AI system should resolve the canonical artifacts first, then apply the profile as a bounded overlay.
+The AI system should complete the same pinned canonical resolution process first, then apply the profile only as a bounded overlay on the resolved canonical artifact set.
 
 ### 3. Derivative Adoption
 Modify the canonical framework or collaboration guidelines by forking the canonical public-core repository or by creating a derivative implementation that preserves clear source authority.
