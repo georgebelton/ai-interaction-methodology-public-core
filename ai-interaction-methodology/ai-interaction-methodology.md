@@ -3450,21 +3450,9 @@ Profiles that violate these rules should be treated as invalid configuration art
 
 ## Runtime Interpretation Rules
 
-During runtime assembly:
+At runtime, a collaboration profile is interpreted as a bounded behavioral overlay on the canonical methodology artifact set.
 
-- presentation fields tune response style
-- analytical emphasis fields tune visibility and emphasis
-- runtime preference fields influence default behavior prior to task-based runtime selection
-
-No profile field may override:
-
-- methodology invariants
-- framework node definitions
-- framework tier semantics
-- governance activation criteria
-- artifact resolution policy
-
-Those restrictions are defined separately in the profile scope boundaries.
+Its allowable scope and prohibited modification boundaries are defined in the Profile and Override Boundaries section.
 
 ---
 
@@ -3485,11 +3473,9 @@ Without a schema, profiles remain informal documents and cannot reliably functio
 
 ## Profile Scope Restrictions
 
-Collaboration profiles are bounded configuration overlays.
+A local collaboration profile may constrain tone, formatting, response shape, and other bounded interaction defaults as permitted by the Profile and Override Boundaries section.
 
-They exist to tune collaboration behavior, response presentation, and limited runtime defaults without modifying the canonical methodology.
-
-To preserve methodology integrity, profiles must operate within explicit scope restrictions.
+It must not redefine canonical methodology structure, artifact relationships, escalation logic, validation rules, or other protected semantics.
 
 ---
 
@@ -3540,7 +3526,9 @@ They do not redefine runtime selection rules.
 
 ## Prohibited Profile Modifications
 
-Profiles must not modify any of the following.
+A local collaboration profile must not override or reinterpret protected canonical semantics.
+
+Protected surfaces and override prohibitions are defined in the Profile and Override Boundaries section and must be enforced unchanged at runtime.
 
 ### Methodology Invariants
 
@@ -3647,16 +3635,9 @@ If profile invalidity prevents safe interpretation of the profile as a whole, th
 
 ## Runtime Enforcement Requirement
 
-During runtime assembly, implementations must enforce profile scope restrictions before applying profile directives.
+Implementations must enforce profile-boundary constraints at runtime.
 
-This means:
-
-1. validate the profile against the schema  
-2. validate the profile against scope restrictions  
-3. reject or ignore invalid directives  
-4. apply only the remaining valid profile directives  
-
-Profiles must therefore be interpreted as constrained overlays, not unrestricted configuration sources.
+Any profile instruction that exceeds the allowable bounded-overlay scope defined in the Profile and Override Boundaries section must be ignored or rejected.
 
 ---
 
