@@ -303,6 +303,8 @@ Analytical work may conclude in a handoff-ready artifact rather than direct impl
 
 Where work is handed off, the handoff should preserve the task context, applicable constraints, and other canonical methodology requirements needed for downstream execution within the intended operating context.
 
+Before delegation proceeds, the handoff should be checked to confirm that the downstream recipient has the task context, applicable constraints, and methodology-governed requirements needed to execute within the intended operating context.
+
 ---
 
 # Canonical Status
