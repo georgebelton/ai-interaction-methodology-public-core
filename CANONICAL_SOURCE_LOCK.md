@@ -20,12 +20,6 @@ The authoritative canonical source artifacts in this repository are:
 
 This release tag is the default pinned public reference for reproducible methodology assembly.
 
-## Exact Pinned Commit
-
-`6aea600c5010d35ac4abea378aa170bf80735be8`
-
-This commit is the exact immutable source state associated with the default pinned public reference.
-
 ## Resolution Rule
 
 A valid public-core methodology assembly must resolve:
