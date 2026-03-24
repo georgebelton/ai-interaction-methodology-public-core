@@ -2805,10 +2805,17 @@ This model preserves:
 The runtime configuration may be conceptually expressed as:
 
 ```
-load_methodology()
+load_bootstrap_methodology()
 
+read_canonical_source_lock()
+resolve_pinned_public_reference()
+
+resolve_canonical_methodology()
 resolve_framework()
 resolve_collaboration_guidelines()
+
+verify_canonical_set_compatibility()
+verify_canonical_set_integrity()
 
 runtime_configuration.canonical_semantics =
     methodology + framework
@@ -2823,6 +2830,8 @@ if collaboration_profile_present:
 runtime_configuration.runtime_context =
     derived_from_task
 ```
+
+This pseudocode is conceptual, but it must not be interpreted to permit a weaker startup sequence than the normative Runtime Lifecycle.
 
 This layered assembly ensures:
 
