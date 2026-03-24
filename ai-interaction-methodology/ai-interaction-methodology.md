@@ -100,13 +100,11 @@ Implementations that alter the framework or collaboration guidelines should be t
 
 ## Status
 
-The canonical public-core repository referenced in this document is the authoritative public source from which pinned canonical artifacts are resolved. The repository may evolve over time, but current execution must use the declared pinned public reference rather than floating repository state.
+The canonical public-core repository referenced in this document is the authoritative public source for the methodology’s pinned canonical artifacts.
 
-Readers and implementers should consult the canonical public-core repository for updates.
+Readers and implementers may consult the repository for updates, but update discovery is separate from canonical runtime assembly.
 
-Update discovery is separate from canonical runtime assembly. Implementations must complete pinned canonical resolution first and must not substitute floating repository state for the declared pinned reference during current execution.
-
-Implementations requiring reproducible methodology assembly should use the declared pinned public reference rather than a floating repository state.
+Canonical startup and pinned artifact resolution requirements are defined in the Bootstrap Entry Rule, Canonical Source Resolution, and Runtime Lifecycle sections.
 
 ---
 
@@ -173,17 +171,9 @@ The default pinned public reference for canonical resolution is declared in the 
 
 `CANONICAL_SOURCE_LOCK.md`
 
-Implementations requiring methodology assembly should resolve the canonical source artifacts from:
+This section declares the public canonical source surface and lock-file location.
 
-- the canonical public repository
-- the declared canonical file paths
-- the declared pinned public reference
-
-For this public-core, the declared pinned public reference is the release tag declared in the lock file.
-
-Where strict auditability is required, the exact commit should be obtained by resolving the target of that declared release tag.
-
-This audit-resolution behavior does not imply that the exact commit SHA must be embedded in the lock file itself.
+Normative canonical resolution behavior, pinned-reference requirements, branch-state rejection, and audit-refinement rules are defined in the Canonical Source Resolution and Artifact Version Compatibility sections.
 
 ---
 
@@ -939,14 +929,12 @@ The remaining artifacts must be resolved according to the repository and canonic
 
 ## Resolution Procedure
 
-When resolving a canonical artifact, implementations must:
+When resolving a required canonical artifact after canonical startup has determined the declared repository, canonical file paths, and pinned public reference, implementations must:
 
-1. read the canonical artifact declarations defined by this methodology
-2. locate the declared canonical repository
-3. resolve the declared pinned reference
-4. retrieve the declared canonical file from that reference
-5. where strict auditability is required, resolve the declared public release reference to its target commit, but do not make canonical lock resolution depend on recording that final commit identity inside the same lock artifact that defines that release state
-6. verify that the artifact is readable, complete, and structurally valid
+1. locate the declared artifact within the declared canonical source surface
+2. retrieve the artifact from the resolved pinned reference
+3. where strict auditability is required, resolve the declared public release reference to its target commit without changing the declared compatibility reference
+4. verify that the artifact is readable, complete, and structurally valid
 
 If any of these steps fail, the artifact must be treated as unresolved.
 
@@ -1497,25 +1485,21 @@ This section defines the required compatibility model for resolving the canonica
 
 ## Compatibility Model
 
-Methodology compatibility depends on resolving canonical artifacts from the declared canonical repository, from the declared canonical file paths, and from the declared pinned public reference.
+Methodology compatibility is evaluated against the canonical artifacts resolved from the declared canonical repository, canonical file paths, and pinned public reference.
 
-For this public-core, the default public compatibility declaration is the release tag declared in `CANONICAL_SOURCE_LOCK.md`.
+For this public-core, the pinned public compatibility reference is the release tag declared in `CANONICAL_SOURCE_LOCK.md`.
 
-Where exact auditability is required, the exact commit may be obtained by resolving the target of that declared release tag.
-
-This exact audit resolution is a derived form of the declared public release state and does not replace the declared public compatibility reference.
+Exact-commit audit resolution may be used as a derived refinement where required, but it does not replace the declared public compatibility reference.
 
 ---
 
 ## Default Behavior
 
-Unless a stricter audit requirement is explicitly in effect, canonical public methodology assembly should use the declared pinned public reference from `CANONICAL_SOURCE_LOCK.md`.
+Unless stricter audit requirements are explicitly in effect, methodology assembly should use the declared pinned public reference from `CANONICAL_SOURCE_LOCK.md`.
 
-For this public-core, that declared pinned public reference is the release tag.
+For this public-core, that pinned public reference is the declared release tag.
 
-This declared public release reference is a valid canonical basis for public-core methodology assembly and does not require replacement with a self-embedded exact commit declaration in the lock file.
-
-Where exact auditability is explicitly required, exact commit resolution may be used as a derived refinement of the declared public release state.
+Exact-commit audit resolution may be used only as a derived refinement of that declared public release state.
 
 ---
 
