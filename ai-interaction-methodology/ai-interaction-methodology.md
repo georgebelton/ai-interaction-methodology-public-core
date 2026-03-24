@@ -84,12 +84,12 @@ The methodology supports three levels of adoption:
 ### 1. Standard Adoption
 Provide this methodology document.
 
-The AI system should resolve and apply the canonical framework and collaboration guidelines from the canonical public-core repository using the declared canonical file paths in this document.
+The AI system should treat this document as a bootstrap artifact, read `CANONICAL_SOURCE_LOCK.md`, obtain the declared pinned public reference, and resolve the canonical methodology, framework, and collaboration-guidelines artifacts from the declared repository and canonical file paths before execution.
 
 ### 2. Configured Adoption
 Provide this methodology document and a local collaboration profile.
 
-The AI system should resolve the canonical artifacts first, then apply the profile as a bounded overlay.
+The AI system should complete the same pinned canonical resolution process first, then apply the profile only as a bounded overlay on the resolved canonical artifact set.
 
 ### 3. Derivative Adoption
 Modify the canonical framework or collaboration guidelines by forking the canonical public-core repository or by creating a derivative implementation that preserves clear source authority.
@@ -117,13 +117,13 @@ When this document is provided to an AI system as a source or reference, the sys
 1. Treat this document as a bootstrap artifact only.
 2. Read `CANONICAL_SOURCE_LOCK.md`.
 3. Obtain the declared pinned public reference.
-4. Resolve the canonical methodology artifacts from the declared repository, canonical file paths, and that pinned reference.
+4. Resolve the canonical methodology, framework, and collaboration-guidelines artifacts from the declared repository, canonical file paths, and that pinned reference.
 5. Apply interaction behavior from the **AI Collaboration Guidelines**.
 6. Apply analytical reasoning structure from the **AI Interaction Framework** when structured analysis is required.
 7. Prioritize **structured reasoning over conversational fluency**.
 8. **Diagnose problems before proposing solutions**.
 9. Make **assumptions, tradeoffs, and uncertainties explicit**.
-10. If a local collaboration profile is also provided, apply it only as a bounded overlay after resolving the canonical artifacts.
+10. If a local collaboration profile is also provided, apply it only as a bounded overlay after resolving the canonical methodology, framework, and collaboration-guidelines artifacts.
 
 These expectations are defined in detail in the canonical collaboration guidelines and interaction framework.
 
