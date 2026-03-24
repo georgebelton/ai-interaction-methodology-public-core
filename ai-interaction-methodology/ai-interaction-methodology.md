@@ -100,13 +100,11 @@ Implementations that alter the framework or collaboration guidelines should be t
 
 ## Status
 
-The canonical public-core repository referenced in this document is the authoritative public source from which pinned canonical artifacts are resolved. The repository may evolve over time, but current execution must use the declared pinned public reference rather than floating repository state.
+The canonical public-core repository referenced in this document is the authoritative public source for the methodology’s pinned canonical artifacts.
 
-Readers and implementers should consult the canonical public-core repository for updates.
+Readers and implementers may consult the repository for updates, but update discovery is separate from canonical runtime assembly.
 
-Update discovery is separate from canonical runtime assembly. Implementations must complete pinned canonical resolution first and must not substitute floating repository state for the declared pinned reference during current execution.
-
-Implementations requiring reproducible methodology assembly should use the declared pinned public reference rather than a floating repository state.
+Canonical startup and pinned artifact resolution requirements are defined in the Bootstrap Entry Rule, Canonical Source Resolution, and Runtime Lifecycle sections.
 
 ---
 
@@ -173,17 +171,9 @@ The default pinned public reference for canonical resolution is declared in the 
 
 `CANONICAL_SOURCE_LOCK.md`
 
-Implementations requiring methodology assembly should resolve the canonical source artifacts from:
+This section declares the public canonical source surface and lock-file location.
 
-- the canonical public repository
-- the declared canonical file paths
-- the declared pinned public reference
-
-For this public-core, the declared pinned public reference is the release tag declared in the lock file.
-
-Where strict auditability is required, the exact commit should be obtained by resolving the target of that declared release tag.
-
-This audit-resolution behavior does not imply that the exact commit SHA must be embedded in the lock file itself.
+Normative canonical resolution behavior, pinned-reference requirements, branch-state rejection, and audit-refinement rules are defined in the Canonical Source Resolution and Artifact Version Compatibility sections.
 
 ---
 
@@ -939,14 +929,12 @@ The remaining artifacts must be resolved according to the repository and canonic
 
 ## Resolution Procedure
 
-When resolving a canonical artifact, implementations must:
+When resolving a required canonical artifact after canonical startup has determined the declared repository, canonical file paths, and pinned public reference, implementations must:
 
-1. read the canonical artifact declarations defined by this methodology
-2. locate the declared canonical repository
-3. resolve the declared pinned reference
-4. retrieve the declared canonical file from that reference
-5. where strict auditability is required, resolve the declared public release reference to its target commit, but do not make canonical lock resolution depend on recording that final commit identity inside the same lock artifact that defines that release state
-6. verify that the artifact is readable, complete, and structurally valid
+1. locate the declared artifact within the declared canonical source surface
+2. retrieve the artifact from the resolved pinned reference
+3. where strict auditability is required, resolve the declared public release reference to its target commit without changing the declared compatibility reference
+4. verify that the artifact is readable, complete, and structurally valid
 
 If any of these steps fail, the artifact must be treated as unresolved.
 
@@ -1497,25 +1485,21 @@ This section defines the required compatibility model for resolving the canonica
 
 ## Compatibility Model
 
-Methodology compatibility depends on resolving canonical artifacts from the declared canonical repository, from the declared canonical file paths, and from the declared pinned public reference.
+Methodology compatibility is evaluated against the canonical artifacts resolved from the declared canonical repository, canonical file paths, and pinned public reference.
 
-For this public-core, the default public compatibility declaration is the release tag declared in `CANONICAL_SOURCE_LOCK.md`.
+For this public-core, the pinned public compatibility reference is the release tag declared in `CANONICAL_SOURCE_LOCK.md`.
 
-Where exact auditability is required, the exact commit may be obtained by resolving the target of that declared release tag.
-
-This exact audit resolution is a derived form of the declared public release state and does not replace the declared public compatibility reference.
+Exact-commit audit resolution may be used as a derived refinement where required, but it does not replace the declared public compatibility reference.
 
 ---
 
 ## Default Behavior
 
-Unless a stricter audit requirement is explicitly in effect, canonical public methodology assembly should use the declared pinned public reference from `CANONICAL_SOURCE_LOCK.md`.
+Unless stricter audit requirements are explicitly in effect, methodology assembly should use the declared pinned public reference from `CANONICAL_SOURCE_LOCK.md`.
 
-For this public-core, that declared pinned public reference is the release tag.
+For this public-core, that pinned public reference is the declared release tag.
 
-This declared public release reference is a valid canonical basis for public-core methodology assembly and does not require replacement with a self-embedded exact commit declaration in the lock file.
-
-Where exact auditability is explicitly required, exact commit resolution may be used as a derived refinement of the declared public release state.
+Exact-commit audit resolution may be used only as a derived refinement of that declared public release state.
 
 ---
 
@@ -3466,21 +3450,9 @@ Profiles that violate these rules should be treated as invalid configuration art
 
 ## Runtime Interpretation Rules
 
-During runtime assembly:
+At runtime, a collaboration profile is interpreted as a bounded behavioral overlay on the canonical methodology artifact set.
 
-- presentation fields tune response style
-- analytical emphasis fields tune visibility and emphasis
-- runtime preference fields influence default behavior prior to task-based runtime selection
-
-No profile field may override:
-
-- methodology invariants
-- framework node definitions
-- framework tier semantics
-- governance activation criteria
-- artifact resolution policy
-
-Those restrictions are defined separately in the profile scope boundaries.
+Its allowable scope and prohibited modification boundaries are defined in the Profile and Override Boundaries section.
 
 ---
 
@@ -3501,11 +3473,9 @@ Without a schema, profiles remain informal documents and cannot reliably functio
 
 ## Profile Scope Restrictions
 
-Collaboration profiles are bounded configuration overlays.
+A local collaboration profile may constrain tone, formatting, response shape, and other bounded interaction defaults as permitted by the Profile and Override Boundaries section.
 
-They exist to tune collaboration behavior, response presentation, and limited runtime defaults without modifying the canonical methodology.
-
-To preserve methodology integrity, profiles must operate within explicit scope restrictions.
+It must not redefine canonical methodology structure, artifact relationships, escalation logic, validation rules, or other protected semantics.
 
 ---
 
@@ -3556,7 +3526,9 @@ They do not redefine runtime selection rules.
 
 ## Prohibited Profile Modifications
 
-Profiles must not modify any of the following.
+A local collaboration profile must not override or reinterpret protected canonical semantics.
+
+Protected surfaces and override prohibitions are defined in the Profile and Override Boundaries section and must be enforced unchanged at runtime.
 
 ### Methodology Invariants
 
@@ -3663,16 +3635,9 @@ If profile invalidity prevents safe interpretation of the profile as a whole, th
 
 ## Runtime Enforcement Requirement
 
-During runtime assembly, implementations must enforce profile scope restrictions before applying profile directives.
+Implementations must enforce profile-boundary constraints at runtime.
 
-This means:
-
-1. validate the profile against the schema  
-2. validate the profile against scope restrictions  
-3. reject or ignore invalid directives  
-4. apply only the remaining valid profile directives  
-
-Profiles must therefore be interpreted as constrained overlays, not unrestricted configuration sources.
+Any profile instruction that exceeds the allowable bounded-overlay scope defined in the Profile and Override Boundaries section must be ignored or rejected.
 
 ---
 
