@@ -16,7 +16,7 @@ License: CC-BY-4.0
 
 ## Overview
 
-The AI Collaboration Guidelines define a structured interaction model for working with large language models in analytical, technical, and operational contexts.
+The AI Collaboration Guidelines define the canonical default collaboration behavior for working with large language models in analytical, technical, and operational contexts within the AI Interaction Methodology.
 
 The goal of the collaboration model is to improve the quality and reliability of AI-assisted reasoning by establishing clear expectations for:
 
