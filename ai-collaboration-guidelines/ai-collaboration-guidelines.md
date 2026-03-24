@@ -301,6 +301,8 @@ In governed or higher-risk contexts, collaboration may require greater explicitn
 
 Analytical work may conclude in a handoff-ready artifact rather than direct implementation, but any such delegation must preserve the applicable canonical methodology requirements that govern output selection, handoff preparation, and downstream execution context.
 
+Where work is handed off, the handoff should preserve the task context, applicable constraints, and other canonical methodology requirements needed for downstream execution within the intended operating context.
+
 ---
 
 # Canonical Status
