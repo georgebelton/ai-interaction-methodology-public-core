@@ -153,13 +153,17 @@ The default pinned public reference for canonical resolution is declared in the 
 
 `CANONICAL_SOURCE_LOCK.md`
 
-Implementations requiring reproducible methodology assembly should resolve the canonical source artifacts from:
+Implementations requiring methodology assembly should resolve the canonical source artifacts from:
 
 - the canonical public repository
 - the declared canonical file paths
-- the declared pinned reference
+- the declared pinned public reference
 
-Where strict auditability is required, the exact pinned commit associated with the declared public release should be used rather than a floating branch reference.
+For this public-core, the declared pinned public reference is the release tag declared in the lock file.
+
+Where strict auditability is required, the exact commit should be obtained by resolving the target of that declared release tag.
+
+This audit-resolution behavior does not imply that the exact commit SHA must be embedded in the lock file itself.
 
 ---
 
@@ -244,20 +248,19 @@ Local profiles are intended for **configuration**, not **methodology modificatio
 
 ## Canonical Source Resolution
 
-When resolving canonical methodology artifacts, implementations must:
+Canonical public source resolution must use:
 
-1. resolve the canonical public-core repository declared above
-2. resolve the declared pinned public reference
-3. resolve the canonical methodology file from that reference
-4. resolve the canonical collaboration guidelines from that reference
-5. resolve the canonical interaction framework from that reference
+- the canonical public repository
+- the declared canonical artifact paths
+- the declared pinned public reference
 
-Canonical source resolution must preserve both:
+For this public-core, the declared pinned public reference is the release tag declared in `CANONICAL_SOURCE_LOCK.md`.
 
-- repository-level source authority
-- file-level canonical artifact identity
+Default public resolution is performed by resolving the canonical artifacts from that declared release tag.
 
-This document intentionally does not duplicate the framework or collaboration guidelines. It defines how the methodology is assembled and applied from the canonical public-core source surface.
+Where exact auditability is required, the exact commit is obtained by resolving the target of the declared release tag.
+
+This exact audit resolution is a derived refinement of the declared public release state and does not replace the declared public compatibility reference.
 
 ---
 
@@ -914,7 +917,8 @@ When resolving a canonical artifact, implementations must:
 2. locate the declared canonical repository
 3. resolve the declared pinned reference
 4. retrieve the declared canonical file from that reference
-5. verify that the artifact is readable, complete, and structurally valid
+5. where strict auditability is required, resolve the declared public release reference to its target commit, but do not make canonical lock resolution depend on recording that final commit identity inside the same lock artifact that defines that release state
+6. verify that the artifact is readable, complete, and structurally valid
 
 If any of these steps fail, the artifact must be treated as unresolved.
 
@@ -1465,27 +1469,25 @@ This section defines the required compatibility model for resolving the canonica
 
 ## Compatibility Model
 
-The AI Interaction Methodology uses a **pinned artifact version model**.
+Methodology compatibility depends on resolving canonical artifacts from the declared canonical repository, from the declared canonical file paths, and from the declared pinned public reference.
 
-Under this model, each canonical artifact should be resolved against a specifically declared reference rather than a floating compatibility range.
+For this public-core, the default public compatibility declaration is the release tag declared in `CANONICAL_SOURCE_LOCK.md`.
 
-A valid methodology runtime therefore depends on:
+Where exact auditability is required, the exact commit may be obtained by resolving the target of that declared release tag.
 
-- the canonical repository
-- the canonical file
-- the declared artifact reference
-
-The declared reference may be expressed as a pinned tag, commit, release version, or other immutable identifier supported by the source control system.
+This exact audit resolution is a derived form of the declared public release state and does not replace the declared public compatibility reference.
 
 ---
 
 ## Default Behavior
 
-If no explicit pinned artifact reference is declared by the implementation, the methodology may use the default pinned public reference declared by the canonical source lock file referenced in this document.
+Unless a stricter audit requirement is explicitly in effect, canonical public methodology assembly should use the declared pinned public reference from `CANONICAL_SOURCE_LOCK.md`.
 
-However, this mode should still be treated as a declared canonical reference, not as a floating branch-based compatibility contract.
+For this public-core, that declared pinned public reference is the release tag.
 
-Implementations requiring reproducible methodology assembly should use explicitly pinned references for all canonical artifacts.
+This declared public release reference is a valid canonical basis for public-core methodology assembly and does not require replacement with a self-embedded exact commit declaration in the lock file.
+
+Where exact auditability is explicitly required, exact commit resolution may be used as a derived refinement of the declared public release state.
 
 ---
 
@@ -1504,20 +1506,13 @@ If any of these conditions fail, the artifact must be treated as incompatible.
 
 ## Pinned Reference Expectations
 
-Pinned references should satisfy the following properties:
+Pinned references used for canonical methodology resolution must be explicit, stable, and non-floating.
 
-- immutable after publication
-- uniquely identifiable
-- retrievable in a repeatable way
-- auditable after runtime initialization
+For this public-core, valid public compatibility declarations are release tags or equivalent release identifiers explicitly declared by the canonical source.
 
-Acceptable examples may include:
+Where exact auditability is required, commit hashes may be used as derived exact-resolution identifiers obtained from the declared public release reference.
 
-- version tags
-- release identifiers
-- commit hashes
-
-Branch names alone should not be treated as reproducible pins because they may change over time.
+Pinned reference expectations for this public-core must not be interpreted to require that the lock file carry both a public release declaration and a co-equal exact commit declaration for the same release state.
 
 ---
 

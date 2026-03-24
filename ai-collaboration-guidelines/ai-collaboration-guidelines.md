@@ -1,6 +1,6 @@
 ---
-Status: Draft
-Version: 0.2
+Status: Canonical
+Version: 1.0.0
 Canonical: true
 Canonical File: ai-collaboration-guidelines/ai-collaboration-guidelines.md
 Creator: George Belton
@@ -11,12 +11,6 @@ License: CC-BY-4.0
 ---
 
 # AI Collaboration Guidelines
-
----
-
-## Draft Status
-
-This document is a draft. Structure is stable; terminology and supporting material may evolve.
 
 ---
 

@@ -82,6 +82,8 @@ For the public core:
 * supporting artifacts may clarify structure, but may not redefine it
 * materials outside this repository are not part of the public authority surface unless explicitly incorporated later
 
+Release-lock semantics for the canonical public-core are defined by `CANONICAL_SOURCE_LOCK.md` and the canonical source resolution and compatibility sections of `ai-interaction-methodology/ai-interaction-methodology.md`.
+
 ## Purpose
 
 This repository exists to present the methodology’s stable public foundation in a form that is:

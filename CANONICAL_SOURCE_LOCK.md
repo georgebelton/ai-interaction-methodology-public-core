@@ -18,7 +18,7 @@ The authoritative canonical source artifacts in this repository are:
 
 `v1.0.0`
 
-This release tag is the default pinned public reference for reproducible methodology assembly.
+This release tag is the default pinned public compatibility reference for methodology assembly.
 
 ## Resolution Rule
 
@@ -32,6 +32,7 @@ Artifacts are considered compatible only if they are resolved from this reposito
 
 ## Notes
 
-- The release tag is the default public pin for human-readable compatibility.
-- The exact commit is the strict immutable pin for reproducible resolution and auditability.
-- Branch names are not reproducible pins and should not be used as compatibility locks.
+- the declared release tag is the default pinned public compatibility reference
+- strict auditability is achieved by resolving the target commit of that declared tag when needed
+- the lock file does not record the final release commit SHA for the same release state it defines
+- branch names remain invalid as compatibility locks
