@@ -2957,9 +2957,10 @@ This produces the following valid runtime states:
 
 - Core Framework
 - Advanced Framework
+- Core Framework + Governance Extensions
 - Advanced Framework + Governance Extensions
 
-If governance controls are required for a task that would otherwise fit within Core reasoning, implementations may apply governance extensions together with the appropriate lower analytical tier.
+Governance Extensions apply in addition to the otherwise required reasoning tier and may therefore be used together with either Core Framework or Advanced Framework, depending on task requirements.
 
 ---
 
