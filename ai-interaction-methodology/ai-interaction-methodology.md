@@ -85,9 +85,11 @@ Implementations that alter the framework or collaboration guidelines should be t
 
 ## Status
 
-The canonical public-core repository referenced in this document contains the current authoritative public versions of the methodology artifacts and may evolve over time.
+The canonical public-core repository referenced in this document contains the current authoritative public artifacts and may evolve over time.
 
 Readers and implementers should consult the canonical public-core repository for updates.
+
+Implementations requiring reproducible methodology assembly should use the declared pinned public reference rather than a floating repository state.
 
 ---
 
@@ -138,6 +140,26 @@ Canonical file:
 `ai-collaboration-guidelines/ai-collaboration-guidelines.md`
 
 The collaboration guidelines define the behavioral expectations governing interaction between a human user and an AI system.
+
+---
+
+## Canonical Public Source Reference
+
+The canonical public source surface for the AI Interaction Methodology is the public-core repository:
+
+`https://github.com/georgebelton/ai-interaction-methodology-public-core`
+
+The default pinned public reference for canonical resolution is declared in the repository root lock file:
+
+`CANONICAL_SOURCE_LOCK.md`
+
+Implementations requiring reproducible methodology assembly should resolve the canonical source artifacts from:
+
+- the canonical public repository
+- the declared canonical file paths
+- the declared pinned reference
+
+Where strict auditability is required, the exact pinned commit associated with the declared public release should be used rather than a floating branch reference.
 
 ---
 
@@ -224,12 +246,14 @@ Local profiles are intended for **configuration**, not **methodology modificatio
 
 When resolving canonical methodology artifacts, implementations must:
 
-1. Resolve the canonical public-core repository declared above.
-2. Resolve the canonical methodology file from the declared file path.
-3. Resolve the canonical collaboration guidelines from the declared file path.
-4. Resolve the canonical interaction framework from the declared file path.
+1. resolve the canonical public-core repository declared above
+2. resolve the declared pinned public reference
+3. resolve the canonical methodology file from that reference
+4. resolve the canonical collaboration guidelines from that reference
+5. resolve the canonical interaction framework from that reference
 
 Canonical source resolution must preserve both:
+
 - repository-level source authority
 - file-level canonical artifact identity
 
@@ -884,16 +908,15 @@ The remaining artifacts must be resolved according to the repository and canonic
 
 ## Resolution Procedure
 
-Artifact resolution should follow this sequence:
+When resolving a canonical artifact, implementations must:
 
-1. read canonical artifact declarations from the methodology document  
-2. locate the declared repository  
-3. retrieve the declared canonical file  
-4. verify that the artifact is readable and complete  
+1. read the canonical artifact declarations defined by this methodology
+2. locate the declared canonical repository
+3. resolve the declared pinned reference
+4. retrieve the declared canonical file from that reference
+5. verify that the artifact is readable, complete, and structurally valid
 
-Once retrieved, the artifact becomes part of the runtime configuration assembly.
-
-Artifact resolution should complete before configuration assembly begins.
+If any of these steps fail, the artifact must be treated as unresolved.
 
 ---
 
@@ -1458,9 +1481,9 @@ The declared reference may be expressed as a pinned tag, commit, release version
 
 ## Default Behavior
 
-If no explicit pinned artifact reference is declared, the methodology may use the default reference defined in this document for canonical resolution.
+If no explicit pinned artifact reference is declared by the implementation, the methodology may use the default pinned public reference declared by the canonical source lock file referenced in this document.
 
-However, this mode should be treated as a **moving canonical reference**, not a reproducible compatibility contract.
+However, this mode should still be treated as a declared canonical reference, not as a floating branch-based compatibility contract.
 
 Implementations requiring reproducible methodology assembly should use explicitly pinned references for all canonical artifacts.
 
