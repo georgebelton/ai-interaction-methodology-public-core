@@ -295,6 +295,8 @@ When used together:
 
 The two artifacts are complementary but not mutually dependent.
 
+In governed or higher-risk contexts, collaboration may require greater explicitness, traceability, uncertainty disclosure, and reviewability, but those conditions are determined by the canonical methodology and framework rather than by this document alone.
+
 ---
 
 # Canonical Status
