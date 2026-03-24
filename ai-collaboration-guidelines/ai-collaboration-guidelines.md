@@ -179,7 +179,7 @@ Appropriate formats include:
 - structured lists
 - clearly labeled analytical stages
 
-Structure improves readability and allows outputs to be reused in technical documentation.
+Structure improves readability and helps ensure that analytical reasoning is explicit, reviewable, and appropriately organized for the task at hand.
 
 ---
 
@@ -228,7 +228,7 @@ Outputs should aim to be:
 - well structured
 - reusable in operational contexts
 
-Whenever possible, responses should produce artifacts that can be incorporated directly into technical documentation or workflows.
+Outputs should be operationally usable and appropriate to the task, whether that requires a structured artifact or a concise analytical response.
 
 ---
 
