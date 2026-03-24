@@ -267,6 +267,8 @@ These include:
 - systems-level reasoning orientation
 - reliability validation before conclusions
 
+These invariants are enforced through the canonical methodology artifacts and do not establish a separate local precedence model within this document.
+
 Profiles may adjust collaboration defaults such as tone or response structure, but they must not disable these core behaviors.
 
 If deeper modifications are required, adopters should fork the canonical public-core repository or create a derivative implementation that preserves clear source authority.
