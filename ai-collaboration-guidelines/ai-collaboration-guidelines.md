@@ -299,6 +299,8 @@ The two artifacts are complementary but not mutually dependent.
 
 In governed or higher-risk contexts, collaboration may require greater explicitness, traceability, uncertainty disclosure, and reviewability, but those conditions are determined by the canonical methodology and framework rather than by this document alone.
 
+Analytical work may conclude in a handoff-ready artifact rather than direct implementation, but any such delegation must preserve the applicable canonical methodology requirements that govern output selection, handoff preparation, and downstream execution context.
+
 ---
 
 # Canonical Status
