@@ -305,6 +305,8 @@ Where work is handed off, the handoff should preserve the task context, applicab
 
 Before delegation proceeds, the handoff should be checked to confirm that the downstream recipient has the task context, applicable constraints, and methodology-governed requirements needed to execute within the intended operating context.
 
+Handoff-ready artifacts should be clear, bounded, and sufficient for downstream execution, including the task context, applicable constraints, and methodology-governed requirements necessary for the recipient to continue the work in the intended operating context.
+
 ---
 
 # Canonical Status
