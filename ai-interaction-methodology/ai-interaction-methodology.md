@@ -6,7 +6,7 @@ Canonical File: ai-interaction-methodology/ai-interaction-methodology.md
 Creator: George Belton
 Maintainer: George Belton
 Created: 2026-03-12
-Last Updated: 2026-03-23
+Last Updated: 2026-03-24
 License: CC-BY-4.0
 ---
 
@@ -28,6 +28,21 @@ The authoritative public definitions for these components are maintained in the 
 Within that repository, the methodology, framework, and collaboration guidelines remain distinct canonical source artifacts with separate roles.
 
 This document serves as the **bootstrap artifact** for the methodology. It establishes the relationship between the canonical artifacts, defines how they should be resolved, and specifies the boundaries of local customization.
+
+---
+
+## Bootstrap Entry Rule
+This document is a bootstrap artifact only.
+
+Before any substantive analysis, interpretation, or methodology execution, the implementation must:
+1. read `CANONICAL_SOURCE_LOCK.md`
+2. obtain the declared pinned public reference
+3. resolve the canonical methodology, framework, and collaboration-guidelines artifacts from the declared repository, canonical file paths, and that pinned reference
+4. use only that pinned artifact set as canonical authority
+
+Visible branch state, default-branch state, floating repository state, cached state not verified to the pinned reference, and inferred repository state are not canonical substitutes.
+
+If pinned canonical resolution cannot be completed unambiguously, execution must halt.
 
 ---
 
@@ -85,9 +100,11 @@ Implementations that alter the framework or collaboration guidelines should be t
 
 ## Status
 
-The canonical public-core repository referenced in this document contains the current authoritative public artifacts and may evolve over time.
+The canonical public-core repository referenced in this document is the authoritative public source from which pinned canonical artifacts are resolved. The repository may evolve over time, but current execution must use the declared pinned public reference rather than floating repository state.
 
 Readers and implementers should consult the canonical public-core repository for updates.
+
+Update discovery is separate from canonical runtime assembly. Implementations must complete pinned canonical resolution first and must not substitute floating repository state for the declared pinned reference during current execution.
 
 Implementations requiring reproducible methodology assembly should use the declared pinned public reference rather than a floating repository state.
 
@@ -97,13 +114,16 @@ Implementations requiring reproducible methodology assembly should use the decla
 
 When this document is provided to an AI system as a source or reference, the system should interpret the methodology as follows:
 
-1. Resolve the canonical methodology artifacts from the sources declared in this document.
-2. Apply interaction behavior from the **AI Collaboration Guidelines**.
-3. Apply analytical reasoning structure from the **AI Interaction Framework** when structured analysis is required.
-4. Prioritize **structured reasoning over conversational fluency**.
-5. **Diagnose problems before proposing solutions**.
-6. Make **assumptions, tradeoffs, and uncertainties explicit**.
-7. If a local collaboration profile is also provided, apply it only as a bounded overlay after resolving the canonical artifacts.
+1. Treat this document as a bootstrap artifact only.
+2. Read `CANONICAL_SOURCE_LOCK.md`.
+3. Obtain the declared pinned public reference.
+4. Resolve the canonical methodology artifacts from the declared repository, canonical file paths, and that pinned reference.
+5. Apply interaction behavior from the **AI Collaboration Guidelines**.
+6. Apply analytical reasoning structure from the **AI Interaction Framework** when structured analysis is required.
+7. Prioritize **structured reasoning over conversational fluency**.
+8. **Diagnose problems before proposing solutions**.
+9. Make **assumptions, tradeoffs, and uncertainties explicit**.
+10. If a local collaboration profile is also provided, apply it only as a bounded overlay after resolving the canonical artifacts.
 
 These expectations are defined in detail in the canonical collaboration guidelines and interaction framework.
 
@@ -258,6 +278,8 @@ For this public-core, the declared pinned public reference is the release tag de
 
 Default public resolution is performed by resolving the canonical artifacts from that declared release tag.
 
+Branch state, default-branch state, and other floating repository views are not valid canonical substitutes for the declared pinned public reference, even when they appear to contain the same material.
+
 Where exact auditability is required, the exact commit is obtained by resolving the target of the declared release tag.
 
 This exact audit resolution is a derived refinement of the declared public release state and does not replace the declared public compatibility reference.
@@ -279,18 +301,22 @@ This section defines the canonical runtime lifecycle.
 
 ## Runtime Lifecycle
 
-A conforming implementation should apply the methodology using the following
-sequence:
+A conforming implementation must apply the methodology using the following sequence.
+Canonical startup is mandatory and completes before configuration, analysis, or output generation.
 
-1. load the methodology  
-2. resolve canonical artifacts  
-3. apply configuration and directive precedence rules  
-4. determine the active framework tier  
-5. apply any valid collaboration profile  
-6. perform structured reasoning  
-7. validate reliability conditions  
-8. classify workflow and prepare output  
-9. produce the final response or handoff artifact  
+Canonical startup must occur in this order:
+1. load the bootstrap methodology document
+2. read `CANONICAL_SOURCE_LOCK.md`
+3. obtain the declared pinned public reference
+4. resolve the canonical methodology, framework, and collaboration-guidelines artifacts from the declared repository, canonical file paths, and pinned reference
+5. verify compatibility and integrity of the resolved canonical set
+6. apply configuration and directive precedence rules
+7. determine the active framework tier
+8. apply any valid collaboration profile
+9. perform structured reasoning
+10. validate reliability conditions
+11. classify workflow and prepare output
+12. produce the final response or handoff artifact
 
 These stages define the required operational flow for methodology execution.
 
