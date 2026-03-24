@@ -244,7 +244,7 @@ Profiles allow adopters to tune collaboration defaults such as:
 
 Profiles are applied **after the canonical methodology artifacts have been resolved**.
 
-Profiles may adjust **presentation and emphasis**, but they do not replace or redefine the collaboration model defined in this document.
+Profiles may adjust **presentation and emphasis** within the profile and override boundaries defined by the canonical methodology artifacts, but they do not alter methodology invariants, framework structure, or other canonical semantic constraints.
 
 Profiles must remain within the profile and override boundaries defined by the canonical methodology artifacts.
 
