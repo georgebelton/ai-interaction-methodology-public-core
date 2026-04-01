@@ -1832,6 +1832,200 @@ Implementations must enforce halt-and-resolve behavior as a required condition f
 
 ---
 
+## Boundary-Uncertainty Degradation Rule
+
+### Purpose
+
+The methodology must define deterministic behavior for cases where the system cannot confirm that the active reasoning set remains identical to the resolved active artifact set during execution.
+
+A system may otherwise continue producing coherent-looking analysis after boundary integrity has been lost or can no longer be verified.
+
+This section defines the required degradation behavior for boundary uncertainty.
+
+---
+
+### Boundary-Uncertainty Principle
+
+For artifact-bound tasks, definitive analytical reasoning requires confirmed boundary integrity.
+
+If the system cannot confirm that the active reasoning set remains identical to the resolved active artifact set, execution must not continue as if boundary integrity were still established.
+
+Loss of confirmed boundary integrity is an execution-state problem, not merely a presentation concern.
+
+---
+
+### Required Runtime Behavior
+
+When boundary integrity cannot be confirmed, the system must do one of the following:
+
+1. halt execution pending clarification or authority re-resolution  
+2. continue only with an explicit degraded-status statement that makes the loss of confirmed boundary integrity visible  
+
+The system must not silently continue under boundary uncertainty.
+
+---
+
+### Degraded-Status Requirements
+
+If execution continues under boundary uncertainty, the degraded-status statement must make clear that:
+
+- boundary integrity is not confirmed  
+- the active reasoning set may no longer be identical to the resolved authority set  
+- the resulting analysis is boundary-unsafe for definitive use unless authority is re-confirmed  
+
+Continuation under degraded status does not restore authority integrity.
+
+It only makes the loss of confirmed integrity explicit.
+
+---
+
+### Prohibition on Definitive Conclusions
+
+When boundary integrity is unverified, the system must not present analytical conclusions as definitive.
+
+This includes, but is not limited to:
+
+- final conformance judgments  
+- final completion validation  
+- final comparative conclusions  
+- final implementation-signoff conclusions  
+
+Such conclusions require confirmed boundary integrity.
+
+---
+
+### Relationship to Fail-Closed Artifact Authority Policy
+
+The Fail-Closed Artifact Authority Policy governs cases where artifact authority is unresolved, conflicting, or incomplete prior to execution.
+
+The Boundary-Uncertainty Degradation Rule governs cases where active authority was resolved, but continued boundary integrity cannot later be confirmed during execution.
+
+This rule therefore addresses post-resolution authority degradation rather than initial authority ambiguity.
+
+---
+
+### Relationship to Reasoning-Set Closure
+
+The Reasoning-Set Closure Rule requires that the active reasoning set remain identical to the resolved active artifact set.
+
+The Boundary-Uncertainty Degradation Rule defines the required behavior when the system can no longer confirm that this condition still holds.
+
+Closure defines the required boundary.
+
+This rule defines the consequence of losing confidence in that boundary.
+
+---
+
+### Relationship to Authority Transition
+
+If boundary uncertainty is resolved by explicitly re-resolving authority and grounding against a newly admitted artifact set, normal reasoning may resume under the Authority Transition Rule.
+
+If such re-resolution does not occur, continuation may proceed only under explicit degraded status or must halt.
+
+---
+
+### Failure Behavior
+
+If the system cannot determine whether boundary integrity has been preserved and cannot produce an explicit degraded-status statement consistent with this rule, execution must halt.
+
+The system must not default to silent continuation, implicit confidence reduction, or unmarked narrowing of claims.
+
+---
+
+### Architectural Rationale — Boundary-Uncertainty Degradation Rule
+
+Authority-boundary failures are dangerous because the resulting analysis may remain internally coherent even after the system has lost confidence that it is still reasoning only from the resolved authoritative materials.
+
+Without an explicit degradation rule, such cases can appear trustworthy while no longer satisfying the methodology’s authority discipline.
+
+The Boundary-Uncertainty Degradation Rule makes this loss of confirmed integrity visible and prevents definitive conclusions from being produced under unverified boundary conditions.
+
+---
+
+## Authority-Boundary Drift Failure Case
+
+### Purpose
+
+The methodology benefits from recurring failure patterns being named in reusable structural terms for conformance review, testing, and future hardening.
+
+This section defines the reference failure case for authority-boundary drift.
+
+---
+
+### Failure Case Definition
+
+Authority-boundary drift occurs when active artifact authority was resolved for the task, but the reasoning process no longer remains demonstrably constrained to that resolved authority boundary during execution.
+
+This failure class applies to post-resolution scope drift, not to initial failure to resolve authority.
+
+---
+
+### Representative Pattern
+
+A representative authority-boundary drift pattern includes one or more of the following conditions:
+
+- the active artifact set was resolved correctly  
+- reasoning later widened beyond the resolved active artifact set without explicit authority transition  
+- adjacent, visible, accessible, or semantically plausible materials were treated as eligible input without admission into the active artifact set  
+- analytical conclusions were produced after the system could no longer confirm that the reasoning set remained identical to the resolved authority set  
+
+This pattern is non-conformant.
+
+---
+
+### Distinction from Artifact-Authority Ambiguity
+
+Authority-boundary drift is distinct from artifact-authority ambiguity in active editing.
+
+Artifact-authority ambiguity concerns failure to resolve which artifact instance is authoritative before execution begins.
+
+Authority-boundary drift concerns loss of boundary integrity after authority was already resolved.
+
+---
+
+### Distinction from Connector Dataset-Isolation Failure
+
+Authority-boundary drift is distinct from connector dataset-isolation failure.
+
+Connector dataset-isolation failure concerns contamination across datasets, samples, or isolated evidence partitions within a connector or evidence-processing workflow.
+
+Authority-boundary drift concerns post-resolution widening or contamination of the reasoning set relative to the resolved active artifact set.
+
+---
+
+### Required Methodology Use
+
+The Authority-Boundary Drift Failure Case must be reusable for:
+
+- conformance review  
+- stress testing  
+- runtime architecture evaluation  
+- future hardening work involving artifact-bound analysis, archive review, repository review, or mixed-source reasoning controls  
+
+---
+
+### Relationship to Boundary-Uncertainty Degradation
+
+Boundary uncertainty is the runtime condition in which continued boundary integrity cannot be confirmed.
+
+Authority-boundary drift is the named reference failure case describing the class of non-conformant behavior that produces or reflects that condition.
+
+This section classifies the failure pattern.
+
+It does not replace the runtime behavior required by the Boundary-Uncertainty Degradation Rule.
+
+---
+
+### Architectural Rationale — Authority-Boundary Drift Failure Case
+
+Naming recurring post-resolution scope-loss behavior as a distinct failure class improves the methodology’s ability to test, review, and harden itself against that pattern across different execution environments.
+
+Without a reusable failure label, the same structural defect must be rediscovered and redescribed in each new archive, repository, or mixed-source workflow context.
+
+The Authority-Boundary Drift Failure Case makes this pattern explicit and reusable without collapsing it into unrelated ambiguity or evidence-isolation failures.
+
+---
+
 ## Working Copy Supersession Rule
 
 ### Purpose
