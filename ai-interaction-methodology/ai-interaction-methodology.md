@@ -762,6 +762,9 @@ Framework.
 The reasoning process should apply the active framework nodes appropriate to the
 selected tier.
 
+For artifact-bound tasks, this stage must not begin until the Grounding Preflight 
+Requirement has been satisfied for the current active artifact set.
+
 This stage is where the actual analytical work is performed.
 
 ---
@@ -1201,7 +1204,7 @@ Explicit active artifact resolution preserves the methodology’s deterministic 
 
 ### Purpose
 
-The methodology must ensure that all document modification, validation, and implementation workflows are grounded in the current active artifact set immediately prior to execution.
+The methodology must ensure that all artifact-bound analysis, document modification, validation, and implementation workflows are grounded in the current active artifact set immediately prior to execution.
 
 Deterministic artifact resolution alone is insufficient if execution proceeds using stale, inferred, or previously cached document state.
 
@@ -1230,6 +1233,28 @@ Execution must not proceed if this grounding step has not been completed.
 
 ---
 
+### Artifact-Bound Analysis Preflight
+
+For artifact-bound tasks, grounding preflight is also required prior to:
+
+- analysis  
+- comparison  
+- classification  
+- conformance review  
+- release or archive inspection  
+
+The system must freshly read the current active artifact set relevant to the task before structured reasoning begins.
+
+Structured reasoning must not begin when:
+
+- the active artifact set is unresolved  
+- the active artifact set is only partially grounded  
+- required task-relevant artifacts have not been freshly read and confirmed  
+
+In these cases, execution must halt or request the missing authoritative inputs before analysis proceeds.
+
+---
+
 ### Required Grounding Scope
 
 The grounding preflight must explicitly confirm, at minimum:
@@ -1244,7 +1269,8 @@ The set of required artifacts is determined by the task being performed.
 Examples may include:
 
 - a target document for modification  
-- a control or reference artifact for validation 
+- a control or reference artifact for validation  
+- one or more artifacts required for artifact-bound analysis  
 - multiple related artifacts when cross-document reasoning is required  
 
 All artifacts required for the task must be included in the grounding step.
@@ -1253,7 +1279,7 @@ All artifacts required for the task must be included in the grounding step.
 
 ### Recency Requirement
 
-Grounding must occur immediately prior to execution of modification or validation tasks.
+Grounding must occur immediately prior to execution of artifact-bound analysis, modification, or validation tasks.
 
 The system must not rely on:
 
@@ -1261,7 +1287,7 @@ The system must not rely on:
 - inferred document structure  
 - cached or remembered artifact state  
 
-Each modification or validation operation must be preceded by a fresh grounding step against the active artifact set.
+Each artifact-bound analysis, modification, or validation operation must be preceded by a fresh grounding step against the active artifact set.
 
 ---
 
@@ -1272,6 +1298,7 @@ The system must not:
 - propose modifications without reading the current artifact state  
 - identify insertion points based on assumed structure  
 - validate completion status without confirming the current document contents  
+- perform artifact-bound analysis without freshly reading the active artifact set  
 - rely on prior session context in place of explicit grounding  
 
 All such behaviors are considered violations of deterministic execution.
@@ -1287,6 +1314,7 @@ Examples include:
 - required artifacts are not available  
 - artifact authority has not been resolved  
 - the active artifact set is incomplete or ambiguous  
+- artifact-bound analysis depends on only partially grounded material  
 
 In these cases, the system must request clarification or required inputs before proceeding.
 
@@ -1294,13 +1322,14 @@ In these cases, the system must request clarification or required inputs before 
 
 ### Runtime Requirement
 
-Grounding preflight is a mandatory precondition for all workflows that operate on artifact structure or content.
+Grounding preflight is a mandatory precondition for all workflows that operate on artifact structure or content, including artifact-bound analysis.
 
 This requirement ensures that:
 
 - modification proposals are structurally valid  
 - validation reflects actual document state  
 - roadmap alignment is accurate  
+- artifact-bound analysis is grounded in the current authoritative materials  
 - execution remains reproducible and reviewable  
 
 Grounding preflight extends the deterministic runtime model by enforcing alignment with current artifact state at the moment of execution.
@@ -1313,9 +1342,239 @@ Deterministic artifact resolution establishes which artifacts are authoritative.
 
 Grounding preflight ensures that execution is actually based on those artifacts at the time of action.
 
-Without grounding preflight, the system may operate on stale or inferred state even when artifact authority is correctly defined.
+Without grounding preflight, the system may operate on stale or inferred state even when artifact authority is correctly defined, and artifact-bound analysis may begin without fresh confirmation of the active source materials.
 
-By requiring immediate, pre-execution grounding, the methodology eliminates this gap and preserves deterministic, verifiable behavior in interactive document workflows.
+By requiring immediate, pre-execution grounding, the methodology eliminates this gap and preserves deterministic, verifiable behavior in interactive document workflows and artifact-bound analytical review.
+
+---
+
+## Reasoning-Set Closure Rule
+
+### Purpose
+
+The methodology must define how the reasoning surface is constrained after active artifact authority has been resolved and grounding preflight has been completed.
+
+Artifact authority alone does not prevent later scope widening if adjacent materials are silently treated as eligible reasoning inputs.
+
+This section defines the required closure behavior for the active reasoning set.
+
+---
+
+### Closure Principle
+
+For artifact-bound tasks, once the active artifact set has been resolved and grounding preflight has been completed, the active reasoning set is closed.
+
+The active reasoning set is identical to the resolved active artifact set for the current task.
+
+No additional material may become eligible reasoning input unless authority is explicitly re-resolved.
+
+---
+
+### Scope of Closure
+
+For artifact-bound tasks, the system must not silently widen the reasoning set beyond the resolved active artifact set.
+
+This prohibition includes, but is not limited to:
+
+- nearby repository files  
+- branch or default-branch views not included in the active artifact set  
+- search results  
+- connector results  
+- prior session artifacts  
+- previously read but non-active working copies  
+- semantically related but unresolved materials  
+
+Such materials may be discoverable, visible, accessible, or plausibly relevant without becoming authoritative for the current reasoning task.
+
+---
+
+### Discoverability vs Eligibility
+
+Discoverability is not authority.
+
+The fact that a file, result, artifact, or related material is:
+
+- visible  
+- accessible  
+- nearby  
+- similarly named  
+- semantically relevant  
+- previously referenced in the session  
+
+does not make it eligible input to the active reasoning process.
+
+Eligibility for reasoning depends only on inclusion in the resolved active artifact set or on a later explicit authority transition.
+
+---
+
+### Runtime Requirement
+
+For artifact-bound tasks, structured reasoning must remain constrained to the resolved active artifact set for the duration of the current reasoning pass.
+
+The system must not:
+
+- incorporate material outside the active artifact set without explicit authority transition  
+- infer structure, intent, or completion state from adjacent but unresolved materials  
+- combine the active artifact set with supplementary materials whose authority has not been explicitly established  
+
+Reasoning from mixed authority states is prohibited.
+
+---
+
+### Relationship to Active Artifact Resolution
+
+Active Artifact Set Resolution determines which artifact instances are authoritative for the current execution context.
+
+The Reasoning-Set Closure Rule defines the reasoning boundary that follows from that resolution.
+
+Closure therefore operates after active artifact resolution and does not replace it.
+
+---
+
+### Relationship to Grounding Preflight
+
+Grounding Preflight Requirement ensures that the active artifact set has been freshly read and confirmed immediately prior to execution.
+
+The Reasoning-Set Closure Rule constrains the reasoning surface after that grounding step is complete.
+
+Grounding establishes freshness against the active artifact set.
+
+Closure prevents silent widening beyond it.
+
+---
+
+### Failure Behavior
+
+If the system cannot confirm that reasoning remains constrained to the resolved active artifact set, execution must halt or explicitly suspend definitive reasoning pending authority re-resolution.
+
+The system must not silently continue under boundary uncertainty.
+
+---
+
+### Architectural Rationale — Reasoning-Set Closure Rule
+
+Deterministic artifact resolution and grounding preflight establish which artifacts are authoritative and confirm that they have been freshly read.
+
+Without an explicit closure rule, the reasoning process may still drift into adjacent, plausible, or previously surfaced materials that were never admitted into the active artifact set.
+
+Reasoning-set closure eliminates this gap by making post-resolution scope widening non-conformant unless authority is explicitly re-resolved.
+
+## Authority Transition Rule
+
+### Purpose
+
+The methodology must define how scope expansion is handled when reasoning against the current active artifact set is insufficient for the task.
+
+The active reasoning set is closed after active artifact resolution and grounding preflight.
+
+Any expansion beyond that boundary must therefore occur through an explicit authority transition rather than opportunistic use of adjacent material.
+
+This section defines the required transition behavior.
+
+---
+
+### Transition Principle
+
+If additional material is needed beyond the current active artifact set, the system must suspend definitive reasoning and treat the proposed expansion as an authority transition request.
+
+The system must not silently admit additional material into the active reasoning set.
+
+Authority expansion is a controlled state transition, not an implicit continuation behavior.
+
+---
+
+### Required Transition Declaration
+
+Before expanding the reasoning set, the system must explicitly declare:
+
+- the candidate source or artifact proposed for inclusion  
+- why expansion is necessary for the current task  
+- which current task limitation cannot be resolved using only the existing active artifact set  
+
+This declaration must occur before the candidate material is used as reasoning input.
+
+---
+
+### Required Runtime Behavior
+
+When authority expansion is proposed, the system must:
+
+1. identify the candidate source or artifact explicitly  
+2. state why the current active artifact set is insufficient  
+3. suspend definitive reasoning until authority has been re-resolved  
+4. determine whether the candidate material is admitted, rejected, or unresolved  
+
+The system must not continue as if expansion were already authorized.
+
+---
+
+### Allowed Transition Outcomes
+
+A proposed authority transition must resolve to one of the following outcomes.
+
+#### 1. Admitted into a Newly Resolved Authority Set
+
+If the candidate source is accepted as authoritative for the task, the system must resolve a newly defined active artifact set and re-ground execution against that set before reasoning continues.
+
+#### 2. Rejected as Non-Authoritative
+
+If the candidate source is not authoritative for the task, it must not be used for reasoning, validation, or modification.
+
+Execution must continue only within the existing active artifact set, if that remains sufficient.
+
+#### 3. Task Halted Due to Unresolved Authority
+
+If authority cannot be re-resolved unambiguously, execution must halt pending clarification or additional operator direction.
+
+---
+
+### Prohibited Behavior
+
+The system must not:
+
+- silently widen the active reasoning set  
+- use candidate material before authority re-resolution is complete  
+- produce final outputs across mixed authority states  
+- treat plausible relevance as implicit admission  
+- continue definitive reasoning while authority expansion remains unresolved  
+
+---
+
+### Relationship to Reasoning-Set Closure
+
+The Reasoning-Set Closure Rule defines that the active reasoning set is closed after active artifact resolution and grounding preflight.
+
+The Authority Transition Rule defines the only valid mechanism for expanding that reasoning boundary.
+
+This rule therefore complements closure by defining controlled expansion rather than weakening closure.
+
+---
+
+### Relationship to Active Artifact Resolution
+
+Active Artifact Set Resolution determines the authoritative artifact set for the current task.
+
+Authority transition applies when that existing set is no longer sufficient and a new or expanded set must be considered.
+
+Any successful authority transition therefore requires re-resolution of the active artifact set rather than ad hoc supplementation.
+
+---
+
+### Failure Behavior
+
+If the system cannot determine whether the candidate material should be admitted into a newly resolved active artifact set, execution must halt or remain explicitly limited to the existing authoritative materials.
+
+The system must not bridge unresolved authority gaps through assumption, relevance, or conversational continuity.
+
+---
+
+### Architectural Rationale — Authority Transition Rule
+
+Reasoning-set closure prevents silent widening of the reasoning surface after authority has been resolved.
+
+Without an explicit authority-transition rule, legitimate expansion needs would either force premature halt in all cases or encourage opportunistic contamination of the reasoning set.
+
+The Authority Transition Rule preserves both control and flexibility by requiring expansion to occur through explicit declaration, authority re-resolution, and deterministic outcome handling.
 
 ---
 
