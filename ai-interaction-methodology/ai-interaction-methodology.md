@@ -544,11 +544,13 @@ It is a true blocked execution condition.
 
 `validated completion` does not define a separate artifact type or workflow model.
 
-It indicates that execution has reached a valid terminal state for the active workflow, whether that workflow ends in:
+It indicates that execution has reached a valid terminal control state for the active workflow class only after the required validation conditions for that workflow class have been satisfied.
 
-- a direct analytical response  
-- an in-session implementation artifact  
-- a delegated execution handoff artifact  
+Depending on workflow classification, this terminal state may correspond to:
+
+- a validated direct analytical response in an analysis-only workflow  
+- a validated in-session implementation artifact or execution output in an in-session implementation workflow  
+- a validated delegated execution handoff artifact in a delegated execution workflow  
 
 Apparent progress, output generation, or partial deliverable production is not sufficient to constitute `validated completion`.
 
@@ -1105,6 +1107,12 @@ The workflow must be classified as one of:
 
 This classification must follow the delegated execution activation policy defined in this document.
 
+For purposes of the execution-state model, workflow classification determines the workflow-specific terminal conditions against which `validated completion` is assessed.
+
+Workflow classification does not itself constitute `validated completion`.
+
+It defines which kind of validated terminal outcome is required for the active workflow.
+
 ---
 
 ### Output Preparation Behavior
@@ -1148,6 +1156,10 @@ The workflow classification must explicitly determine whether the terminal outpu
 - a direct response  
 - an in-session implementation artifact  
 - a delegated execution handoff artifact  
+
+For the execution-state model, transition to `validated completion` is permitted only when the terminal output required by the active workflow classification has been produced in a form that satisfies the methodology’s required validation conditions for that workflow.
+
+This requirement prevents workflow classification from being treated as equivalent to validated completion and prevents terminal output production from being treated as self-validating.
 
 This ensures that runtime behavior remains consistent with the intended execution path of the task.
 
