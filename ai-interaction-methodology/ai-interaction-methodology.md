@@ -1459,6 +1459,123 @@ Without an explicit closure rule, the reasoning process may still drift into adj
 
 Reasoning-set closure eliminates this gap by making post-resolution scope widening non-conformant unless authority is explicitly re-resolved.
 
+## Authority Transition Rule
+
+### Purpose
+
+The methodology must define how scope expansion is handled when reasoning against the current active artifact set is insufficient for the task.
+
+The active reasoning set is closed after active artifact resolution and grounding preflight.
+
+Any expansion beyond that boundary must therefore occur through an explicit authority transition rather than opportunistic use of adjacent material.
+
+This section defines the required transition behavior.
+
+---
+
+### Transition Principle
+
+If additional material is needed beyond the current active artifact set, the system must suspend definitive reasoning and treat the proposed expansion as an authority transition request.
+
+The system must not silently admit additional material into the active reasoning set.
+
+Authority expansion is a controlled state transition, not an implicit continuation behavior.
+
+---
+
+### Required Transition Declaration
+
+Before expanding the reasoning set, the system must explicitly declare:
+
+- the candidate source or artifact proposed for inclusion  
+- why expansion is necessary for the current task  
+- which current task limitation cannot be resolved using only the existing active artifact set  
+
+This declaration must occur before the candidate material is used as reasoning input.
+
+---
+
+### Required Runtime Behavior
+
+When authority expansion is proposed, the system must:
+
+1. identify the candidate source or artifact explicitly  
+2. state why the current active artifact set is insufficient  
+3. suspend definitive reasoning until authority has been re-resolved  
+4. determine whether the candidate material is admitted, rejected, or unresolved  
+
+The system must not continue as if expansion were already authorized.
+
+---
+
+### Allowed Transition Outcomes
+
+A proposed authority transition must resolve to one of the following outcomes.
+
+#### 1. Admitted into a Newly Resolved Authority Set
+
+If the candidate source is accepted as authoritative for the task, the system must resolve a newly defined active artifact set and re-ground execution against that set before reasoning continues.
+
+#### 2. Rejected as Non-Authoritative
+
+If the candidate source is not authoritative for the task, it must not be used for reasoning, validation, or modification.
+
+Execution must continue only within the existing active artifact set, if that remains sufficient.
+
+#### 3. Task Halted Due to Unresolved Authority
+
+If authority cannot be re-resolved unambiguously, execution must halt pending clarification or additional operator direction.
+
+---
+
+### Prohibited Behavior
+
+The system must not:
+
+- silently widen the active reasoning set  
+- use candidate material before authority re-resolution is complete  
+- produce final outputs across mixed authority states  
+- treat plausible relevance as implicit admission  
+- continue definitive reasoning while authority expansion remains unresolved  
+
+---
+
+### Relationship to Reasoning-Set Closure
+
+The Reasoning-Set Closure Rule defines that the active reasoning set is closed after active artifact resolution and grounding preflight.
+
+The Authority Transition Rule defines the only valid mechanism for expanding that reasoning boundary.
+
+This rule therefore complements closure by defining controlled expansion rather than weakening closure.
+
+---
+
+### Relationship to Active Artifact Resolution
+
+Active Artifact Set Resolution determines the authoritative artifact set for the current task.
+
+Authority transition applies when that existing set is no longer sufficient and a new or expanded set must be considered.
+
+Any successful authority transition therefore requires re-resolution of the active artifact set rather than ad hoc supplementation.
+
+---
+
+### Failure Behavior
+
+If the system cannot determine whether the candidate material should be admitted into a newly resolved active artifact set, execution must halt or remain explicitly limited to the existing authoritative materials.
+
+The system must not bridge unresolved authority gaps through assumption, relevance, or conversational continuity.
+
+---
+
+### Architectural Rationale — Authority Transition Rule
+
+Reasoning-set closure prevents silent widening of the reasoning surface after authority has been resolved.
+
+Without an explicit authority-transition rule, legitimate expansion needs would either force premature halt in all cases or encourage opportunistic contamination of the reasoning set.
+
+The Authority Transition Rule preserves both control and flexibility by requiring expansion to occur through explicit declaration, authority re-resolution, and deterministic outcome handling.
+
 ---
 
 ## Fail-Closed Artifact Authority Policy
