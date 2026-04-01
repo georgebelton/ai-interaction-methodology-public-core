@@ -1459,6 +1459,8 @@ Without an explicit closure rule, the reasoning process may still drift into adj
 
 Reasoning-set closure eliminates this gap by making post-resolution scope widening non-conformant unless authority is explicitly re-resolved.
 
+---
+
 ## Authority Transition Rule
 
 ### Purpose
@@ -1575,6 +1577,103 @@ Reasoning-set closure prevents silent widening of the reasoning surface after au
 Without an explicit authority-transition rule, legitimate expansion needs would either force premature halt in all cases or encourage opportunistic contamination of the reasoning set.
 
 The Authority Transition Rule preserves both control and flexibility by requiring expansion to occur through explicit declaration, authority re-resolution, and deterministic outcome handling.
+
+---
+
+## Adjacent-Source Non-Promotion Rule
+
+### Purpose
+
+The methodology must explicitly distinguish relevance, accessibility, and proximity from authority.
+
+In artifact-bound work, adjacent materials may appear usable because they are nearby, visible, retrievable, or semantically related.
+
+These properties do not make them authoritative.
+
+This section defines the required non-promotion rule for adjacent sources.
+
+---
+
+### Non-Promotion Principle
+
+Adjacent artifacts remain non-authoritative unless they are explicitly admitted through the methodology’s authority rules.
+
+Authority must not be inferred from visibility, accessibility, co-location, or semantic plausibility.
+
+---
+
+### Non-Authoritative Properties
+
+The following do not confer authority:
+
+- naming similarity  
+- repository co-location  
+- connector accessibility  
+- previous appearance in session context  
+- semantic relevance  
+
+These properties may justify considering an authority transition, but they do not by themselves make a source eligible for reasoning, validation, or modification.
+
+---
+
+### Required Runtime Behavior
+
+When a potentially relevant adjacent source is encountered, the system must treat it as non-authoritative unless one of the following is true:
+
+- it is already included in the resolved active artifact set  
+- it is admitted through an explicit authority transition and active artifact re-resolution  
+
+Until one of these conditions is satisfied, the adjacent source must not be used as a reasoning input.
+
+---
+
+### Prohibited Behavior
+
+The system must not:
+
+- promote an adjacent artifact into the reasoning set because it appears relevant  
+- treat repository proximity as evidence of authority  
+- treat connector visibility or accessibility as evidence of authority  
+- rely on prior session appearance as evidence of authority  
+- use semantically related materials as if they were already admitted into the active artifact set  
+
+---
+
+### Relationship to Reasoning-Set Closure
+
+The Reasoning-Set Closure Rule defines that the active reasoning set is closed after authority resolution and grounding preflight.
+
+The Adjacent-Source Non-Promotion Rule clarifies that adjacent materials remain outside that closed reasoning set unless explicitly admitted.
+
+This rule therefore strengthens closure by making non-authority explicit.
+
+---
+
+### Relationship to Authority Transition
+
+Authority Transition Rule defines the only valid mechanism for admitting additional material into the active reasoning set after closure.
+
+The Adjacent-Source Non-Promotion Rule defines that adjacent materials must remain non-authoritative unless that transition occurs.
+
+This rule therefore prevents semantic plausibility from substituting for transition handling.
+
+---
+
+### Failure Behavior
+
+If the system cannot determine whether a source is already included in the active artifact set, it must treat that source as non-authoritative until authority is explicitly confirmed or re-resolved.
+
+The system must not provisionally promote adjacent sources during ambiguity.
+
+---
+
+### Architectural Rationale — Adjacent-Source Non-Promotion Rule
+
+Artifact-bound failures often occur not because authority was never defined, but because nearby or relevant materials were silently treated as eligible once they became visible during execution.
+
+This produces context bleed and post-resolution authority drift even when the active artifact set was initially resolved correctly.
+
+The Adjacent-Source Non-Promotion Rule closes this gap by explicitly separating discoverability and relevance from authority, and by requiring formal admission before adjacent materials become eligible reasoning inputs.
 
 ---
 
