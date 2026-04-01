@@ -1942,6 +1942,567 @@ The Boundary-Uncertainty Degradation Rule makes this loss of confirmed integrity
 
 ---
 
+## Halt-State Classification Rule
+
+### Purpose
+
+The methodology must define halt-state semantics as a first-class runtime control category.
+
+Without explicit state classification, hard-stop conditions may be interpreted as caution, slowdown, or tentative continuation rather than blocked execution.
+
+This section defines the required runtime state distinctions for halt-class conditions.
+
+---
+
+### State Classification Principle
+
+The methodology distinguishes among the following execution states:
+
+- caution state  
+- degraded state  
+- blocked halt state  
+
+These states are not interchangeable.
+
+A blocked halt state is categorically distinct from caution and degraded execution.
+
+---
+
+### Caution State
+
+Caution state applies when execution may continue, but elevated care, additional checking, or narrower confidence is required.
+
+Caution state does not authorize silent downgrade of halt-class conditions.
+
+Caution state is not a substitute for blocked execution.
+
+---
+
+### Degraded State
+
+Degraded state applies when execution may continue only under explicitly limited conditions and with visible acknowledgment that required correctness conditions are not fully satisfied.
+
+Degraded state permits bounded continuation only when the methodology explicitly allows degradation for the relevant condition.
+
+Degraded state is not equivalent to blocked halt state.
+
+---
+
+### Blocked Halt State
+
+Blocked halt state applies when the methodology or the operator defines a condition using halt, stop, do-not-proceed, or equivalent hard-stop semantics and that condition is detected.
+
+When a blocked halt state is entered, substantive execution must cease immediately.
+
+Blocked halt state permits reporting and clarification behavior only, unless explicit re-entry conditions are later satisfied.
+
+---
+
+### Operator-Declared Halt Semantics
+
+If the operator declares a stop, halt, or do-not-proceed condition for the task, that declaration creates halt-class semantics for the named trigger.
+
+When the named trigger is detected, the runtime must classify the condition as blocked halt state.
+
+The runtime must not silently reinterpret operator-declared halt semantics as caution or degraded continuation.
+
+---
+
+### Methodology-Required Halt Semantics
+
+If the methodology defines a condition that requires halt, execution must classify that condition as blocked halt state when detected.
+
+Methodology-required halt conditions are not eligible for silent downgrade into caution, slowdown behavior, recursive revalidation, or tentative continuation.
+
+---
+
+### Prohibited Downgrade Behavior
+
+The system must not:
+
+- reinterpret halt-class conditions as caution only  
+- reinterpret halt-class conditions as degraded continuation unless the methodology explicitly defines degradation for that exact condition  
+- continue substantive execution after detecting a blocked halt state  
+- use narration of caution or readiness as a substitute for required halt-state transition  
+
+---
+
+### Relationship to Boundary-Uncertainty Degradation
+
+Boundary-Uncertainty Degradation Rule defines one class of condition in which degradation may be explicitly permitted.
+
+The Halt-State Classification Rule defines the broader runtime state model in which caution, degraded, and blocked halt states are distinguished.
+
+This rule therefore formalizes the control-state framework within which degradation and halt behavior must be interpreted.
+
+---
+
+### Failure Behavior
+
+If the runtime cannot determine whether a detected condition is halt-class or is observed silently downgrading halt semantics into caution or tentative continuation, execution is non-conformant.
+
+The methodology must require explicit classification of halt-class conditions as blocked halt state.
+
+---
+
+### Architectural Rationale — Halt-State Classification Rule
+
+Authority hardening and failure visibility are insufficient if the runtime can recognize a halt trigger while continuing under softer, informal control states.
+
+A methodology that permits halt semantics to collapse into caution semantics does not reliably enforce its own stop conditions.
+
+The Halt-State Classification Rule closes this gap by making blocked halt state explicit, distinct, and non-substitutable.
+
+---
+
+## Blocked Execution State
+
+### Purpose
+
+The methodology must define the execution behavior that applies after a blocked halt state has been entered.
+
+Recognizing halt-class conditions is insufficient if the runtime may still continue through cautious continuation, recursive revalidation, or progress narration.
+
+This section defines the allowed and prohibited behavior for blocked execution.
+
+---
+
+### Blocked-State Principle
+
+Once a blocked halt state is entered, substantive execution must stop immediately.
+
+Blocked execution is a real runtime stop condition, not a softened continuation mode.
+
+The blocked state exists to preserve enforcement of halt-class semantics after detection.
+
+---
+
+### Allowed Actions in Blocked State
+
+When the runtime is in blocked halt state, it may only:
+
+- report the blocking condition  
+- identify what work is blocked  
+- request clarification  
+- request override  
+- request scope narrowing  
+
+These are the only permitted blocked-state actions unless a later rule explicitly defines re-entry behavior.
+
+---
+
+### Prohibited Actions in Blocked State
+
+When the runtime is in blocked halt state, it must not:
+
+- continue substantive analysis  
+- continue validation as if execution remained authorized  
+- continue implementation work  
+- perform tentative execution  
+- continue recursive revalidation as a substitute for halt  
+- continue progress narration as a substitute for halt  
+- present further analysis as though normal continuation were still authorized  
+
+Blocked state prohibits continuation, not just overconfidence.
+
+---
+
+### Reporting Requirement
+
+When blocked halt state is entered, the runtime must make the blocked condition visible.
+
+At minimum, blocked-state reporting must:
+
+- identify that execution is blocked  
+- name or describe the triggering condition  
+- indicate what work cannot proceed while the block remains active  
+
+This reporting requirement does not authorize continuation beyond blocked-state limits.
+
+---
+
+### Relationship to Halt-State Classification
+
+The Halt-State Classification Rule defines when a detected condition must be classified as blocked halt state rather than caution or degraded execution.
+
+The Blocked Execution State section defines what the runtime may and may not do after that classification has occurred.
+
+This section therefore operationalizes blocked halt state rather than redefining it.
+
+---
+
+### Prohibition on Narration-as-Substitute
+
+The runtime must not substitute blocked execution with conversational circling.
+
+In particular, the system must not treat any of the following as conformant substitutes for blocked state:
+
+- repeated readiness narration  
+- repeated caution narration  
+- recursive statements of intended future execution  
+- continued analytical probing presented as preparatory rather than substantive execution  
+
+If execution is blocked, the runtime must remain within the allowed blocked-state actions.
+
+---
+
+### Failure Behavior
+
+If a halt-class condition is detected and the runtime does not enter blocked execution behavior consistent with this section, execution is non-conformant.
+
+Recognition without enforcement is insufficient.
+
+---
+
+### Architectural Rationale — Blocked Execution State
+
+A halt-class condition does not achieve its control purpose unless the runtime transitions into a genuinely constrained state after detection.
+
+Without explicit blocked-state behavior, implementations may acknowledge a halt trigger while continuing through tentative analysis, recursive readiness checks, or narration that preserves the appearance of progress.
+
+The Blocked Execution State closes this gap by defining a true enforcement state in which reporting and clarification remain possible, but substantive continuation does not.
+
+---
+
+## Halt Re-entry Rule
+
+### Purpose
+
+The methodology must define how execution may resume after blocked halt state has been entered.
+
+Without an explicit re-entry model, blocked execution can degrade into oscillation between blocked state, caution, and pseudo-resumption without a controlled authorization boundary.
+
+This section defines the required re-entry behavior.
+
+---
+
+### Re-entry Principle
+
+Once blocked halt state has been entered, execution may not resume unless explicit re-entry conditions are satisfied.
+
+Blocked state is not exited by conversational momentum, repeated readiness checks, silence, or inferred operator intent.
+
+Continuation after halt must occur through explicit reauthorization.
+
+---
+
+### Allowed Re-entry Paths
+
+Execution may re-enter from blocked halt state only through one of the following:
+
+- operator clarification  
+- explicit override  
+- scope narrowing  
+- confirmation that the halt trigger does not apply  
+
+These are the only valid re-entry paths unless a later rule explicitly defines an additional path.
+
+---
+
+### Operator Clarification Re-entry
+
+If the operator provides clarification that resolves the blocking condition, the runtime may exit blocked state only after confirming that the clarification actually removes the halt trigger.
+
+Clarification must resolve the blocking condition, not merely restate the original request.
+
+---
+
+### Explicit Override Re-entry
+
+If the operator explicitly overrides the blocked condition, the runtime may re-enter only within the scope of that override.
+
+Override does not erase the existence of the prior blocked condition.
+
+It authorizes continuation despite that condition within the newly declared bounds.
+
+---
+
+### Scope-Narrowing Re-entry
+
+If the operator narrows the task so that the halt trigger no longer applies to the remaining work, the runtime may re-enter only for that narrowed task scope.
+
+Work outside the narrowed scope remains blocked.
+
+---
+
+### Trigger-Non-Applicability Re-entry
+
+If it becomes clear that the detected halt trigger does not actually apply, the runtime may re-enter after explicitly stating that the blocking condition no longer applies.
+
+The runtime must not assume non-applicability without explicit basis.
+
+---
+
+### Prohibited Re-entry Behavior
+
+The system must not:
+
+- resume execution without explicit reauthorization  
+- infer re-entry from conversational continuation alone  
+- treat repeated readiness narration as re-entry  
+- treat additional analysis during blocked state as implicit re-entry  
+- broaden resumed work beyond the explicit basis that authorized re-entry  
+
+---
+
+### Re-entry Reporting Requirement
+
+When blocked state is exited, the runtime must make the re-entry basis visible.
+
+At minimum, the runtime must identify:
+
+- which re-entry path applies  
+- what changed to permit re-entry  
+- the scope within which execution is reauthorized  
+
+This requirement preserves reviewability and prevents implicit drift out of blocked state.
+
+---
+
+### Relationship to Blocked Execution State
+
+Blocked Execution State defines what the runtime may do while execution is blocked.
+
+The Halt Re-entry Rule defines the only valid mechanisms by which blocked execution may end.
+
+This rule therefore governs exit from blocked state rather than behavior within it.
+
+---
+
+### Failure Behavior
+
+If blocked execution ends without a valid re-entry path being satisfied and made visible, execution is non-conformant.
+
+Implicit resumption is prohibited.
+
+---
+
+### Architectural Rationale — Halt Re-entry Rule
+
+Blocked execution is only enforceable if exit from blocked state is as controlled as entry into it.
+
+Without explicit re-entry semantics, blocked state can collapse into temporary hesitation followed by informal continuation, which defeats halt enforcement and weakens runtime determinism.
+
+The Halt Re-entry Rule closes this gap by requiring auditable, explicit reauthorization before execution may resume.
+
+---
+
+## Uncertainty-Loop Budget Rule
+
+### Purpose
+
+The methodology must define bounded uncertainty-handling behavior by execution state.
+
+Not all uncertainty should trigger immediate halt, but unbounded looping creates narration without progression and can conceal state-classification failures.
+
+This section defines the required loop-budget model for uncertainty handling.
+
+---
+
+### Loop-Budget Principle
+
+Uncertainty handling must be bounded and state-aware.
+
+The runtime must not remain in repeated uncertainty-resolution cycles without explicit budget limits, visible escalation rules, and state-sensitive stopping behavior.
+
+Loop budgets are control limits, not suggestions.
+
+---
+
+### State-Based Loop Budgets
+
+The methodology defines the following maximum uncertainty-loop budgets:
+
+- caution state: up to 2 uncertainty-resolution loops  
+- degraded state: up to 1 bounded recovery attempt  
+- blocked halt state: 0 loops  
+
+These budgets apply to repeated attempts to resolve the same blocking or non-advancing uncertainty without a material state improvement.
+
+---
+
+### Caution-State Budget
+
+In caution state, the runtime may perform up to 2 bounded uncertainty-resolution loops when execution remains authorized and the uncertainty is plausibly recoverable within the current state.
+
+If the same uncertainty persists without material improvement after the allowed caution-state loop budget has been used, the runtime must escalate rather than continue circling.
+
+---
+
+### Degraded-State Budget
+
+In degraded state, the runtime may perform 1 bounded recovery attempt when the methodology explicitly permits degraded continuation for the relevant condition.
+
+If that attempt does not materially improve state integrity or resolve the uncertainty, the runtime must escalate rather than continue under repeated degraded recovery behavior.
+
+---
+
+### Blocked-Halt-State Budget
+
+In blocked halt state, the runtime may perform 0 uncertainty-resolution loops.
+
+Blocked state permits reporting, clarification, override handling, and scope narrowing requests only, as defined by the Blocked Execution State section.
+
+The runtime must not use iterative uncertainty-resolution behavior as a substitute for blocked execution.
+
+---
+
+### Escalation Requirement
+
+If the same blocking or non-advancing uncertainty persists without state improvement across the allowed loop budget for the current state, the runtime must escalate.
+
+Escalation may include:
+
+- transition to degraded state, if the methodology explicitly permits degradation for the condition  
+- transition to blocked halt state  
+- request for clarification, override, or scope narrowing, where appropriate  
+
+The runtime must not continue uncertainty handling beyond the allowed budget without state change or operator intervention.
+
+---
+
+### No Budget Reset Without State Change
+
+The runtime must not reset an uncertainty-loop budget unless one of the following occurs:
+
+- explicit state change  
+- operator intervention  
+- material resolution of the prior uncertainty such that the runtime is no longer handling the same unresolved condition  
+
+Repeated narration, reformulation, or rechecking without substantive change does not reset the budget.
+
+---
+
+### Relationship to Halt-State Classification
+
+The Halt-State Classification Rule defines the execution states within which uncertainty handling occurs.
+
+The Uncertainty-Loop Budget Rule defines how many uncertainty-resolution attempts are permitted within each state before escalation is required.
+
+This rule therefore constrains repeated uncertainty handling within the state model rather than redefining the states themselves.
+
+---
+
+### Relationship to Blocked Execution State
+
+Blocked Execution State already prohibits substantive continuation after halt-class detection.
+
+The zero-loop rule for blocked halt state makes explicit that blocked execution may not be converted into recursive uncertainty handling.
+
+This rule therefore reinforces blocked-state enforcement.
+
+---
+
+### Failure Behavior
+
+If the runtime continues repeated uncertainty handling beyond the allowed loop budget for the current state without explicit state change or operator intervention, execution is non-conformant.
+
+Open-ended uncertainty circling is prohibited.
+
+---
+
+### Architectural Rationale — Uncertainty-Loop Budget Rule
+
+Methodological control depends not only on correct state classification, but also on bounded behavior within each state.
+
+Without explicit loop budgets, a runtime may remain trapped in recursive uncertainty handling that appears careful while actually avoiding execution, escalation, or halt.
+
+The Uncertainty-Loop Budget Rule closes this gap by making uncertainty handling finite, state-aware, and escalation-driven.
+
+---
+
+## Readiness Threshold Progression Rule
+
+### Purpose
+
+The methodology must prevent artifact-producing tasks from stalling in recursive readiness narration after execution preconditions are already satisfied or after a halt condition has already been reached.
+
+This section defines the required progression behavior once readiness threshold has been crossed.
+
+---
+
+### Readiness-Threshold Principle
+
+For artifact-producing tasks, once required preconditions for execution are satisfied, the runtime must advance state.
+
+Advancement must occur through one of the following:
+
+- execution  
+- blocked halt state  
+
+The runtime must not remain in recursive readiness narration after readiness threshold has been reached.
+
+---
+
+### Scope of Application
+
+This rule applies to artifact-producing tasks in which the current session is expected to produce a concrete implementation artifact, execution output, modification, validation result, or other task-bounded deliverable.
+
+This rule governs progression after execution readiness has been established.
+
+It does not prohibit legitimate diagnosis or preparation before readiness threshold is reached.
+
+---
+
+### Required Runtime Behavior
+
+Once readiness threshold has been reached, the runtime must do one of the following:
+
+1. execute the task within the authorized scope  
+2. enter blocked halt state if a halt-class condition applies  
+
+The runtime must not continue in readiness narration as a substitute for either execution or blocked-state transition.
+
+---
+
+### Prohibited Non-Advancement Behavior
+
+After readiness threshold has been reached, the runtime must not:
+
+- repeat preflight-style narration without new blocking information  
+- continue readiness framing as if execution were still pending when no new gating condition has appeared  
+- remain in meta-level progress narration without state advancement  
+- continue preparatory analysis when the task is already execution-ready  
+- defer advancement through stylistic statements of caution or intended future action  
+
+Such behavior is non-conformant for artifact-producing tasks.
+
+---
+
+### Relationship to Blocked Execution State
+
+If a halt-class condition applies after readiness threshold is reached, the runtime must enter blocked halt state and follow the Blocked Execution State rules.
+
+Readiness threshold does not authorize continued narration in place of blocked-state enforcement.
+
+---
+
+### Relationship to Uncertainty-Loop Budget Rule
+
+The Uncertainty-Loop Budget Rule governs bounded uncertainty handling by execution state.
+
+The Readiness Threshold Progression Rule governs the separate condition in which readiness has already been established.
+
+Once readiness threshold is reached, the runtime may not use recursive readiness narration to simulate valid uncertainty handling.
+
+---
+
+### Failure Behavior
+
+If readiness threshold has been reached and the runtime neither executes nor enters blocked halt state, but instead remains in recursive readiness narration or progress-style meta-language without state advancement, execution is non-conformant.
+
+---
+
+### Architectural Rationale — Readiness Threshold Progression Rule
+
+A runtime can satisfy preconditions and still fail operationally if it remains trapped in readiness narration rather than advancing to execution or blocked-state enforcement.
+
+This creates the appearance of disciplined control while preventing actual task progression.
+
+The Readiness Threshold Progression Rule closes this gap by requiring state advancement once readiness has been established and by classifying narration-only non-advancement as a methodology failure for artifact-producing tasks.
+
+---
+
 ## Authority-Boundary Drift Failure Case
 
 ### Purpose
@@ -2023,6 +2584,104 @@ Naming recurring post-resolution scope-loss behavior as a distinct failure class
 Without a reusable failure label, the same structural defect must be rediscovered and redescribed in each new archive, repository, or mixed-source workflow context.
 
 The Authority-Boundary Drift Failure Case makes this pattern explicit and reusable without collapsing it into unrelated ambiguity or evidence-isolation failures.
+
+---
+
+## Halt-Enforcement Failure Case
+
+### Purpose
+
+The methodology benefits from recurring failure patterns being named in reusable structural terms for conformance review, runtime architecture evaluation, and future hardening.
+
+This section defines the reference failure case for halt-enforcement failure.
+
+---
+
+### Failure Case Definition
+
+Halt-enforcement failure occurs when a halt trigger is recognized or should be recognized, but the runtime does not enter or preserve the blocked execution behavior required by the methodology.
+
+This failure class concerns failure of halt enforcement after halt-class semantics apply.
+
+---
+
+### Representative Pattern
+
+A representative halt-enforcement failure pattern includes one or more of the following conditions:
+
+- a halt trigger was recognized or should have been recognized  
+- blocked halt state was not entered when required  
+- blocked halt state was entered but not preserved  
+- continuation, narration, or analytical probing persisted after halt-class enforcement should have stopped execution  
+
+This pattern is non-conformant.
+
+---
+
+### Distinction from Authority-Boundary Failure
+
+Halt-enforcement failure is distinct from authority-boundary failure.
+
+Authority-boundary failure concerns unresolved, degraded, or drifted authority conditions affecting what materials may be treated as authoritative.
+
+Halt-enforcement failure concerns failure to enforce blocked execution behavior after halt-class conditions apply.
+
+---
+
+### Distinction from Connector Dataset-Isolation Failure
+
+Halt-enforcement failure is distinct from connector dataset-isolation failure.
+
+Connector dataset-isolation failure concerns contamination across datasets, samples, or isolated evidence partitions within connector or evidence-processing workflows.
+
+Halt-enforcement failure concerns failure to stop execution after a halt-class trigger requires blocked-state enforcement.
+
+---
+
+### Distinction from Evidence-Integrity Failure
+
+Halt-enforcement failure is distinct from evidence-integrity failure.
+
+Evidence-integrity failure concerns loss of source fidelity, evidence correctness, or evidence-stage discipline.
+
+Halt-enforcement failure concerns failure of runtime control enforcement after a halt-class trigger has been activated.
+
+---
+
+### Required Methodology Use
+
+The Halt-Enforcement Failure Case must be reusable for:
+
+- conformance review  
+- runtime architecture evaluation  
+- stress testing  
+- future hardening work involving blocked execution, halt-state enforcement, re-entry handling, or progression controls  
+
+---
+
+### Relationship to Halt-State Classification
+
+The Halt-State Classification Rule defines when a detected condition must be classified as blocked halt state.
+
+Halt-enforcement failure describes the non-conformant case in which this required classification or its required behavioral consequences are not actually enforced.
+
+---
+
+### Relationship to Blocked Execution State
+
+Blocked Execution State defines the allowed and prohibited behavior once blocked halt state has been entered.
+
+Halt-enforcement failure includes cases where blocked execution is not entered, is not preserved, or is substituted with continuation or narration.
+
+---
+
+### Architectural Rationale — Halt-Enforcement Failure Case
+
+A methodology can define halt-class semantics correctly and still fail operationally if implementations do not actually transition into blocked execution when required.
+
+Without a named halt-enforcement failure class, this control defect must be rediscovered separately in conformance review, runtime evaluation, and stress testing.
+
+The Halt-Enforcement Failure Case makes this failure pattern explicit and reusable without collapsing it into unrelated authority, evidence, or dataset-isolation failures.
 
 ---
 
