@@ -2156,7 +2156,9 @@ For artifact-bound tasks, definitive analytical reasoning requires confirmed bou
 
 If the system cannot confirm that the active reasoning set remains identical to the resolved active artifact set, execution must not continue as if boundary integrity were still established.
 
-Loss of confirmed boundary integrity is an execution-state problem, not merely a presentation concern.
+Loss of confirmed boundary integrity is an execution-control state problem, not merely a presentation concern.
+
+For purposes of the execution-state model, this rule defines one condition under which transition into `degraded state` may be explicitly permitted.
 
 ---
 
@@ -2262,7 +2264,7 @@ This section defines the required runtime state distinctions for halt-class cond
 
 ### State Classification Principle
 
-The methodology distinguishes among the following execution states:
+Within the execution-state model, the methodology distinguishes among the following execution-control states:
 
 - caution state  
 - degraded state  
@@ -2339,7 +2341,7 @@ Boundary-Uncertainty Degradation Rule defines one class of condition in which de
 
 The Halt-State Classification Rule defines the broader runtime state model in which caution, degraded, and blocked halt states are distinguished.
 
-This rule therefore formalizes the control-state framework within which degradation and halt behavior must be interpreted.
+This rule therefore formalizes the execution-state distinctions within which degradation and halt behavior must be interpreted.
 
 ---
 
@@ -2380,6 +2382,8 @@ Once a blocked halt state is entered, substantive execution must stop immediatel
 Blocked execution is a real runtime stop condition, not a softened continuation mode.
 
 The blocked state exists to preserve enforcement of halt-class semantics after detection.
+
+Within the execution-state model, `blocked halt state` is a distinct execution-control state rather than a stronger caution mode or a softened degraded continuation state.
 
 ---
 
@@ -2489,6 +2493,8 @@ Once blocked halt state has been entered, execution may not resume unless explic
 Blocked state is not exited by conversational momentum, repeated readiness checks, silence, or inferred operator intent.
 
 Continuation after halt must occur through explicit reauthorization.
+
+Within the execution-state model, re-entry governs the only valid transition from `blocked halt state` back to `active execution`.
 
 ---
 
@@ -2617,7 +2623,7 @@ Loop budgets are control limits, not suggestions.
 
 ### State-Based Loop Budgets
 
-The methodology defines the following maximum uncertainty-loop budgets:
+Within the execution-state model, the methodology defines the following maximum uncertainty-loop budgets by execution-control state:
 
 - caution state: up to 2 uncertainty-resolution loops  
 - degraded state: up to 1 bounded recovery attempt  
@@ -2737,6 +2743,8 @@ Advancement must occur through one of the following:
 - blocked halt state  
 
 The runtime must not remain in recursive readiness narration after readiness threshold has been reached.
+
+Within the execution-state model, once readiness threshold has been crossed, execution must advance from `execution readiness state` into `active execution` or into `blocked halt state` if a halt-class condition applies.
 
 ---
 
