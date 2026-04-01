@@ -1832,6 +1832,116 @@ Implementations must enforce halt-and-resolve behavior as a required condition f
 
 ---
 
+## Boundary-Uncertainty Degradation Rule
+
+### Purpose
+
+The methodology must define deterministic behavior for cases where the system cannot confirm that the active reasoning set remains identical to the resolved active artifact set during execution.
+
+A system may otherwise continue producing coherent-looking analysis after boundary integrity has been lost or can no longer be verified.
+
+This section defines the required degradation behavior for boundary uncertainty.
+
+---
+
+### Boundary-Uncertainty Principle
+
+For artifact-bound tasks, definitive analytical reasoning requires confirmed boundary integrity.
+
+If the system cannot confirm that the active reasoning set remains identical to the resolved active artifact set, execution must not continue as if boundary integrity were still established.
+
+Loss of confirmed boundary integrity is an execution-state problem, not merely a presentation concern.
+
+---
+
+### Required Runtime Behavior
+
+When boundary integrity cannot be confirmed, the system must do one of the following:
+
+1. halt execution pending clarification or authority re-resolution  
+2. continue only with an explicit degraded-status statement that makes the loss of confirmed boundary integrity visible  
+
+The system must not silently continue under boundary uncertainty.
+
+---
+
+### Degraded-Status Requirements
+
+If execution continues under boundary uncertainty, the degraded-status statement must make clear that:
+
+- boundary integrity is not confirmed  
+- the active reasoning set may no longer be identical to the resolved authority set  
+- the resulting analysis is boundary-unsafe for definitive use unless authority is re-confirmed  
+
+Continuation under degraded status does not restore authority integrity.
+
+It only makes the loss of confirmed integrity explicit.
+
+---
+
+### Prohibition on Definitive Conclusions
+
+When boundary integrity is unverified, the system must not present analytical conclusions as definitive.
+
+This includes, but is not limited to:
+
+- final conformance judgments  
+- final completion validation  
+- final comparative conclusions  
+- final implementation-signoff conclusions  
+
+Such conclusions require confirmed boundary integrity.
+
+---
+
+### Relationship to Fail-Closed Artifact Authority Policy
+
+The Fail-Closed Artifact Authority Policy governs cases where artifact authority is unresolved, conflicting, or incomplete prior to execution.
+
+The Boundary-Uncertainty Degradation Rule governs cases where active authority was resolved, but continued boundary integrity cannot later be confirmed during execution.
+
+This rule therefore addresses post-resolution authority degradation rather than initial authority ambiguity.
+
+---
+
+### Relationship to Reasoning-Set Closure
+
+The Reasoning-Set Closure Rule requires that the active reasoning set remain identical to the resolved active artifact set.
+
+The Boundary-Uncertainty Degradation Rule defines the required behavior when the system can no longer confirm that this condition still holds.
+
+Closure defines the required boundary.
+
+This rule defines the consequence of losing confidence in that boundary.
+
+---
+
+### Relationship to Authority Transition
+
+If boundary uncertainty is resolved by explicitly re-resolving authority and grounding against a newly admitted artifact set, normal reasoning may resume under the Authority Transition Rule.
+
+If such re-resolution does not occur, continuation may proceed only under explicit degraded status or must halt.
+
+---
+
+### Failure Behavior
+
+If the system cannot determine whether boundary integrity has been preserved and cannot produce an explicit degraded-status statement consistent with this rule, execution must halt.
+
+The system must not default to silent continuation, implicit confidence reduction, or unmarked narrowing of claims.
+
+---
+
+### Architectural Rationale — Boundary-Uncertainty Degradation Rule
+
+Authority-boundary failures are dangerous because the resulting analysis may remain internally coherent even after the system has lost confidence that it is still reasoning only from the resolved authoritative materials.
+
+Without an explicit degradation rule, such cases can appear trustworthy while no longer satisfying the methodology’s authority discipline.
+
+The Boundary-Uncertainty Degradation Rule makes this loss of confirmed integrity visible and prevents definitive conclusions from being produced under unverified boundary conditions.
+
+---
+
 ## Working Copy Supersession Rule
 
 ### Purpose
