@@ -610,6 +610,72 @@ This distinction is required so that runtime control semantics remain explicit w
 
 ---
 
+### Governance-Neutral Attachment Boundary
+
+The execution-state model may serve as an attachment surface for higher-order control overlays, including governance extensions, when such overlays are validly activated by the methodology.
+
+This attachment role is structural only.
+
+It does not by itself activate governance behavior, introduce policy obligations, or change the meaning of the canonical execution-control states.
+
+---
+
+### Relationship to Governance Extensions
+
+When Governance Extensions are active, governance-specific controls may attach to execution-control states as defined by the applicable governance layer.
+
+Such attachment may include governance-specific review, approval, exception, recording, retention, or measurement behavior.
+
+These governance-specific controls do not redefine:
+
+- the canonical execution-state model  
+- runtime lifecycle semantics  
+- workflow classification  
+- framework tier meaning  
+
+The execution-state model remains canonical methodology structure.
+
+Governance overlays remain additional control layers applied only when validly activated.
+
+---
+
+### Non-Governed Execution Preservation
+
+In non-governed execution, the execution-state model remains fully valid without additional governance declarations, governance metadata, or approval semantics.
+
+The methodology must not require governance interpretation of execution-control states when governance activation criteria are not satisfied.
+
+This preserves lightweight non-governed use while keeping the execution-state model available as a future governance attachment surface.
+
+---
+
+### Lightweight Non-Governed Path Requirement
+
+The execution-state model must not introduce universal governance ceremony into non-governed execution.
+
+In particular, the methodology must not require, solely because the execution-state model exists:
+
+- universal risk tagging  
+- universal approval semantics  
+- universal governance metadata  
+- governance-specific declarations for tasks that do not satisfy governance activation criteria  
+
+For non-governed execution, the execution-state model remains a runtime control clarification layer only.
+
+It must not become a universal policy layer.
+
+---
+
+### Boundary Requirement
+
+The system must not treat governance attachment potential as equivalent to governance activation.
+
+Execution-control states may be governance-addressable without becoming governance-defined.
+
+This boundary preserves the canonical execution-state model as methodology structure rather than policy structure.
+
+---
+
 ### Architectural Rationale — Execution State Model
 
 The methodology already contains meaningful execution-control semantics, but they are distributed across runtime, validation, and hardening sections rather than normalized as one compact control model.
