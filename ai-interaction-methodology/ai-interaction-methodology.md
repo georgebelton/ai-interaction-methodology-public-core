@@ -312,6 +312,129 @@ These stages define the required operational flow for methodology execution.
 
 ---
 
+## Execution State Model
+
+### Purpose
+
+The methodology must define a compact execution-control state model that makes existing runtime control semantics explicit without introducing a second lifecycle or a new runtime system.
+
+The execution-state model normalizes control behavior already present in the methodology, including gated execution readiness, active execution, caution handling, degraded continuation, blocked halt enforcement, and validated terminal completion.
+
+These execution states are control states.
+
+They are not workflow classes, framework tiers, or artifact/output types.
+
+---
+
+### Canonical Execution States
+
+The methodology defines the following execution-control states:
+
+- `execution readiness state`
+- `active execution`
+- `caution state`
+- `degraded state`
+- `blocked halt state`
+- `validated completion`
+
+These states define execution-control posture during runtime.
+
+They do not replace ordered runtime lifecycle stages, workflow classification, operation class, or framework tier selection.
+
+---
+
+### Execution-State Principle
+
+At any point during methodology execution, runtime control posture must be interpretable through the execution-state model.
+
+The execution-state model exists to make control semantics explicit and reviewable.
+
+It must not be interpreted as a replacement for the runtime lifecycle.
+
+The runtime lifecycle defines ordered process stages.
+
+The execution-state model defines the control condition under which execution proceeds within or across those stages.
+
+---
+
+### State Distinction Requirement
+
+The execution-control states are not interchangeable.
+
+In particular:
+
+- `execution readiness state` is not `active execution`
+- `caution state` is not `degraded state`
+- `degraded state` is not `blocked halt state`
+- `validated completion` is not merely apparent task progress or output production
+
+The system must not collapse distinct execution states into softer or more convenient interpretations.
+
+---
+
+### Relationship to Workflow Classification
+
+Workflow classification determines whether the active workflow is:
+
+- analysis-only
+- in-session implementation
+- delegated execution
+
+These workflow classes are not execution-control states.
+
+Execution-control state governs runtime control posture within the active workflow class.
+
+The same workflow class may therefore pass through different execution-control states during execution.
+
+---
+
+### Relationship to Framework Tier Selection
+
+Framework tier selection determines the depth and control structure of reasoning.
+
+Execution-control state does not redefine framework tier.
+
+Framework tier and execution-control state are orthogonal runtime dimensions.
+
+A task may therefore operate under any valid framework tier while also occupying one of the canonical execution-control states.
+
+---
+
+### Relationship to Runtime Lifecycle
+
+The runtime lifecycle defines the ordered execution sequence of methodology startup, reasoning, validation, workflow classification, and output preparation.
+
+The execution-state model does not replace that sequence.
+
+Instead, it defines the runtime control posture within that sequence.
+
+Lifecycle order and execution-control state must therefore remain explicitly distinct.
+
+---
+
+### Runtime Requirement
+
+The methodology must preserve explicit distinction between:
+
+- lifecycle stage
+- workflow class
+- framework tier
+- execution-control state
+
+This distinction is required so that runtime control semantics remain explicit without duplicating or replacing the methodology’s existing runtime architecture.
+
+---
+
+### Architectural Rationale — Execution State Model
+
+The methodology already contains meaningful execution-control semantics, but they are distributed across runtime, validation, and hardening sections rather than normalized as one compact control model.
+
+Making the execution-state model explicit improves readability, consistency, and later extension readiness without importing broader prompt-level runtime mechanics into the base methodology.
+
+This preserves the methodology’s current architecture while making its control posture more legible and easier to attach to later governance extensions.
+
+---
+
 ## Operation Class Model
 
 The methodology defines operation class as a runtime control dimension governing how the system is permitted to act on input material during execution.
