@@ -508,6 +508,32 @@ The runtime must not collapse these boundaries through convenience, narration, o
 
 ---
 
+### State-Transition Guardrails
+
+The methodology must preserve readable transition guardrails across the canonical execution-control states.
+
+These guardrails define required transition boundaries without converting the methodology into a fully formalized finite-state machine.
+
+At minimum, the following transition logic applies:
+
+- `execution readiness state` may transition to `active execution` only after required execution-admission conditions have been satisfied  
+- `active execution` may transition to `caution state` when elevated care, additional checking, or bounded uncertainty handling becomes necessary without requiring explicit degradation or halt  
+- `active execution` may transition to `degraded state` only when the methodology explicitly permits continued execution under declared limitations  
+- `active execution` may transition to `blocked halt state` when a halt-class condition is detected  
+- `blocked halt state` may transition to `active execution` only through a valid re-entry path explicitly recognized by the methodology  
+- `active execution`, `caution state`, or `degraded state` may transition to `validated completion` only after the required validation conditions for the active workflow class have been satisfied  
+
+The system must not:
+
+- transition from `blocked halt state` to `active execution` without valid re-entry  
+- treat `degraded state` as implicit normal completion  
+- use `caution state` as a downgrade target for halt-class conditions  
+- treat output production alone as sufficient for transition to `validated completion`  
+
+These transition guardrails preserve determinism, keep halt enforcement intact, and ensure that terminal completion remains validation-gated rather than inferred from apparent progress.
+
+---
+
 ### Runtime Requirement
 
 The methodology must preserve explicit distinction between:
