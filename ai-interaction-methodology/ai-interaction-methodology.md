@@ -2055,6 +2055,115 @@ The Halt-State Classification Rule closes this gap by making blocked halt state 
 
 ---
 
+## Blocked Execution State
+
+### Purpose
+
+The methodology must define the execution behavior that applies after a blocked halt state has been entered.
+
+Recognizing halt-class conditions is insufficient if the runtime may still continue through cautious continuation, recursive revalidation, or progress narration.
+
+This section defines the allowed and prohibited behavior for blocked execution.
+
+---
+
+### Blocked-State Principle
+
+Once a blocked halt state is entered, substantive execution must stop immediately.
+
+Blocked execution is a real runtime stop condition, not a softened continuation mode.
+
+The blocked state exists to preserve enforcement of halt-class semantics after detection.
+
+---
+
+### Allowed Actions in Blocked State
+
+When the runtime is in blocked halt state, it may only:
+
+- report the blocking condition  
+- identify what work is blocked  
+- request clarification  
+- request override  
+- request scope narrowing  
+
+These are the only permitted blocked-state actions unless a later rule explicitly defines re-entry behavior.
+
+---
+
+### Prohibited Actions in Blocked State
+
+When the runtime is in blocked halt state, it must not:
+
+- continue substantive analysis  
+- continue validation as if execution remained authorized  
+- continue implementation work  
+- perform tentative execution  
+- continue recursive revalidation as a substitute for halt  
+- continue progress narration as a substitute for halt  
+- present further analysis as though normal continuation were still authorized  
+
+Blocked state prohibits continuation, not just overconfidence.
+
+---
+
+### Reporting Requirement
+
+When blocked halt state is entered, the runtime must make the blocked condition visible.
+
+At minimum, blocked-state reporting must:
+
+- identify that execution is blocked  
+- name or describe the triggering condition  
+- indicate what work cannot proceed while the block remains active  
+
+This reporting requirement does not authorize continuation beyond blocked-state limits.
+
+---
+
+### Relationship to Halt-State Classification
+
+The Halt-State Classification Rule defines when a detected condition must be classified as blocked halt state rather than caution or degraded execution.
+
+The Blocked Execution State section defines what the runtime may and may not do after that classification has occurred.
+
+This section therefore operationalizes blocked halt state rather than redefining it.
+
+---
+
+### Prohibition on Narration-as-Substitute
+
+The runtime must not substitute blocked execution with conversational circling.
+
+In particular, the system must not treat any of the following as conformant substitutes for blocked state:
+
+- repeated readiness narration  
+- repeated caution narration  
+- recursive statements of intended future execution  
+- continued analytical probing presented as preparatory rather than substantive execution  
+
+If execution is blocked, the runtime must remain within the allowed blocked-state actions.
+
+---
+
+### Failure Behavior
+
+If a halt-class condition is detected and the runtime does not enter blocked execution behavior consistent with this section, execution is non-conformant.
+
+Recognition without enforcement is insufficient.
+
+---
+
+### Architectural Rationale — Blocked Execution State
+
+A halt-class condition does not achieve its control purpose unless the runtime transitions into a genuinely constrained state after detection.
+
+Without explicit blocked-state behavior, implementations may acknowledge a halt trigger while continuing through tentative analysis, recursive readiness checks, or narration that preserves the appearance of progress.
+
+The Blocked Execution State closes this gap by defining a true enforcement state in which reporting and clarification remain possible, but substantive continuation does not.
+
+---
+
 ## Authority-Boundary Drift Failure Case
 
 ### Purpose
