@@ -412,6 +412,67 @@ Lifecycle order and execution-control state must therefore remain explicitly dis
 
 ---
 
+### Lifecycle-Relationship Clarification
+
+The runtime lifecycle and the execution-state model describe different aspects of methodology execution.
+
+The runtime lifecycle defines ordered process phases.
+
+The execution-state model defines control posture within those phases.
+
+These structures are related, but they are not identical and must not be collapsed into a single model.
+
+---
+
+### Relationship Between Lifecycle and Execution State
+
+A lifecycle phase may operate under different execution-control states depending on task conditions, control triggers, and validation status.
+
+For example:
+
+- execution may remain in `execution readiness state` while required entry conditions are still being satisfied before substantive reasoning begins  
+- substantive reasoning and task work may occur in `active execution`  
+- the same lifecycle phase may shift into `caution state` or `degraded state` if control conditions require bounded continuation  
+- execution may move into `blocked halt state` if a halt-class trigger is detected during an otherwise valid lifecycle phase  
+- terminal lifecycle completion is not equivalent to `validated completion` unless the required validation conditions for the active workflow class have been satisfied  
+
+This means lifecycle order alone is insufficient to describe runtime control posture.
+
+---
+
+### Non-Identity Requirement
+
+The methodology must preserve explicit distinction between:
+
+- ordered lifecycle phases  
+- execution-control states  
+
+Lifecycle phases answer:
+
+- where execution is in the ordered runtime process  
+
+Execution-control states answer:
+
+- under what control condition execution is proceeding  
+
+The system must not:
+
+- treat the execution-state model as a second lifecycle  
+- treat lifecycle progress alone as evidence of transition to `validated completion`  
+- treat lifecycle staging and execution-control posture as interchangeable descriptions of runtime behavior  
+
+---
+
+### Architectural Rationale — Lifecycle-Relationship Clarification
+
+The methodology already defines a deterministic runtime lifecycle and now defines a compact execution-state model.
+
+Without an explicit clarification section, implementations may incorrectly interpret execution states as replacement lifecycle stages or treat lifecycle progression as sufficient evidence of control-state progression.
+
+This clarification preserves the distinction between ordered runtime flow and execution-control posture so the methodology gains a clearer control model without introducing a competing lifecycle.
+
+---
+
 ### Execution Readiness State
 
 `execution readiness state` is the gated execution-control state that applies before substantive execution begins.
@@ -483,11 +544,13 @@ It is a true blocked execution condition.
 
 `validated completion` does not define a separate artifact type or workflow model.
 
-It indicates that execution has reached a valid terminal state for the active workflow, whether that workflow ends in:
+It indicates that execution has reached a valid terminal control state for the active workflow class only after the required validation conditions for that workflow class have been satisfied.
 
-- a direct analytical response  
-- an in-session implementation artifact  
-- a delegated execution handoff artifact  
+Depending on workflow classification, this terminal state may correspond to:
+
+- a validated direct analytical response in an analysis-only workflow  
+- a validated in-session implementation artifact or execution output in an in-session implementation workflow  
+- a validated delegated execution handoff artifact in a delegated execution workflow  
 
 Apparent progress, output generation, or partial deliverable production is not sufficient to constitute `validated completion`.
 
@@ -1044,6 +1107,12 @@ The workflow must be classified as one of:
 
 This classification must follow the delegated execution activation policy defined in this document.
 
+For purposes of the execution-state model, workflow classification determines the workflow-specific terminal conditions against which `validated completion` is assessed.
+
+Workflow classification does not itself constitute `validated completion`.
+
+It defines which kind of validated terminal outcome is required for the active workflow.
+
 ---
 
 ### Output Preparation Behavior
@@ -1087,6 +1156,10 @@ The workflow classification must explicitly determine whether the terminal outpu
 - a direct response  
 - an in-session implementation artifact  
 - a delegated execution handoff artifact  
+
+For the execution-state model, transition to `validated completion` is permitted only when the terminal output required by the active workflow classification has been produced in a form that satisfies the methodology’s required validation conditions for that workflow.
+
+This requirement prevents workflow classification from being treated as equivalent to validated completion and prevents terminal output production from being treated as self-validating.
 
 This ensures that runtime behavior remains consistent with the intended execution path of the task.
 
@@ -2095,7 +2168,9 @@ For artifact-bound tasks, definitive analytical reasoning requires confirmed bou
 
 If the system cannot confirm that the active reasoning set remains identical to the resolved active artifact set, execution must not continue as if boundary integrity were still established.
 
-Loss of confirmed boundary integrity is an execution-state problem, not merely a presentation concern.
+Loss of confirmed boundary integrity is an execution-control state problem, not merely a presentation concern.
+
+For purposes of the execution-state model, this rule defines one condition under which transition into `degraded state` may be explicitly permitted.
 
 ---
 
@@ -2201,7 +2276,7 @@ This section defines the required runtime state distinctions for halt-class cond
 
 ### State Classification Principle
 
-The methodology distinguishes among the following execution states:
+Within the execution-state model, the methodology distinguishes among the following execution-control states:
 
 - caution state  
 - degraded state  
@@ -2278,7 +2353,7 @@ Boundary-Uncertainty Degradation Rule defines one class of condition in which de
 
 The Halt-State Classification Rule defines the broader runtime state model in which caution, degraded, and blocked halt states are distinguished.
 
-This rule therefore formalizes the control-state framework within which degradation and halt behavior must be interpreted.
+This rule therefore formalizes the execution-state distinctions within which degradation and halt behavior must be interpreted.
 
 ---
 
@@ -2319,6 +2394,8 @@ Once a blocked halt state is entered, substantive execution must stop immediatel
 Blocked execution is a real runtime stop condition, not a softened continuation mode.
 
 The blocked state exists to preserve enforcement of halt-class semantics after detection.
+
+Within the execution-state model, `blocked halt state` is a distinct execution-control state rather than a stronger caution mode or a softened degraded continuation state.
 
 ---
 
@@ -2428,6 +2505,8 @@ Once blocked halt state has been entered, execution may not resume unless explic
 Blocked state is not exited by conversational momentum, repeated readiness checks, silence, or inferred operator intent.
 
 Continuation after halt must occur through explicit reauthorization.
+
+Within the execution-state model, re-entry governs the only valid transition from `blocked halt state` back to `active execution`.
 
 ---
 
@@ -2556,7 +2635,7 @@ Loop budgets are control limits, not suggestions.
 
 ### State-Based Loop Budgets
 
-The methodology defines the following maximum uncertainty-loop budgets:
+Within the execution-state model, the methodology defines the following maximum uncertainty-loop budgets by execution-control state:
 
 - caution state: up to 2 uncertainty-resolution loops  
 - degraded state: up to 1 bounded recovery attempt  
@@ -2676,6 +2755,8 @@ Advancement must occur through one of the following:
 - blocked halt state  
 
 The runtime must not remain in recursive readiness narration after readiness threshold has been reached.
+
+Within the execution-state model, once readiness threshold has been crossed, execution must advance from `execution readiness state` into `active execution` or into `blocked halt state` if a halt-class condition applies.
 
 ---
 
