@@ -1942,6 +1942,119 @@ The Boundary-Uncertainty Degradation Rule makes this loss of confirmed integrity
 
 ---
 
+## Halt-State Classification Rule
+
+### Purpose
+
+The methodology must define halt-state semantics as a first-class runtime control category.
+
+Without explicit state classification, hard-stop conditions may be interpreted as caution, slowdown, or tentative continuation rather than blocked execution.
+
+This section defines the required runtime state distinctions for halt-class conditions.
+
+---
+
+### State Classification Principle
+
+The methodology distinguishes among the following execution states:
+
+- caution state  
+- degraded state  
+- blocked halt state  
+
+These states are not interchangeable.
+
+A blocked halt state is categorically distinct from caution and degraded execution.
+
+---
+
+### Caution State
+
+Caution state applies when execution may continue, but elevated care, additional checking, or narrower confidence is required.
+
+Caution state does not authorize silent downgrade of halt-class conditions.
+
+Caution state is not a substitute for blocked execution.
+
+---
+
+### Degraded State
+
+Degraded state applies when execution may continue only under explicitly limited conditions and with visible acknowledgment that required correctness conditions are not fully satisfied.
+
+Degraded state permits bounded continuation only when the methodology explicitly allows degradation for the relevant condition.
+
+Degraded state is not equivalent to blocked halt state.
+
+---
+
+### Blocked Halt State
+
+Blocked halt state applies when the methodology or the operator defines a condition using halt, stop, do-not-proceed, or equivalent hard-stop semantics and that condition is detected.
+
+When a blocked halt state is entered, substantive execution must cease immediately.
+
+Blocked halt state permits reporting and clarification behavior only, unless explicit re-entry conditions are later satisfied.
+
+---
+
+### Operator-Declared Halt Semantics
+
+If the operator declares a stop, halt, or do-not-proceed condition for the task, that declaration creates halt-class semantics for the named trigger.
+
+When the named trigger is detected, the runtime must classify the condition as blocked halt state.
+
+The runtime must not silently reinterpret operator-declared halt semantics as caution or degraded continuation.
+
+---
+
+### Methodology-Required Halt Semantics
+
+If the methodology defines a condition that requires halt, execution must classify that condition as blocked halt state when detected.
+
+Methodology-required halt conditions are not eligible for silent downgrade into caution, slowdown behavior, recursive revalidation, or tentative continuation.
+
+---
+
+### Prohibited Downgrade Behavior
+
+The system must not:
+
+- reinterpret halt-class conditions as caution only  
+- reinterpret halt-class conditions as degraded continuation unless the methodology explicitly defines degradation for that exact condition  
+- continue substantive execution after detecting a blocked halt state  
+- use narration of caution or readiness as a substitute for required halt-state transition  
+
+---
+
+### Relationship to Boundary-Uncertainty Degradation
+
+Boundary-Uncertainty Degradation Rule defines one class of condition in which degradation may be explicitly permitted.
+
+The Halt-State Classification Rule defines the broader runtime state model in which caution, degraded, and blocked halt states are distinguished.
+
+This rule therefore formalizes the control-state framework within which degradation and halt behavior must be interpreted.
+
+---
+
+### Failure Behavior
+
+If the runtime cannot determine whether a detected condition is halt-class or is observed silently downgrading halt semantics into caution or tentative continuation, execution is non-conformant.
+
+The methodology must require explicit classification of halt-class conditions as blocked halt state.
+
+---
+
+### Architectural Rationale — Halt-State Classification Rule
+
+Authority hardening and failure visibility are insufficient if the runtime can recognize a halt trigger while continuing under softer, informal control states.
+
+A methodology that permits halt semantics to collapse into caution semantics does not reliably enforce its own stop conditions.
+
+The Halt-State Classification Rule closes this gap by making blocked halt state explicit, distinct, and non-substitutable.
+
+---
+
 ## Authority-Boundary Drift Failure Case
 
 ### Purpose
