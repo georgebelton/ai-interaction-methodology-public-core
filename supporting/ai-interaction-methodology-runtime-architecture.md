@@ -1,5 +1,9 @@
 Below is a **concise architecture diagram of the methodology runtime** expressed as a system model.
-The goal is to show how the methodology operates as a **bootstrap → configuration → reasoning → validation → output pipeline**.
+The goal is to show how the methodology operates as a **bootstrap → configuration → execution-control → reasoning → validation → workflow/output pipeline**.
+
+This supporting artifact is descriptive only.
+
+Canonical runtime semantics, execution-state behavior, artifact-authority controls, operation-class behavior, and governance activation rules remain defined by the canonical methodology and framework source artifacts.
 
 ---
 
@@ -20,7 +24,13 @@ Canonical Artifact Resolution
 Configuration Assembly
      │
      ▼
-Framework Tier Selection
+Framework Tier / Governance Determination
+     │
+     ▼
+Workflow / Operation-Class Resolution
+     │
+     ▼
+Execution-State and Artifact-Authority Controls
      │
      ▼
 Structured Reasoning Engine
@@ -29,10 +39,10 @@ Structured Reasoning Engine
 Reliability Validation Layer
      │
      ▼
-Response Presentation Layer
+Workflow Classification and Output Preparation
      │
      ▼
-Final Output
+Final Response or Handoff Artifact
 ```
 
 ---
@@ -137,6 +147,69 @@ active_framework_nodes
 
 ---
 
+## 4A. Workflow / Operation-Class Resolution
+
+**Responsibility**
+
+Resolve the runtime execution path and the allowed interaction mode with input material.
+
+**Determinations**
+
+```
+workflow_class
+operation_class
+```
+
+**Examples**
+
+Workflow classification may resolve to:
+
+- analysis-only
+- in-session implementation
+- delegated execution
+
+Operation class may resolve to:
+
+- evidence-bound operation
+- constrained transformation
+- analytical inference
+- generative synthesis
+
+These runtime dimensions constrain downstream execution behavior but do not replace framework tier selection.
+
+---
+
+## 4B. Execution-State and Artifact-Authority Controls
+
+**Responsibility**
+
+Apply the runtime control layer governing when execution may proceed, under what state, and against which authoritative materials.
+
+**Control surfaces**
+
+```
+active artifact set resolution
+grounding preflight
+reasoning-set closure
+authority transition
+execution-state model
+halt / blocked execution / re-entry
+uncertainty-loop budgets
+readiness-threshold progression
+```
+
+**Architectural role**
+
+This layer sits between configuration and substantive reasoning.
+
+It ensures that reasoning begins only against the correct authoritative materials, under a valid execution-control state, and with the appropriate workflow and operation-class constraints already resolved.
+
+This supporting artifact does not redefine these controls locally.
+
+It summarizes the control surfaces defined canonically in the methodology.
+
+---
+
 ## 5. Structured Reasoning Engine
 
 This is the **central analytical component**.
@@ -153,9 +226,11 @@ analysis_model
 
 ---
 
+# Validation and Output Pipeline
+
 ## 6. Reliability Validation Layer
 
-Before generating a response, the system verifies that the analysis satisfies methodology invariants.
+Before terminal output is produced, the system verifies that the completed analysis satisfies methodology reliability requirements.
 
 Validation checks include:
 
@@ -165,57 +240,54 @@ assumptions identified
 tradeoffs articulated
 uncertainty acknowledged
 system-level reasoning applied
+workflow-appropriate terminal validation satisfied
 ```
 
 If validation fails:
 
 ```
 analysis must be revised
+validated completion is not reached
 ```
 
 ---
 
-# Output Pipeline
+## 7. Workflow Classification and Output Preparation
 
-## 7. Response Presentation Layer
+Terminal output must align with the active workflow classification.
 
-Separates **reasoning structure** from **response format**.
-
-Two independent controls:
-
-| Control           | Purpose                   |
-| ----------------- | ------------------------- |
-| Reasoning Mode    | analytical framework used |
-| Presentation Mode | response format           |
-
-Possible output forms:
+Possible terminal forms include:
 
 ```
-concise advisory
-structured architecture review
-decision analysis artifact
-tradeoff table
-system model
+direct analytical response
+in-session implementation artifact
+delegated execution handoff artifact
 ```
+
+Within the methodology runtime, workflow classification and output preparation do not by themselves imply validated completion.
+
+Validated completion is reached only when the required validation conditions for the active workflow class have been satisfied.
 
 ---
 
-## 8. Final Output
+## 8. Final Response or Handoff Artifact
 
-The runtime produces the final output using:
+The runtime produces the terminal output using:
 
 ```
 analysis_model
 runtime_configuration
+workflow_class
 presentation_mode
 ```
 
 Resulting output characteristics are influenced by:
 
-* collaboration guidelines
-* optional collaboration profile
-* task complexity
-* selected framework tier
+- collaboration guidelines
+- optional collaboration profile
+- selected framework tier
+- active workflow classification
+- validated terminal conditions
 
 ---
 
@@ -223,7 +295,7 @@ Resulting output characteristics are influenced by:
 
 ```
         ┌───────────────────────────────┐
-        │        User Request           │
+        │         User Request          │
         └───────────────┬───────────────┘
                         │
                         ▼
@@ -244,7 +316,17 @@ Resulting output characteristics are influenced by:
                         │
                         ▼
         ┌───────────────────────────────┐
-        │     Framework Tier Selection  │
+        │ Framework / Governance Select │
+        └───────────────┬───────────────┘
+                        │
+                        ▼
+        ┌───────────────────────────────┐
+        │ Workflow / Operation Resolve  │
+        └───────────────┬───────────────┘
+                        │
+                        ▼
+        ┌───────────────────────────────┐
+        │ Authority + Execution Controls│
         └───────────────┬───────────────┘
                         │
                         ▼
@@ -256,17 +338,16 @@ Resulting output characteristics are influenced by:
                         ▼
         ┌───────────────────────────────┐
         │     Reliability Validation    │
-        │    (Methodology Invariants)   │
         └───────────────┬───────────────┘
                         │
                         ▼
         ┌───────────────────────────────┐
-        │     Response Presentation     │
+        │ Workflow / Output Preparation │
         └───────────────┬───────────────┘
                         │
                         ▼
         ┌───────────────────────────────┐
-        │         Final Response        │
+        │ Final Response / Handoff      │
         └───────────────────────────────┘
 ```
 
@@ -287,14 +368,31 @@ Resulting output characteristics are influenced by:
 
 ## Deterministic Execution
 
-This supporting artifact does not define execution guarantees or runtime-behavior semantics locally.
+This supporting artifact does not define canonical execution guarantees locally.
 
-Execution behavior remains governed by the canonical methodology and framework source artifacts.
+Deterministic runtime behavior remains governed by the canonical methodology and framework source artifacts, including:
+
+- canonical startup ordering
+- artifact-authority resolution
+- execution-state model
+- workflow classification
+- operation-class constraints
+- reliability validation
+- governance activation behavior
 
 ---
 
-# Systems Interpretation
+## Systems Interpretation
 
 This document is a supporting runtime architecture companion.
 
-Canonical runtime semantics, artifact roles, and configuration behavior are defined in the methodology and framework source artifacts rather than in this interpretive summary.
+It summarizes the public-core runtime as a layered system consisting of:
+
+- bootstrap and canonical assembly
+- runtime configuration
+- workflow and operation-class resolution
+- execution-state and artifact-authority controls
+- structured reasoning
+- validation and workflow-aligned terminal output
+
+Canonical runtime semantics, artifact roles, control behavior, and governance rules remain defined in the canonical methodology and framework source artifacts rather than in this interpretive summary.

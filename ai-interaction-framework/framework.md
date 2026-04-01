@@ -1,12 +1,12 @@
 ---
 Status: Canonical
-Version: 1.0.1
+Version: 1.1.0
 Canonical: true
 Canonical File: ai-interaction-framework/framework.md
 Creator: George Belton
 Maintainer: George Belton
 Created: 2026-03-10
-Last Updated: 2026-03-24
+Last Updated: 2026-04-01
 License: CC-BY-4.0
 ---
 
