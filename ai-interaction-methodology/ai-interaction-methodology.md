@@ -1677,6 +1677,100 @@ The Adjacent-Source Non-Promotion Rule closes this gap by explicitly separating 
 
 ---
 
+## Explicit Snapshot Precedence Rule
+
+### Purpose
+
+The methodology must define how provided archives, local snapshots, and working-copy packages control execution scope for artifact-bound tasks.
+
+When the operator provides a bounded task-local artifact package, that package may be visible alongside live repository state, connector-accessible materials, or other adjacent sources.
+
+This section defines the required precedence rule for such snapshot-based execution.
+
+---
+
+### Snapshot Precedence Principle
+
+When the operator provides a tagged archive, local snapshot, or working-copy package for the current task, that provided artifact package is the active execution authority for the named task scope unless the operator explicitly requests comparison, historical evaluation, or authority expansion.
+
+Task-local provision controls execution authority for the corresponding task even when other accessible sources exist.
+
+---
+
+### Scope of Precedence
+
+This rule applies to artifact packages explicitly provided for bounded task execution, including:
+
+- uploaded archives  
+- local snapshots  
+- working-copy packages  
+- other explicitly provided task-local artifact bundles  
+
+When such a package is provided for the task, the system must treat it as the authoritative working set for that task scope unless explicit operator direction states otherwise.
+
+---
+
+### Required Runtime Behavior
+
+When snapshot precedence applies, the system must:
+
+- treat the provided artifact package as the active execution authority for the named task scope  
+- ground reasoning, validation, and modification against that provided package  
+- avoid supplementing the task-local package with live repository, connector, or adjacent materials unless comparison or expansion has been explicitly requested  
+- require explicit authority transition before any non-package material is admitted into the active reasoning set  
+
+---
+
+### Prohibited Behavior
+
+The system must not:
+
+- supplement a provided snapshot or archive with live repository material by default  
+- supplement a provided snapshot or archive with connector material by default  
+- treat external accessibility as justification for widening beyond the provided package  
+- silently merge task-local snapshot authority with live-source authority  
+- infer that newer visible material supersedes the provided package unless the operator explicitly directs that outcome  
+
+---
+
+### Relationship to Active Artifact Set Resolution
+
+Active Artifact Set Resolution defines how a single authoritative artifact set is selected for execution.
+
+The Explicit Snapshot Precedence Rule clarifies that, for the named task scope, an explicitly provided archive, snapshot, or working-copy package is sufficient to establish that active execution authority unless the operator directs comparison or expansion.
+
+This rule therefore refines active artifact selection for snapshot-based workflows.
+
+---
+
+### Relationship to Authority Transition
+
+If the system needs material outside the provided snapshot or archive, that need must be handled through the Authority Transition Rule.
+
+Snapshot precedence does not prohibit expansion.
+
+It prohibits silent expansion.
+
+---
+
+### Failure Behavior
+
+If it is unclear whether a provided archive, snapshot, or working-copy package is intended to control the current task scope, execution must halt and request clarification.
+
+The system must not assume that live repository or connector materials may be used as supplementary authority while that task-local authority question remains unresolved.
+
+---
+
+### Architectural Rationale — Explicit Snapshot Precedence Rule
+
+Archive-based and snapshot-based workflows fail when the system treats a provided task-local artifact package as merely suggestive while silently incorporating live or adjacent materials that were never admitted for the task.
+
+This causes mixed-source reasoning even when the operator attempted to bound execution to a specific working set.
+
+The Explicit Snapshot Precedence Rule closes this gap by making task-local artifact packages first-class execution authorities and by requiring explicit comparison or authority transition before live or adjacent materials may be used.
+
+---
+
 ## Fail-Closed Artifact Authority Policy
 
 ### Policy Definition
