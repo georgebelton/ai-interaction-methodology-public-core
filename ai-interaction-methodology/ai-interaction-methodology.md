@@ -2495,6 +2495,104 @@ The Authority-Boundary Drift Failure Case makes this pattern explicit and reusab
 
 ---
 
+## Halt-Enforcement Failure Case
+
+### Purpose
+
+The methodology benefits from recurring failure patterns being named in reusable structural terms for conformance review, runtime architecture evaluation, and future hardening.
+
+This section defines the reference failure case for halt-enforcement failure.
+
+---
+
+### Failure Case Definition
+
+Halt-enforcement failure occurs when a halt trigger is recognized or should be recognized, but the runtime does not enter or preserve the blocked execution behavior required by the methodology.
+
+This failure class concerns failure of halt enforcement after halt-class semantics apply.
+
+---
+
+### Representative Pattern
+
+A representative halt-enforcement failure pattern includes one or more of the following conditions:
+
+- a halt trigger was recognized or should have been recognized  
+- blocked halt state was not entered when required  
+- blocked halt state was entered but not preserved  
+- continuation, narration, or analytical probing persisted after halt-class enforcement should have stopped execution  
+
+This pattern is non-conformant.
+
+---
+
+### Distinction from Authority-Boundary Failure
+
+Halt-enforcement failure is distinct from authority-boundary failure.
+
+Authority-boundary failure concerns unresolved, degraded, or drifted authority conditions affecting what materials may be treated as authoritative.
+
+Halt-enforcement failure concerns failure to enforce blocked execution behavior after halt-class conditions apply.
+
+---
+
+### Distinction from Connector Dataset-Isolation Failure
+
+Halt-enforcement failure is distinct from connector dataset-isolation failure.
+
+Connector dataset-isolation failure concerns contamination across datasets, samples, or isolated evidence partitions within connector or evidence-processing workflows.
+
+Halt-enforcement failure concerns failure to stop execution after a halt-class trigger requires blocked-state enforcement.
+
+---
+
+### Distinction from Evidence-Integrity Failure
+
+Halt-enforcement failure is distinct from evidence-integrity failure.
+
+Evidence-integrity failure concerns loss of source fidelity, evidence correctness, or evidence-stage discipline.
+
+Halt-enforcement failure concerns failure of runtime control enforcement after a halt-class trigger has been activated.
+
+---
+
+### Required Methodology Use
+
+The Halt-Enforcement Failure Case must be reusable for:
+
+- conformance review  
+- runtime architecture evaluation  
+- stress testing  
+- future hardening work involving blocked execution, halt-state enforcement, re-entry handling, or progression controls  
+
+---
+
+### Relationship to Halt-State Classification
+
+The Halt-State Classification Rule defines when a detected condition must be classified as blocked halt state.
+
+Halt-enforcement failure describes the non-conformant case in which this required classification or its required behavioral consequences are not actually enforced.
+
+---
+
+### Relationship to Blocked Execution State
+
+Blocked Execution State defines the allowed and prohibited behavior once blocked halt state has been entered.
+
+Halt-enforcement failure includes cases where blocked execution is not entered, is not preserved, or is substituted with continuation or narration.
+
+---
+
+### Architectural Rationale — Halt-Enforcement Failure Case
+
+A methodology can define halt-class semantics correctly and still fail operationally if implementations do not actually transition into blocked execution when required.
+
+Without a named halt-enforcement failure class, this control defect must be rediscovered separately in conformance review, runtime evaluation, and stress testing.
+
+The Halt-Enforcement Failure Case makes this failure pattern explicit and reusable without collapsing it into unrelated authority, evidence, or dataset-isolation failures.
+
+---
+
 ## Working Copy Supersession Rule
 
 ### Purpose
