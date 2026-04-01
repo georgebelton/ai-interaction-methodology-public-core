@@ -1459,6 +1459,8 @@ Without an explicit closure rule, the reasoning process may still drift into adj
 
 Reasoning-set closure eliminates this gap by making post-resolution scope widening non-conformant unless authority is explicitly re-resolved.
 
+---
+
 ## Authority Transition Rule
 
 ### Purpose
@@ -1575,6 +1577,197 @@ Reasoning-set closure prevents silent widening of the reasoning surface after au
 Without an explicit authority-transition rule, legitimate expansion needs would either force premature halt in all cases or encourage opportunistic contamination of the reasoning set.
 
 The Authority Transition Rule preserves both control and flexibility by requiring expansion to occur through explicit declaration, authority re-resolution, and deterministic outcome handling.
+
+---
+
+## Adjacent-Source Non-Promotion Rule
+
+### Purpose
+
+The methodology must explicitly distinguish relevance, accessibility, and proximity from authority.
+
+In artifact-bound work, adjacent materials may appear usable because they are nearby, visible, retrievable, or semantically related.
+
+These properties do not make them authoritative.
+
+This section defines the required non-promotion rule for adjacent sources.
+
+---
+
+### Non-Promotion Principle
+
+Adjacent artifacts remain non-authoritative unless they are explicitly admitted through the methodology’s authority rules.
+
+Authority must not be inferred from visibility, accessibility, co-location, or semantic plausibility.
+
+---
+
+### Non-Authoritative Properties
+
+The following do not confer authority:
+
+- naming similarity  
+- repository co-location  
+- connector accessibility  
+- previous appearance in session context  
+- semantic relevance  
+
+These properties may justify considering an authority transition, but they do not by themselves make a source eligible for reasoning, validation, or modification.
+
+---
+
+### Required Runtime Behavior
+
+When a potentially relevant adjacent source is encountered, the system must treat it as non-authoritative unless one of the following is true:
+
+- it is already included in the resolved active artifact set  
+- it is admitted through an explicit authority transition and active artifact re-resolution  
+
+Until one of these conditions is satisfied, the adjacent source must not be used as a reasoning input.
+
+---
+
+### Prohibited Behavior
+
+The system must not:
+
+- promote an adjacent artifact into the reasoning set because it appears relevant  
+- treat repository proximity as evidence of authority  
+- treat connector visibility or accessibility as evidence of authority  
+- rely on prior session appearance as evidence of authority  
+- use semantically related materials as if they were already admitted into the active artifact set  
+
+---
+
+### Relationship to Reasoning-Set Closure
+
+The Reasoning-Set Closure Rule defines that the active reasoning set is closed after authority resolution and grounding preflight.
+
+The Adjacent-Source Non-Promotion Rule clarifies that adjacent materials remain outside that closed reasoning set unless explicitly admitted.
+
+This rule therefore strengthens closure by making non-authority explicit.
+
+---
+
+### Relationship to Authority Transition
+
+Authority Transition Rule defines the only valid mechanism for admitting additional material into the active reasoning set after closure.
+
+The Adjacent-Source Non-Promotion Rule defines that adjacent materials must remain non-authoritative unless that transition occurs.
+
+This rule therefore prevents semantic plausibility from substituting for transition handling.
+
+---
+
+### Failure Behavior
+
+If the system cannot determine whether a source is already included in the active artifact set, it must treat that source as non-authoritative until authority is explicitly confirmed or re-resolved.
+
+The system must not provisionally promote adjacent sources during ambiguity.
+
+---
+
+### Architectural Rationale — Adjacent-Source Non-Promotion Rule
+
+Artifact-bound failures often occur not because authority was never defined, but because nearby or relevant materials were silently treated as eligible once they became visible during execution.
+
+This produces context bleed and post-resolution authority drift even when the active artifact set was initially resolved correctly.
+
+The Adjacent-Source Non-Promotion Rule closes this gap by explicitly separating discoverability and relevance from authority, and by requiring formal admission before adjacent materials become eligible reasoning inputs.
+
+---
+
+## Explicit Snapshot Precedence Rule
+
+### Purpose
+
+The methodology must define how provided archives, local snapshots, and working-copy packages control execution scope for artifact-bound tasks.
+
+When the operator provides a bounded task-local artifact package, that package may be visible alongside live repository state, connector-accessible materials, or other adjacent sources.
+
+This section defines the required precedence rule for such snapshot-based execution.
+
+---
+
+### Snapshot Precedence Principle
+
+When the operator provides a tagged archive, local snapshot, or working-copy package for the current task, that provided artifact package is the active execution authority for the named task scope unless the operator explicitly requests comparison, historical evaluation, or authority expansion.
+
+Task-local provision controls execution authority for the corresponding task even when other accessible sources exist.
+
+---
+
+### Scope of Precedence
+
+This rule applies to artifact packages explicitly provided for bounded task execution, including:
+
+- uploaded archives  
+- local snapshots  
+- working-copy packages  
+- other explicitly provided task-local artifact bundles  
+
+When such a package is provided for the task, the system must treat it as the authoritative working set for that task scope unless explicit operator direction states otherwise.
+
+---
+
+### Required Runtime Behavior
+
+When snapshot precedence applies, the system must:
+
+- treat the provided artifact package as the active execution authority for the named task scope  
+- ground reasoning, validation, and modification against that provided package  
+- avoid supplementing the task-local package with live repository, connector, or adjacent materials unless comparison or expansion has been explicitly requested  
+- require explicit authority transition before any non-package material is admitted into the active reasoning set  
+
+---
+
+### Prohibited Behavior
+
+The system must not:
+
+- supplement a provided snapshot or archive with live repository material by default  
+- supplement a provided snapshot or archive with connector material by default  
+- treat external accessibility as justification for widening beyond the provided package  
+- silently merge task-local snapshot authority with live-source authority  
+- infer that newer visible material supersedes the provided package unless the operator explicitly directs that outcome  
+
+---
+
+### Relationship to Active Artifact Set Resolution
+
+Active Artifact Set Resolution defines how a single authoritative artifact set is selected for execution.
+
+The Explicit Snapshot Precedence Rule clarifies that, for the named task scope, an explicitly provided archive, snapshot, or working-copy package is sufficient to establish that active execution authority unless the operator directs comparison or expansion.
+
+This rule therefore refines active artifact selection for snapshot-based workflows.
+
+---
+
+### Relationship to Authority Transition
+
+If the system needs material outside the provided snapshot or archive, that need must be handled through the Authority Transition Rule.
+
+Snapshot precedence does not prohibit expansion.
+
+It prohibits silent expansion.
+
+---
+
+### Failure Behavior
+
+If it is unclear whether a provided archive, snapshot, or working-copy package is intended to control the current task scope, execution must halt and request clarification.
+
+The system must not assume that live repository or connector materials may be used as supplementary authority while that task-local authority question remains unresolved.
+
+---
+
+### Architectural Rationale — Explicit Snapshot Precedence Rule
+
+Archive-based and snapshot-based workflows fail when the system treats a provided task-local artifact package as merely suggestive while silently incorporating live or adjacent materials that were never admitted for the task.
+
+This causes mixed-source reasoning even when the operator attempted to bound execution to a specific working set.
+
+The Explicit Snapshot Precedence Rule closes this gap by making task-local artifact packages first-class execution authorities and by requiring explicit comparison or authority transition before live or adjacent materials may be used.
 
 ---
 
