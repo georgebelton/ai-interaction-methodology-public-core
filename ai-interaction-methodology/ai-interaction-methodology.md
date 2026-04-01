@@ -412,6 +412,67 @@ Lifecycle order and execution-control state must therefore remain explicitly dis
 
 ---
 
+### Lifecycle-Relationship Clarification
+
+The runtime lifecycle and the execution-state model describe different aspects of methodology execution.
+
+The runtime lifecycle defines ordered process phases.
+
+The execution-state model defines control posture within those phases.
+
+These structures are related, but they are not identical and must not be collapsed into a single model.
+
+---
+
+### Relationship Between Lifecycle and Execution State
+
+A lifecycle phase may operate under different execution-control states depending on task conditions, control triggers, and validation status.
+
+For example:
+
+- execution may remain in `execution readiness state` while required entry conditions are still being satisfied before substantive reasoning begins  
+- substantive reasoning and task work may occur in `active execution`  
+- the same lifecycle phase may shift into `caution state` or `degraded state` if control conditions require bounded continuation  
+- execution may move into `blocked halt state` if a halt-class trigger is detected during an otherwise valid lifecycle phase  
+- terminal lifecycle completion is not equivalent to `validated completion` unless the required validation conditions for the active workflow class have been satisfied  
+
+This means lifecycle order alone is insufficient to describe runtime control posture.
+
+---
+
+### Non-Identity Requirement
+
+The methodology must preserve explicit distinction between:
+
+- ordered lifecycle phases  
+- execution-control states  
+
+Lifecycle phases answer:
+
+- where execution is in the ordered runtime process  
+
+Execution-control states answer:
+
+- under what control condition execution is proceeding  
+
+The system must not:
+
+- treat the execution-state model as a second lifecycle  
+- treat lifecycle progress alone as evidence of transition to `validated completion`  
+- treat lifecycle staging and execution-control posture as interchangeable descriptions of runtime behavior  
+
+---
+
+### Architectural Rationale — Lifecycle-Relationship Clarification
+
+The methodology already defines a deterministic runtime lifecycle and now defines a compact execution-state model.
+
+Without an explicit clarification section, implementations may incorrectly interpret execution states as replacement lifecycle stages or treat lifecycle progression as sufficient evidence of control-state progression.
+
+This clarification preserves the distinction between ordered runtime flow and execution-control posture so the methodology gains a clearer control model without introducing a competing lifecycle.
+
+---
+
 ### Execution Readiness State
 
 `execution readiness state` is the gated execution-control state that applies before substantive execution begins.
