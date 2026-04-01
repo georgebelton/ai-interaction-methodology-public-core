@@ -2411,6 +2411,98 @@ The Uncertainty-Loop Budget Rule closes this gap by making uncertainty handling 
 
 ---
 
+## Readiness Threshold Progression Rule
+
+### Purpose
+
+The methodology must prevent artifact-producing tasks from stalling in recursive readiness narration after execution preconditions are already satisfied or after a halt condition has already been reached.
+
+This section defines the required progression behavior once readiness threshold has been crossed.
+
+---
+
+### Readiness-Threshold Principle
+
+For artifact-producing tasks, once required preconditions for execution are satisfied, the runtime must advance state.
+
+Advancement must occur through one of the following:
+
+- execution  
+- blocked halt state  
+
+The runtime must not remain in recursive readiness narration after readiness threshold has been reached.
+
+---
+
+### Scope of Application
+
+This rule applies to artifact-producing tasks in which the current session is expected to produce a concrete implementation artifact, execution output, modification, validation result, or other task-bounded deliverable.
+
+This rule governs progression after execution readiness has been established.
+
+It does not prohibit legitimate diagnosis or preparation before readiness threshold is reached.
+
+---
+
+### Required Runtime Behavior
+
+Once readiness threshold has been reached, the runtime must do one of the following:
+
+1. execute the task within the authorized scope  
+2. enter blocked halt state if a halt-class condition applies  
+
+The runtime must not continue in readiness narration as a substitute for either execution or blocked-state transition.
+
+---
+
+### Prohibited Non-Advancement Behavior
+
+After readiness threshold has been reached, the runtime must not:
+
+- repeat preflight-style narration without new blocking information  
+- continue readiness framing as if execution were still pending when no new gating condition has appeared  
+- remain in meta-level progress narration without state advancement  
+- continue preparatory analysis when the task is already execution-ready  
+- defer advancement through stylistic statements of caution or intended future action  
+
+Such behavior is non-conformant for artifact-producing tasks.
+
+---
+
+### Relationship to Blocked Execution State
+
+If a halt-class condition applies after readiness threshold is reached, the runtime must enter blocked halt state and follow the Blocked Execution State rules.
+
+Readiness threshold does not authorize continued narration in place of blocked-state enforcement.
+
+---
+
+### Relationship to Uncertainty-Loop Budget Rule
+
+The Uncertainty-Loop Budget Rule governs bounded uncertainty handling by execution state.
+
+The Readiness Threshold Progression Rule governs the separate condition in which readiness has already been established.
+
+Once readiness threshold is reached, the runtime may not use recursive readiness narration to simulate valid uncertainty handling.
+
+---
+
+### Failure Behavior
+
+If readiness threshold has been reached and the runtime neither executes nor enters blocked halt state, but instead remains in recursive readiness narration or progress-style meta-language without state advancement, execution is non-conformant.
+
+---
+
+### Architectural Rationale — Readiness Threshold Progression Rule
+
+A runtime can satisfy preconditions and still fail operationally if it remains trapped in readiness narration rather than advancing to execution or blocked-state enforcement.
+
+This creates the appearance of disciplined control while preventing actual task progression.
+
+The Readiness Threshold Progression Rule closes this gap by requiring state advancement once readiness has been established and by classifying narration-only non-advancement as a methodology failure for artifact-producing tasks.
+
+---
+
 ## Authority-Boundary Drift Failure Case
 
 ### Purpose
