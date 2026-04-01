@@ -762,6 +762,9 @@ Framework.
 The reasoning process should apply the active framework nodes appropriate to the
 selected tier.
 
+For artifact-bound tasks, this stage must not begin until the Grounding Preflight 
+Requirement has been satisfied for the current active artifact set.
+
 This stage is where the actual analytical work is performed.
 
 ---
@@ -1201,7 +1204,7 @@ Explicit active artifact resolution preserves the methodology’s deterministic 
 
 ### Purpose
 
-The methodology must ensure that all document modification, validation, and implementation workflows are grounded in the current active artifact set immediately prior to execution.
+The methodology must ensure that all artifact-bound analysis, document modification, validation, and implementation workflows are grounded in the current active artifact set immediately prior to execution.
 
 Deterministic artifact resolution alone is insufficient if execution proceeds using stale, inferred, or previously cached document state.
 
@@ -1230,6 +1233,28 @@ Execution must not proceed if this grounding step has not been completed.
 
 ---
 
+### Artifact-Bound Analysis Preflight
+
+For artifact-bound tasks, grounding preflight is also required prior to:
+
+- analysis  
+- comparison  
+- classification  
+- conformance review  
+- release or archive inspection  
+
+The system must freshly read the current active artifact set relevant to the task before structured reasoning begins.
+
+Structured reasoning must not begin when:
+
+- the active artifact set is unresolved  
+- the active artifact set is only partially grounded  
+- required task-relevant artifacts have not been freshly read and confirmed  
+
+In these cases, execution must halt or request the missing authoritative inputs before analysis proceeds.
+
+---
+
 ### Required Grounding Scope
 
 The grounding preflight must explicitly confirm, at minimum:
@@ -1244,7 +1269,8 @@ The set of required artifacts is determined by the task being performed.
 Examples may include:
 
 - a target document for modification  
-- a control or reference artifact for validation 
+- a control or reference artifact for validation  
+- one or more artifacts required for artifact-bound analysis  
 - multiple related artifacts when cross-document reasoning is required  
 
 All artifacts required for the task must be included in the grounding step.
@@ -1253,7 +1279,7 @@ All artifacts required for the task must be included in the grounding step.
 
 ### Recency Requirement
 
-Grounding must occur immediately prior to execution of modification or validation tasks.
+Grounding must occur immediately prior to execution of artifact-bound analysis, modification, or validation tasks.
 
 The system must not rely on:
 
@@ -1261,7 +1287,7 @@ The system must not rely on:
 - inferred document structure  
 - cached or remembered artifact state  
 
-Each modification or validation operation must be preceded by a fresh grounding step against the active artifact set.
+Each artifact-bound analysis, modification, or validation operation must be preceded by a fresh grounding step against the active artifact set.
 
 ---
 
@@ -1272,6 +1298,7 @@ The system must not:
 - propose modifications without reading the current artifact state  
 - identify insertion points based on assumed structure  
 - validate completion status without confirming the current document contents  
+- perform artifact-bound analysis without freshly reading the active artifact set  
 - rely on prior session context in place of explicit grounding  
 
 All such behaviors are considered violations of deterministic execution.
@@ -1287,6 +1314,7 @@ Examples include:
 - required artifacts are not available  
 - artifact authority has not been resolved  
 - the active artifact set is incomplete or ambiguous  
+- artifact-bound analysis depends on only partially grounded material  
 
 In these cases, the system must request clarification or required inputs before proceeding.
 
@@ -1294,13 +1322,14 @@ In these cases, the system must request clarification or required inputs before 
 
 ### Runtime Requirement
 
-Grounding preflight is a mandatory precondition for all workflows that operate on artifact structure or content.
+Grounding preflight is a mandatory precondition for all workflows that operate on artifact structure or content, including artifact-bound analysis.
 
 This requirement ensures that:
 
 - modification proposals are structurally valid  
 - validation reflects actual document state  
 - roadmap alignment is accurate  
+- artifact-bound analysis is grounded in the current authoritative materials  
 - execution remains reproducible and reviewable  
 
 Grounding preflight extends the deterministic runtime model by enforcing alignment with current artifact state at the moment of execution.
@@ -1313,9 +1342,11 @@ Deterministic artifact resolution establishes which artifacts are authoritative.
 
 Grounding preflight ensures that execution is actually based on those artifacts at the time of action.
 
-Without grounding preflight, the system may operate on stale or inferred state even when artifact authority is correctly defined.
+Without grounding preflight, the system may operate on stale or inferred state even when artifact authority is correctly defined, and artifact-bound analysis may begin without fresh confirmation of the active source materials.
 
-By requiring immediate, pre-execution grounding, the methodology eliminates this gap and preserves deterministic, verifiable behavior in interactive document workflows.
+By requiring immediate, pre-execution grounding, the methodology eliminates this gap and preserves deterministic, verifiable behavior in interactive document workflows and artifact-bound analytical review.
+
+---
 
 ---
 
