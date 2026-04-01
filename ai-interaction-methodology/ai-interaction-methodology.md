@@ -1348,6 +1348,117 @@ By requiring immediate, pre-execution grounding, the methodology eliminates this
 
 ---
 
+## Reasoning-Set Closure Rule
+
+### Purpose
+
+The methodology must define how the reasoning surface is constrained after active artifact authority has been resolved and grounding preflight has been completed.
+
+Artifact authority alone does not prevent later scope widening if adjacent materials are silently treated as eligible reasoning inputs.
+
+This section defines the required closure behavior for the active reasoning set.
+
+---
+
+### Closure Principle
+
+For artifact-bound tasks, once the active artifact set has been resolved and grounding preflight has been completed, the active reasoning set is closed.
+
+The active reasoning set is identical to the resolved active artifact set for the current task.
+
+No additional material may become eligible reasoning input unless authority is explicitly re-resolved.
+
+---
+
+### Scope of Closure
+
+For artifact-bound tasks, the system must not silently widen the reasoning set beyond the resolved active artifact set.
+
+This prohibition includes, but is not limited to:
+
+- nearby repository files  
+- branch or default-branch views not included in the active artifact set  
+- search results  
+- connector results  
+- prior session artifacts  
+- previously read but non-active working copies  
+- semantically related but unresolved materials  
+
+Such materials may be discoverable, visible, accessible, or plausibly relevant without becoming authoritative for the current reasoning task.
+
+---
+
+### Discoverability vs Eligibility
+
+Discoverability is not authority.
+
+The fact that a file, result, artifact, or related material is:
+
+- visible  
+- accessible  
+- nearby  
+- similarly named  
+- semantically relevant  
+- previously referenced in the session  
+
+does not make it eligible input to the active reasoning process.
+
+Eligibility for reasoning depends only on inclusion in the resolved active artifact set or on a later explicit authority transition.
+
+---
+
+### Runtime Requirement
+
+For artifact-bound tasks, structured reasoning must remain constrained to the resolved active artifact set for the duration of the current reasoning pass.
+
+The system must not:
+
+- incorporate material outside the active artifact set without explicit authority transition  
+- infer structure, intent, or completion state from adjacent but unresolved materials  
+- combine the active artifact set with supplementary materials whose authority has not been explicitly established  
+
+Reasoning from mixed authority states is prohibited.
+
+---
+
+### Relationship to Active Artifact Resolution
+
+Active Artifact Set Resolution determines which artifact instances are authoritative for the current execution context.
+
+The Reasoning-Set Closure Rule defines the reasoning boundary that follows from that resolution.
+
+Closure therefore operates after active artifact resolution and does not replace it.
+
+---
+
+### Relationship to Grounding Preflight
+
+Grounding Preflight Requirement ensures that the active artifact set has been freshly read and confirmed immediately prior to execution.
+
+The Reasoning-Set Closure Rule constrains the reasoning surface after that grounding step is complete.
+
+Grounding establishes freshness against the active artifact set.
+
+Closure prevents silent widening beyond it.
+
+---
+
+### Failure Behavior
+
+If the system cannot confirm that reasoning remains constrained to the resolved active artifact set, execution must halt or explicitly suspend definitive reasoning pending authority re-resolution.
+
+The system must not silently continue under boundary uncertainty.
+
+---
+
+### Architectural Rationale — Reasoning-Set Closure Rule
+
+Deterministic artifact resolution and grounding preflight establish which artifacts are authoritative and confirm that they have been freshly read.
+
+Without an explicit closure rule, the reasoning process may still drift into adjacent, plausible, or previously surfaced materials that were never admitted into the active artifact set.
+
+Reasoning-set closure eliminates this gap by making post-resolution scope widening non-conformant unless authority is explicitly re-resolved.
+
 ---
 
 ## Fail-Closed Artifact Authority Policy
