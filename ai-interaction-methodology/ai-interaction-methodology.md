@@ -2287,6 +2287,130 @@ The Halt Re-entry Rule closes this gap by requiring auditable, explicit reauthor
 
 ---
 
+## Uncertainty-Loop Budget Rule
+
+### Purpose
+
+The methodology must define bounded uncertainty-handling behavior by execution state.
+
+Not all uncertainty should trigger immediate halt, but unbounded looping creates narration without progression and can conceal state-classification failures.
+
+This section defines the required loop-budget model for uncertainty handling.
+
+---
+
+### Loop-Budget Principle
+
+Uncertainty handling must be bounded and state-aware.
+
+The runtime must not remain in repeated uncertainty-resolution cycles without explicit budget limits, visible escalation rules, and state-sensitive stopping behavior.
+
+Loop budgets are control limits, not suggestions.
+
+---
+
+### State-Based Loop Budgets
+
+The methodology defines the following maximum uncertainty-loop budgets:
+
+- caution state: up to 2 uncertainty-resolution loops  
+- degraded state: up to 1 bounded recovery attempt  
+- blocked halt state: 0 loops  
+
+These budgets apply to repeated attempts to resolve the same blocking or non-advancing uncertainty without a material state improvement.
+
+---
+
+### Caution-State Budget
+
+In caution state, the runtime may perform up to 2 bounded uncertainty-resolution loops when execution remains authorized and the uncertainty is plausibly recoverable within the current state.
+
+If the same uncertainty persists without material improvement after the allowed caution-state loop budget has been used, the runtime must escalate rather than continue circling.
+
+---
+
+### Degraded-State Budget
+
+In degraded state, the runtime may perform 1 bounded recovery attempt when the methodology explicitly permits degraded continuation for the relevant condition.
+
+If that attempt does not materially improve state integrity or resolve the uncertainty, the runtime must escalate rather than continue under repeated degraded recovery behavior.
+
+---
+
+### Blocked-Halt-State Budget
+
+In blocked halt state, the runtime may perform 0 uncertainty-resolution loops.
+
+Blocked state permits reporting, clarification, override handling, and scope narrowing requests only, as defined by the Blocked Execution State section.
+
+The runtime must not use iterative uncertainty-resolution behavior as a substitute for blocked execution.
+
+---
+
+### Escalation Requirement
+
+If the same blocking or non-advancing uncertainty persists without state improvement across the allowed loop budget for the current state, the runtime must escalate.
+
+Escalation may include:
+
+- transition to degraded state, if the methodology explicitly permits degradation for the condition  
+- transition to blocked halt state  
+- request for clarification, override, or scope narrowing, where appropriate  
+
+The runtime must not continue uncertainty handling beyond the allowed budget without state change or operator intervention.
+
+---
+
+### No Budget Reset Without State Change
+
+The runtime must not reset an uncertainty-loop budget unless one of the following occurs:
+
+- explicit state change  
+- operator intervention  
+- material resolution of the prior uncertainty such that the runtime is no longer handling the same unresolved condition  
+
+Repeated narration, reformulation, or rechecking without substantive change does not reset the budget.
+
+---
+
+### Relationship to Halt-State Classification
+
+The Halt-State Classification Rule defines the execution states within which uncertainty handling occurs.
+
+The Uncertainty-Loop Budget Rule defines how many uncertainty-resolution attempts are permitted within each state before escalation is required.
+
+This rule therefore constrains repeated uncertainty handling within the state model rather than redefining the states themselves.
+
+---
+
+### Relationship to Blocked Execution State
+
+Blocked Execution State already prohibits substantive continuation after halt-class detection.
+
+The zero-loop rule for blocked halt state makes explicit that blocked execution may not be converted into recursive uncertainty handling.
+
+This rule therefore reinforces blocked-state enforcement.
+
+---
+
+### Failure Behavior
+
+If the runtime continues repeated uncertainty handling beyond the allowed loop budget for the current state without explicit state change or operator intervention, execution is non-conformant.
+
+Open-ended uncertainty circling is prohibited.
+
+---
+
+### Architectural Rationale — Uncertainty-Loop Budget Rule
+
+Methodological control depends not only on correct state classification, but also on bounded behavior within each state.
+
+Without explicit loop budgets, a runtime may remain trapped in recursive uncertainty handling that appears careful while actually avoiding execution, escalation, or halt.
+
+The Uncertainty-Loop Budget Rule closes this gap by making uncertainty handling finite, state-aware, and escalation-driven.
+
+---
+
 ## Authority-Boundary Drift Failure Case
 
 ### Purpose
