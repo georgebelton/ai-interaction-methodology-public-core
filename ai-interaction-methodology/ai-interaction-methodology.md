@@ -649,6 +649,23 @@ This preserves lightweight non-governed use while keeping the execution-state mo
 
 ---
 
+### Lightweight Non-Governed Path Requirement
+
+The execution-state model must not introduce universal governance ceremony into non-governed execution.
+
+In particular, the methodology must not require, solely because the execution-state model exists:
+
+- universal risk tagging  
+- universal approval semantics  
+- universal governance metadata  
+- governance-specific declarations for tasks that do not satisfy governance activation criteria  
+
+For non-governed execution, the execution-state model remains a runtime control clarification layer only.
+
+It must not become a universal policy layer.
+
+---
+
 ### Boundary Requirement
 
 The system must not treat governance attachment potential as equivalent to governance activation.
