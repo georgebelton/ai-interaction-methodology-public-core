@@ -312,6 +312,251 @@ These stages define the required operational flow for methodology execution.
 
 ---
 
+## Execution State Model
+
+### Purpose
+
+The methodology must define a compact execution-control state model that makes existing runtime control semantics explicit without introducing a second lifecycle or a new runtime system.
+
+The execution-state model normalizes control behavior already present in the methodology, including gated execution readiness, active execution, caution handling, degraded continuation, blocked halt enforcement, and validated terminal completion.
+
+These execution states are control states.
+
+They are not workflow classes, framework tiers, or artifact/output types.
+
+---
+
+### Canonical Execution States
+
+The methodology defines the following execution-control states:
+
+- `execution readiness state`
+- `active execution`
+- `caution state`
+- `degraded state`
+- `blocked halt state`
+- `validated completion`
+
+These states define execution-control posture during runtime.
+
+They do not replace ordered runtime lifecycle stages, workflow classification, operation class, or framework tier selection.
+
+---
+
+### Execution-State Principle
+
+At any point during methodology execution, runtime control posture must be interpretable through the execution-state model.
+
+The execution-state model exists to make control semantics explicit and reviewable.
+
+It must not be interpreted as a replacement for the runtime lifecycle.
+
+The runtime lifecycle defines ordered process stages.
+
+The execution-state model defines the control condition under which execution proceeds within or across those stages.
+
+---
+
+### State Distinction Requirement
+
+The execution-control states are not interchangeable.
+
+In particular:
+
+- `execution readiness state` is not `active execution`
+- `caution state` is not `degraded state`
+- `degraded state` is not `blocked halt state`
+- `validated completion` is not merely apparent task progress or output production
+
+The system must not collapse distinct execution states into softer or more convenient interpretations.
+
+---
+
+### Relationship to Workflow Classification
+
+Workflow classification determines whether the active workflow is:
+
+- analysis-only
+- in-session implementation
+- delegated execution
+
+These workflow classes are not execution-control states.
+
+Execution-control state governs runtime control posture within the active workflow class.
+
+The same workflow class may therefore pass through different execution-control states during execution.
+
+---
+
+### Relationship to Framework Tier Selection
+
+Framework tier selection determines the depth and control structure of reasoning.
+
+Execution-control state does not redefine framework tier.
+
+Framework tier and execution-control state are orthogonal runtime dimensions.
+
+A task may therefore operate under any valid framework tier while also occupying one of the canonical execution-control states.
+
+---
+
+### Relationship to Runtime Lifecycle
+
+The runtime lifecycle defines the ordered execution sequence of methodology startup, reasoning, validation, workflow classification, and output preparation.
+
+The execution-state model does not replace that sequence.
+
+Instead, it defines the runtime control posture within that sequence.
+
+Lifecycle order and execution-control state must therefore remain explicitly distinct.
+
+---
+
+### Execution Readiness State
+
+`execution readiness state` is the gated execution-control state that applies before substantive execution begins.
+
+This state applies when required execution-admission conditions are being satisfied, checked, or confirmed.
+
+Depending on the task, these conditions may include:
+
+- canonical startup completion  
+- active artifact resolution  
+- grounding preflight  
+- required checkpoint or entry-condition satisfaction  
+
+`execution readiness state` does not mean that substantive execution is already underway.
+
+It exists to ensure that execution does not begin before required readiness conditions have been satisfied.
+
+---
+
+### Active Execution
+
+`active execution` is the execution-control state in which substantive methodology execution is underway within currently validated scope.
+
+This state applies when the runtime is actively performing reasoning, analysis, validation, transformation, implementation, or other authorized task work under the current execution constraints.
+
+`active execution` is not a replacement for runtime lifecycle staging.
+
+It describes control posture during substantive execution.
+
+---
+
+### Caution State
+
+`caution state` is the execution-control state in which execution remains permitted, but elevated care, additional checking, tighter review, or bounded uncertainty handling is required.
+
+`caution state` may narrow confidence or require more careful progression, but it does not by itself authorize degraded continuation or blocked halt behavior.
+
+`caution state` must not be used as a substitute for explicit degradation or blocked halt enforcement.
+
+---
+
+### Degraded State
+
+`degraded state` is the execution-control state in which continuation remains permitted only under explicitly declared limitations.
+
+This state applies when the methodology explicitly permits continuation despite reduced correctness conditions, incomplete control satisfaction, or qualified boundary integrity.
+
+When operating in `degraded state`, the runtime must make the degraded condition visible and constrain claims accordingly.
+
+`degraded state` is not equivalent to normal active execution.
+
+---
+
+### Blocked Halt State
+
+`blocked halt state` is the execution-control state in which substantive execution is no longer permitted because a halt-class condition has been detected.
+
+In `blocked halt state`, the runtime may only perform the limited blocked-state actions defined elsewhere in the methodology.
+
+`blocked halt state` is not a stronger caution state and not a degraded continuation mode.
+
+It is a true blocked execution condition.
+
+---
+
+### Validated Completion
+
+`validated completion` is the terminal execution-control state entered only after the required validation conditions for the active workflow class have been satisfied.
+
+`validated completion` does not define a separate artifact type or workflow model.
+
+It indicates that execution has reached a valid terminal state for the active workflow, whether that workflow ends in:
+
+- a direct analytical response  
+- an in-session implementation artifact  
+- a delegated execution handoff artifact  
+
+Apparent progress, output generation, or partial deliverable production is not sufficient to constitute `validated completion`.
+
+---
+
+### State Boundary Requirement
+
+The methodology must preserve explicit boundary distinction among the canonical execution-control states.
+
+In particular:
+
+- `execution readiness state` must remain distinct from `active execution`
+- `caution state` must remain distinct from `degraded state`
+- `degraded state` must remain distinct from `blocked halt state`
+- `validated completion` must remain distinct from output production alone
+
+The runtime must not collapse these boundaries through convenience, narration, or implicit reinterpretation.
+
+---
+
+### State-Transition Guardrails
+
+The methodology must preserve readable transition guardrails across the canonical execution-control states.
+
+These guardrails define required transition boundaries without converting the methodology into a fully formalized finite-state machine.
+
+At minimum, the following transition logic applies:
+
+- `execution readiness state` may transition to `active execution` only after required execution-admission conditions have been satisfied  
+- `active execution` may transition to `caution state` when elevated care, additional checking, or bounded uncertainty handling becomes necessary without requiring explicit degradation or halt  
+- `active execution` may transition to `degraded state` only when the methodology explicitly permits continued execution under declared limitations  
+- `active execution` may transition to `blocked halt state` when a halt-class condition is detected  
+- `blocked halt state` may transition to `active execution` only through a valid re-entry path explicitly recognized by the methodology  
+- `active execution`, `caution state`, or `degraded state` may transition to `validated completion` only after the required validation conditions for the active workflow class have been satisfied  
+
+The system must not:
+
+- transition from `blocked halt state` to `active execution` without valid re-entry  
+- treat `degraded state` as implicit normal completion  
+- use `caution state` as a downgrade target for halt-class conditions  
+- treat output production alone as sufficient for transition to `validated completion`  
+
+These transition guardrails preserve determinism, keep halt enforcement intact, and ensure that terminal completion remains validation-gated rather than inferred from apparent progress.
+
+---
+
+### Runtime Requirement
+
+The methodology must preserve explicit distinction between:
+
+- lifecycle stage
+- workflow class
+- framework tier
+- execution-control state
+
+This distinction is required so that runtime control semantics remain explicit without duplicating or replacing the methodology’s existing runtime architecture.
+
+---
+
+### Architectural Rationale — Execution State Model
+
+The methodology already contains meaningful execution-control semantics, but they are distributed across runtime, validation, and hardening sections rather than normalized as one compact control model.
+
+Making the execution-state model explicit improves readability, consistency, and later extension readiness without importing broader prompt-level runtime mechanics into the base methodology.
+
+This preserves the methodology’s current architecture while making its control posture more legible and easier to attach to later governance extensions.
+
+---
+
 ## Operation Class Model
 
 The methodology defines operation class as a runtime control dimension governing how the system is permitted to act on input material during execution.
