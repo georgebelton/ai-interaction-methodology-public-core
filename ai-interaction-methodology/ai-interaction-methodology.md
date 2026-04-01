@@ -412,6 +412,102 @@ Lifecycle order and execution-control state must therefore remain explicitly dis
 
 ---
 
+### Execution Readiness State
+
+`execution readiness state` is the gated execution-control state that applies before substantive execution begins.
+
+This state applies when required execution-admission conditions are being satisfied, checked, or confirmed.
+
+Depending on the task, these conditions may include:
+
+- canonical startup completion  
+- active artifact resolution  
+- grounding preflight  
+- required checkpoint or entry-condition satisfaction  
+
+`execution readiness state` does not mean that substantive execution is already underway.
+
+It exists to ensure that execution does not begin before required readiness conditions have been satisfied.
+
+---
+
+### Active Execution
+
+`active execution` is the execution-control state in which substantive methodology execution is underway within currently validated scope.
+
+This state applies when the runtime is actively performing reasoning, analysis, validation, transformation, implementation, or other authorized task work under the current execution constraints.
+
+`active execution` is not a replacement for runtime lifecycle staging.
+
+It describes control posture during substantive execution.
+
+---
+
+### Caution State
+
+`caution state` is the execution-control state in which execution remains permitted, but elevated care, additional checking, tighter review, or bounded uncertainty handling is required.
+
+`caution state` may narrow confidence or require more careful progression, but it does not by itself authorize degraded continuation or blocked halt behavior.
+
+`caution state` must not be used as a substitute for explicit degradation or blocked halt enforcement.
+
+---
+
+### Degraded State
+
+`degraded state` is the execution-control state in which continuation remains permitted only under explicitly declared limitations.
+
+This state applies when the methodology explicitly permits continuation despite reduced correctness conditions, incomplete control satisfaction, or qualified boundary integrity.
+
+When operating in `degraded state`, the runtime must make the degraded condition visible and constrain claims accordingly.
+
+`degraded state` is not equivalent to normal active execution.
+
+---
+
+### Blocked Halt State
+
+`blocked halt state` is the execution-control state in which substantive execution is no longer permitted because a halt-class condition has been detected.
+
+In `blocked halt state`, the runtime may only perform the limited blocked-state actions defined elsewhere in the methodology.
+
+`blocked halt state` is not a stronger caution state and not a degraded continuation mode.
+
+It is a true blocked execution condition.
+
+---
+
+### Validated Completion
+
+`validated completion` is the terminal execution-control state entered only after the required validation conditions for the active workflow class have been satisfied.
+
+`validated completion` does not define a separate artifact type or workflow model.
+
+It indicates that execution has reached a valid terminal state for the active workflow, whether that workflow ends in:
+
+- a direct analytical response  
+- an in-session implementation artifact  
+- a delegated execution handoff artifact  
+
+Apparent progress, output generation, or partial deliverable production is not sufficient to constitute `validated completion`.
+
+---
+
+### State Boundary Requirement
+
+The methodology must preserve explicit boundary distinction among the canonical execution-control states.
+
+In particular:
+
+- `execution readiness state` must remain distinct from `active execution`
+- `caution state` must remain distinct from `degraded state`
+- `degraded state` must remain distinct from `blocked halt state`
+- `validated completion` must remain distinct from output production alone
+
+The runtime must not collapse these boundaries through convenience, narration, or implicit reinterpretation.
+
+---
+
 ### Runtime Requirement
 
 The methodology must preserve explicit distinction between:
