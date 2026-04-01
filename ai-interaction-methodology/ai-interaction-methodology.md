@@ -2164,6 +2164,129 @@ The Blocked Execution State closes this gap by defining a true enforcement state
 
 ---
 
+## Halt Re-entry Rule
+
+### Purpose
+
+The methodology must define how execution may resume after blocked halt state has been entered.
+
+Without an explicit re-entry model, blocked execution can degrade into oscillation between blocked state, caution, and pseudo-resumption without a controlled authorization boundary.
+
+This section defines the required re-entry behavior.
+
+---
+
+### Re-entry Principle
+
+Once blocked halt state has been entered, execution may not resume unless explicit re-entry conditions are satisfied.
+
+Blocked state is not exited by conversational momentum, repeated readiness checks, silence, or inferred operator intent.
+
+Continuation after halt must occur through explicit reauthorization.
+
+---
+
+### Allowed Re-entry Paths
+
+Execution may re-enter from blocked halt state only through one of the following:
+
+- operator clarification  
+- explicit override  
+- scope narrowing  
+- confirmation that the halt trigger does not apply  
+
+These are the only valid re-entry paths unless a later rule explicitly defines an additional path.
+
+---
+
+### Operator Clarification Re-entry
+
+If the operator provides clarification that resolves the blocking condition, the runtime may exit blocked state only after confirming that the clarification actually removes the halt trigger.
+
+Clarification must resolve the blocking condition, not merely restate the original request.
+
+---
+
+### Explicit Override Re-entry
+
+If the operator explicitly overrides the blocked condition, the runtime may re-enter only within the scope of that override.
+
+Override does not erase the existence of the prior blocked condition.
+
+It authorizes continuation despite that condition within the newly declared bounds.
+
+---
+
+### Scope-Narrowing Re-entry
+
+If the operator narrows the task so that the halt trigger no longer applies to the remaining work, the runtime may re-enter only for that narrowed task scope.
+
+Work outside the narrowed scope remains blocked.
+
+---
+
+### Trigger-Non-Applicability Re-entry
+
+If it becomes clear that the detected halt trigger does not actually apply, the runtime may re-enter after explicitly stating that the blocking condition no longer applies.
+
+The runtime must not assume non-applicability without explicit basis.
+
+---
+
+### Prohibited Re-entry Behavior
+
+The system must not:
+
+- resume execution without explicit reauthorization  
+- infer re-entry from conversational continuation alone  
+- treat repeated readiness narration as re-entry  
+- treat additional analysis during blocked state as implicit re-entry  
+- broaden resumed work beyond the explicit basis that authorized re-entry  
+
+---
+
+### Re-entry Reporting Requirement
+
+When blocked state is exited, the runtime must make the re-entry basis visible.
+
+At minimum, the runtime must identify:
+
+- which re-entry path applies  
+- what changed to permit re-entry  
+- the scope within which execution is reauthorized  
+
+This requirement preserves reviewability and prevents implicit drift out of blocked state.
+
+---
+
+### Relationship to Blocked Execution State
+
+Blocked Execution State defines what the runtime may do while execution is blocked.
+
+The Halt Re-entry Rule defines the only valid mechanisms by which blocked execution may end.
+
+This rule therefore governs exit from blocked state rather than behavior within it.
+
+---
+
+### Failure Behavior
+
+If blocked execution ends without a valid re-entry path being satisfied and made visible, execution is non-conformant.
+
+Implicit resumption is prohibited.
+
+---
+
+### Architectural Rationale — Halt Re-entry Rule
+
+Blocked execution is only enforceable if exit from blocked state is as controlled as entry into it.
+
+Without explicit re-entry semantics, blocked state can collapse into temporary hesitation followed by informal continuation, which defeats halt enforcement and weakens runtime determinism.
+
+The Halt Re-entry Rule closes this gap by requiring auditable, explicit reauthorization before execution may resume.
+
+---
+
 ## Authority-Boundary Drift Failure Case
 
 ### Purpose
