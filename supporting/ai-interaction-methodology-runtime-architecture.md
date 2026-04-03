@@ -68,12 +68,11 @@ Establish the canonical bootstrap contract and the bounded runtime conditions un
 
 **Key functions**
 
-~~~
+```
 load_methodology()
 initialize_runtime_contract()
 initialize_bootstrap_gate()
-~~~
-
+```
 ---
 
 ## 2. Canonical Artifact Resolution
@@ -84,18 +83,18 @@ Resolve and verify the canonical system components defined by the methodology un
 
 **Artifacts**
 
-~~~
+```
 AI Collaboration Guidelines
 AI Interaction Framework
-~~~
+```
 
 **Outputs**
 
-~~~
+```
 behavior_contract
 reasoning_contract
 verified_canonical_set
-~~~
+```
 
 **Failure states**
 
