@@ -365,7 +365,7 @@ Similarity, accessibility, visibility, and plausibility are not substitutes for 
 
 If a proof-required canonical fact cannot be resolved exactly through an allowed bootstrap path, that fact remains unresolved for canonical bootstrap purposes.
 
-This rule prohibits silent substitution of non-bootstrap materials for canonical bootstrap completion. It does not by itself prohibit explicitly surfaced non-canonical continuation on a narrowed or alternate-authority path where the methodology later permits such continuation.
+This section governs invalid completion paths for proof-required canonical bootstrap facts. It does not by itself prohibit explicitly surfaced non-canonical continuation on a narrowed or alternate-authority path where the methodology later permits such continuation.
 
 A local copy, working copy, or other alternate artifact source must not be treated as evidence that canonical bootstrap has completed unless canonical authority has been validly re-established under the methodology's later recovery or re-entry rules.
 
@@ -400,7 +400,7 @@ Canonical bootstrap authority is not conferred by:
 
 A bootstrap artifact is authoritative for canonical bootstrap only if it is the exact requested or exact active bootstrap source and its identity has been verified for the current bootstrap run.
 
-Discoverability, relevance, accessibility, or contextual plausibility do not promote a source into canonical bootstrap authority.
+Discoverability, relevance, accessibility, or contextual plausibility do not promote a source into canonical bootstrap authority. This section governs bootstrap-source authority, not completion of proof-required facts through prohibited fill paths.
 
 ---
 
@@ -420,7 +420,7 @@ This applies to materials such as:
 
 Such artifacts may confirm consistency after canonical bootstrap facts have been exactly resolved, but they may not supply a missing pinned reference, missing canonical artifact identity, missing canonical repository identity, or other unresolved proof-required canonical bootstrap fact.
 
-Active task artifacts remain usable after proper bootstrap for the task they govern. They do not become substitute sources for unresolved canonical bootstrap identity or resolution facts merely because they are in-session, recent, or operator-provided.
+Active task artifacts remain usable after proper bootstrap for the task they govern. This section preserves the distinction between corroboration and supply: such artifacts do not become substitute sources for unresolved canonical bootstrap identity or resolution facts merely because they are in-session, recent, or operator-provided.
 
 ---
 
