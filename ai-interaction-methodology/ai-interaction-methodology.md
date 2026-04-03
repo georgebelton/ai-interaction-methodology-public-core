@@ -330,6 +330,100 @@ Canonical execution may begin only after bootstrap complete.
 
 ---
 
+### Proof-Required Canonical Identity and Resolution Facts
+
+Certain canonical bootstrap facts are proof-required and must be established through exact current-run resolution and verification before they are eligible inputs to canonical execution.
+
+Proof-required canonical identity and resolution facts include at minimum:
+
+- canonical repository identity
+- lock file identity
+- declared pinned public reference
+- canonical artifact paths
+- canonical artifact resolution target
+
+Proof-required treatment applies to canonical identity and resolution facts. It does not automatically extend to all downstream interpretive reasoning performed after canonical bootstrap has completed successfully.
+
+A proof-required canonical fact is not eligible for canonical use unless it has been resolved and verified in the current bootstrap run.
+
+---
+
+### Disallowed Bootstrap Fact Completion Paths
+
+The runtime must not satisfy proof-required canonical identity or resolution facts through any of the following paths:
+
+- cached state
+- prior session memory
+- prior uncited runtime claims
+- visible branch or default-branch state not verified as the exact canonical target
+- supporting planning artifacts
+- semantically related artifacts
+- nearby repository material
+- plausibility, naming similarity, or owner similarity
+
+Similarity, accessibility, visibility, and plausibility are not substitutes for exact canonical bootstrap resolution.
+
+If a proof-required canonical fact cannot be resolved exactly through an allowed bootstrap path, that fact remains unresolved for canonical bootstrap purposes.
+
+This rule prohibits silent substitution of non-bootstrap materials for canonical bootstrap completion. It does not by itself prohibit explicitly surfaced non-canonical continuation on a narrowed or alternate-authority path where the methodology later permits such continuation.
+
+A local copy, working copy, or other alternate artifact source must not be treated as evidence that canonical bootstrap has completed unless canonical authority has been validly re-established under the methodology's later recovery or re-entry rules.
+
+---
+
+### Exact Identifier Handling in Canonical Bootstrap
+
+When canonical bootstrap depends on an exact identifier, that identifier is a resolution target only.
+
+In canonical bootstrap, exact identifiers are not semantic search hints, approximation anchors, or permission to continue from near matches.
+
+The runtime must not normalize, shorten, paraphrase, or approximate an exact bootstrap identifier in a way that changes the identity-bearing target.
+
+If exact resolution fails, the runtime must surface the failure explicitly and must not continue the canonical-bootstrap claim path from nearby, similar, renamed-looking, co-located, or semantically related materials.
+
+Failure to resolve an exact bootstrap identifier leaves the corresponding proof-required canonical fact unresolved for canonical bootstrap purposes unless and until canonical authority is validly re-established under the methodology.
+
+---
+
+### Bootstrap Source Non-Substitution
+
+Canonical bootstrap authority is not conferred by:
+
+- same-owner repository proximity
+- branch or default-branch visibility
+- naming similarity
+- prior appearance in session context
+- semantic relevance
+- supporting uploads
+- planning documents
+- corroborating materials
+
+A bootstrap artifact is authoritative for canonical bootstrap only if it is the exact requested or exact active bootstrap source and its identity has been verified for the current bootstrap run.
+
+Discoverability, relevance, accessibility, or contextual plausibility do not promote a source into canonical bootstrap authority.
+
+---
+
+### Supporting-Artifact Non-Promotion for Canonical Bootstrap Facts
+
+Supporting artifacts may corroborate canonical bootstrap results, but they may not originate, backfill, or supply unresolved canonical bootstrap facts.
+
+This applies to materials such as:
+
+- planning documents
+- comments
+- prior prompts
+- roadmaps
+- working notes
+- prior session summaries
+- index artifacts
+
+Such artifacts may confirm consistency after canonical bootstrap facts have been exactly resolved, but they may not supply a missing pinned reference, missing canonical artifact identity, missing canonical repository identity, or other unresolved proof-required canonical bootstrap fact.
+
+Active task artifacts remain usable after proper bootstrap for the task they govern. They do not become substitute sources for unresolved canonical bootstrap identity or resolution facts merely because they are in-session, recent, or operator-provided.
+
+---
+
 ## Methodology Runtime Model
 
 The AI Interaction Methodology operates as a structured runtime process rather
