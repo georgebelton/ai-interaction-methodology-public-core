@@ -348,6 +348,29 @@ A proof-required canonical fact is not eligible for canonical use unless it has 
 
 ---
 
+### Disallowed Bootstrap Fact Completion Paths
+
+The runtime must not satisfy proof-required canonical identity or resolution facts through any of the following paths:
+
+- cached state
+- prior session memory
+- prior uncited runtime claims
+- visible branch or default-branch state not verified as the exact canonical target
+- supporting planning artifacts
+- semantically related artifacts
+- nearby repository material
+- plausibility, naming similarity, or owner similarity
+
+Similarity, accessibility, visibility, and plausibility are not substitutes for exact canonical bootstrap resolution.
+
+If a proof-required canonical fact cannot be resolved exactly through an allowed bootstrap path, that fact remains unresolved for canonical bootstrap purposes.
+
+This rule prohibits silent substitution of non-bootstrap materials for canonical bootstrap completion. It does not by itself prohibit explicitly surfaced non-canonical continuation on a narrowed or alternate-authority path where the methodology later permits such continuation.
+
+A local copy, working copy, or other alternate artifact source must not be treated as evidence that canonical bootstrap has completed unless canonical authority has been validly re-established under the methodology's later recovery or re-entry rules.
+
+---
+
 ## Methodology Runtime Model
 
 The AI Interaction Methodology operates as a structured runtime process rather
