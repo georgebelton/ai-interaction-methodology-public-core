@@ -385,6 +385,25 @@ Failure to resolve an exact bootstrap identifier leaves the corresponding proof-
 
 ---
 
+### Bootstrap Source Non-Substitution
+
+Canonical bootstrap authority is not conferred by:
+
+- same-owner repository proximity
+- branch or default-branch visibility
+- naming similarity
+- prior appearance in session context
+- semantic relevance
+- supporting uploads
+- planning documents
+- corroborating materials
+
+A bootstrap artifact is authoritative for canonical bootstrap only if it is the exact requested or exact active bootstrap source and its identity has been verified for the current bootstrap run.
+
+Discoverability, relevance, accessibility, or contextual plausibility do not promote a source into canonical bootstrap authority.
+
+---
+
 ## Methodology Runtime Model
 
 The AI Interaction Methodology operates as a structured runtime process rather
