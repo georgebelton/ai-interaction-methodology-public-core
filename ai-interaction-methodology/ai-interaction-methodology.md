@@ -424,6 +424,18 @@ Active task artifacts remain usable after proper bootstrap for the task they gov
 
 ---
 
+### Canonical Bootstrap Contradiction Precedence
+
+When candidate materials relevant to a proof-required canonical bootstrap fact conflict, the contradiction must take precedence over plausibility, recency appearance, semantic similarity, or supporting-context alignment.
+
+A contradicted proof-required canonical bootstrap fact is unresolved for canonical bootstrap purposes unless and until the contradiction is resolved through an allowed bootstrap path.
+
+The runtime must surface bootstrap-relevant contradiction explicitly and must not continue the canonical-bootstrap claim path by informally selecting the more plausible, more familiar, more recent-looking, or more contextually aligned conflicting source.
+
+Supporting artifacts, adjacent materials, and alternate artifact sources may reveal contradiction. They do not resolve contradiction for canonical bootstrap purposes unless they are themselves validly admitted bootstrap authority under the methodology.
+
+---
+
 ## Methodology Runtime Model
 
 The AI Interaction Methodology operates as a structured runtime process rather
