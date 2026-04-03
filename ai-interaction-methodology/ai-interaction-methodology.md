@@ -434,6 +434,8 @@ The runtime must surface bootstrap-relevant contradiction explicitly and must no
 
 Supporting artifacts, adjacent materials, and alternate artifact sources may reveal contradiction. They do not resolve contradiction for canonical bootstrap purposes unless they are themselves validly admitted bootstrap authority under the methodology.
 
+If such contradiction leaves a proof-required canonical bootstrap fact unresolved in a way that prevents canonical bootstrap completion, blocked bootstrap state applies as defined below.
+
 ---
 
 ### Blocked Bootstrap State
@@ -452,6 +454,8 @@ Blocked bootstrap is a bootstrap control state.
 It is not canonical execution, not bootstrap completion, and not evidence that canonical authority has been established.
 
 When blocked bootstrap state applies, the runtime must treat canonical bootstrap as incomplete unless and until a later methodology rule validly permits recovery, re-entry, or explicitly surfaced non-canonical continuation.
+
+One path into blocked bootstrap state is unresolved contradiction affecting a proof-required canonical bootstrap fact, as defined in Canonical Bootstrap Contradiction Precedence.
 
 ---
 
