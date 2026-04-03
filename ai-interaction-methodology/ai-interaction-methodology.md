@@ -330,6 +330,24 @@ Canonical execution may begin only after bootstrap complete.
 
 ---
 
+### Proof-Required Canonical Identity and Resolution Facts
+
+Certain canonical bootstrap facts are proof-required and must be established through exact current-run resolution and verification before they are eligible inputs to canonical execution.
+
+Proof-required canonical identity and resolution facts include at minimum:
+
+- canonical repository identity
+- lock file identity
+- declared pinned public reference
+- canonical artifact paths
+- canonical artifact resolution target
+
+Proof-required treatment applies to canonical identity and resolution facts. It does not automatically extend to all downstream interpretive reasoning performed after canonical bootstrap has completed successfully.
+
+A proof-required canonical fact is not eligible for canonical use unless it has been resolved and verified in the current bootstrap run.
+
+---
+
 ## Methodology Runtime Model
 
 The AI Interaction Methodology operates as a structured runtime process rather
