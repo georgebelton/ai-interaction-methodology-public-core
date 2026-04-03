@@ -540,6 +540,26 @@ A recovery input that cannot be tied to exact canonical identity for the purpose
 
 ---
 
+### Recovery-Path Constraints
+
+Canonical bootstrap recovery and re-entry must preserve the same bootstrap authority discipline required for initial canonical bootstrap.
+
+Recovery does not relax:
+
+- proof-required treatment for canonical identity and resolution facts
+- exact identifier handling
+- bootstrap source non-substitution
+- supporting-artifact non-promotion
+- contradiction precedence for proof-required canonical bootstrap facts
+
+A bounded recovery input is not self-validating and must not be treated as sufficient merely because it is available, operator-provided, recent, or plausibly correct.
+
+Canonical bootstrap recovery must proceed through renewed canonical resolution and verification under the methodology's bootstrap rules.
+
+Recovery attempt, recovery input availability, and bootstrap completion are distinct conditions and must not be collapsed.
+
+---
+
 ## Methodology Runtime Model
 
 The AI Interaction Methodology operates as a structured runtime process rather
