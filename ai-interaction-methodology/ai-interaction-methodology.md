@@ -560,6 +560,24 @@ Recovery attempt, recovery input availability, and bootstrap completion are dist
 
 ---
 
+### Re-Entry Visibility and Scope
+
+When canonical bootstrap re-entry is initiated, the runtime must make the re-entry condition visible.
+
+At minimum, the runtime must surface:
+
+- that canonical bootstrap re-entry is occurring
+- the recovery basis being used to support renewed canonical resolution
+- the scope of the canonical-bootstrap path being retried
+
+Re-entry visibility does not by itself establish canonical authority or bootstrap completion.
+
+Canonical bootstrap re-entry must remain scoped to the renewed bootstrap-resolution effort supported by the recovery basis that justified re-entry.
+
+The runtime must not silently broaden re-entry into unrelated authority expansion, mixed-source reasoning, or unstated restoration of canonical authority.
+
+---
+
 ## Methodology Runtime Model
 
 The AI Interaction Methodology operates as a structured runtime process rather
