@@ -305,6 +305,31 @@ Bounded non-canonical output, where later permitted under a narrowed task path, 
 
 ---
 
+### Canonical Claim Emission Gate
+
+The runtime must not emit, use, or inherit canonical facts before canonical bootstrap is complete.
+
+For this rule, canonical facts include at minimum:
+
+- the pinned public reference
+- canonical repository identity
+- canonical artifact set identity
+- canonical artifact reference or version
+
+Before bootstrap complete, canonical facts must not be presented as established, active, or usable runtime facts.
+
+Before bootstrap complete, the runtime must not present unresolved canonical values as:
+
+- likely
+- default
+- remembered
+- inferred
+- assumed from adjacent or related materials
+
+Canonical execution may begin only after bootstrap complete.
+
+---
+
 ## Methodology Runtime Model
 
 The AI Interaction Methodology operates as a structured runtime process rather
