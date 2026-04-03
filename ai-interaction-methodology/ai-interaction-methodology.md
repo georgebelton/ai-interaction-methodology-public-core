@@ -1,12 +1,12 @@
 ---
 Status: Canonical
-Version: 1.1.0
+Version: 1.1.5
 Canonical: true
 Canonical File: ai-interaction-methodology/ai-interaction-methodology.md
 Creator: George Belton
 Maintainer: George Belton
 Created: 2026-03-12
-Last Updated: 2026-04-01
+Last Updated: 2026-04-03
 License: CC-BY-4.0
 ---
 
@@ -365,7 +365,7 @@ Similarity, accessibility, visibility, and plausibility are not substitutes for 
 
 If a proof-required canonical fact cannot be resolved exactly through an allowed bootstrap path, that fact remains unresolved for canonical bootstrap purposes.
 
-This rule prohibits silent substitution of non-bootstrap materials for canonical bootstrap completion. It does not by itself prohibit explicitly surfaced non-canonical continuation on a narrowed or alternate-authority path where the methodology later permits such continuation.
+This section governs invalid completion paths for proof-required canonical bootstrap facts. It does not by itself prohibit explicitly surfaced non-canonical continuation on a narrowed or alternate-authority path where the methodology later permits such continuation.
 
 A local copy, working copy, or other alternate artifact source must not be treated as evidence that canonical bootstrap has completed unless canonical authority has been validly re-established under the methodology's later recovery or re-entry rules.
 
@@ -400,7 +400,7 @@ Canonical bootstrap authority is not conferred by:
 
 A bootstrap artifact is authoritative for canonical bootstrap only if it is the exact requested or exact active bootstrap source and its identity has been verified for the current bootstrap run.
 
-Discoverability, relevance, accessibility, or contextual plausibility do not promote a source into canonical bootstrap authority.
+Discoverability, relevance, accessibility, or contextual plausibility do not promote a source into canonical bootstrap authority. This section governs bootstrap-source authority, not completion of proof-required facts through prohibited fill paths.
 
 ---
 
@@ -420,7 +420,7 @@ This applies to materials such as:
 
 Such artifacts may confirm consistency after canonical bootstrap facts have been exactly resolved, but they may not supply a missing pinned reference, missing canonical artifact identity, missing canonical repository identity, or other unresolved proof-required canonical bootstrap fact.
 
-Active task artifacts remain usable after proper bootstrap for the task they govern. They do not become substitute sources for unresolved canonical bootstrap identity or resolution facts merely because they are in-session, recent, or operator-provided.
+Active task artifacts remain usable after proper bootstrap for the task they govern. This section preserves the distinction between corroboration and supply: such artifacts do not become substitute sources for unresolved canonical bootstrap identity or resolution facts merely because they are in-session, recent, or operator-provided.
 
 ---
 
@@ -501,7 +501,7 @@ When operating in bounded non-canonical output mode, the runtime must not:
 - treat local copies, working copies, supporting artifacts, or alternate artifact sources as having silently completed canonical bootstrap
 - blur the distinction between non-canonical continuation and canonical execution
 
-Bounded non-canonical output mode preserves limited methodology usability under surfaced non-canonical conditions. It does not by itself define valid recovery or re-entry into canonical bootstrap.
+Bounded non-canonical output mode preserves limited methodology usability under surfaced non-canonical conditions. Recovery and re-entry are defined separately below.
 
 ---
 
@@ -513,11 +513,9 @@ Canonical bootstrap re-entry is required whenever the runtime intends to resume 
 
 Re-entry into canonical bootstrap is distinct from bounded non-canonical output mode.
 
-Bounded non-canonical continuation may preserve limited methodology usability under surfaced non-canonical conditions, but it does not by itself resume the canonical-bootstrap path.
+Canonical bootstrap re-entry reopens the canonical-bootstrap path only when a later methodology rule provides a valid recovery basis for renewed canonical resolution and verification.
 
 Canonical bootstrap re-entry does not by itself establish canonical authority or bootstrap completion.
-
-It reopens the canonical-bootstrap path only when a later methodology rule provides a valid recovery basis for renewed canonical resolution and verification.
 
 ---
 
@@ -555,8 +553,6 @@ Recovery does not relax:
 A bounded recovery input is not self-validating and must not be treated as sufficient merely because it is available, operator-provided, recent, or plausibly correct.
 
 Canonical bootstrap recovery must proceed through renewed canonical resolution and verification under the methodology's bootstrap rules.
-
-Recovery attempt, recovery input availability, and bootstrap completion are distinct conditions and must not be collapsed.
 
 ---
 
@@ -1683,7 +1679,7 @@ Implementations must not silently ignore artifact resolution failures.
 
 If a required artifact cannot be resolved, canonical bootstrap may become blocked or remain incomplete under the methodology's bootstrap rules.
 
-The resulting behavior must then follow the methodology's hardened bootstrap model, including hard failure where no valid bounded continuation or recovery basis exists, and surfaced limited handling only where later methodology rules explicitly permit it.
+This section defines downstream failure handling under that hardened bootstrap model, including hard failure where no valid bounded continuation or recovery basis exists, and surfaced limited handling only where later methodology rules explicitly permit it.
 
 ---
 
@@ -1696,7 +1692,7 @@ The system should report:
 - which artifact failed
 - the reason resolution failed
 
-This preserves deterministic and auditable startup behavior.
+This is the terminal startup outcome when no later methodology-permitted bounded path remains available.
 
 ---
 
@@ -1715,7 +1711,7 @@ Under degraded resolution handling:
 - cached or local artifact availability does not by itself establish canonical authority
 - the degraded or non-canonical condition must be surfaced explicitly
 
-Compatibility and integrity requirements for cached artifacts remain governed by the methodology's cached-artifact compatibility rules.
+This subsection governs limited downstream handling only. Compatibility and integrity requirements for cached artifacts remain governed by the methodology's cached-artifact compatibility rules.
 
 ---
 
