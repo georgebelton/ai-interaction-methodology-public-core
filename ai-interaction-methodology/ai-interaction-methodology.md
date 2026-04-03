@@ -404,6 +404,26 @@ Discoverability, relevance, accessibility, or contextual plausibility do not pro
 
 ---
 
+### Supporting-Artifact Non-Promotion for Canonical Bootstrap Facts
+
+Supporting artifacts may corroborate canonical bootstrap results, but they may not originate, backfill, or supply unresolved canonical bootstrap facts.
+
+This applies to materials such as:
+
+- planning documents
+- comments
+- prior prompts
+- roadmaps
+- working notes
+- prior session summaries
+- index artifacts
+
+Such artifacts may confirm consistency after canonical bootstrap facts have been exactly resolved, but they may not supply a missing pinned reference, missing canonical artifact identity, missing canonical repository identity, or other unresolved proof-required canonical bootstrap fact.
+
+Active task artifacts remain usable after proper bootstrap for the task they govern. They do not become substitute sources for unresolved canonical bootstrap identity or resolution facts merely because they are in-session, recent, or operator-provided.
+
+---
+
 ## Methodology Runtime Model
 
 The AI Interaction Methodology operates as a structured runtime process rather
