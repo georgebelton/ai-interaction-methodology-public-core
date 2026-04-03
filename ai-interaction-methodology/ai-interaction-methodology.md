@@ -501,7 +501,7 @@ When operating in bounded non-canonical output mode, the runtime must not:
 - treat local copies, working copies, supporting artifacts, or alternate artifact sources as having silently completed canonical bootstrap
 - blur the distinction between non-canonical continuation and canonical execution
 
-Bounded non-canonical output mode preserves limited methodology usability under surfaced non-canonical conditions. It does not by itself define valid recovery or re-entry into canonical bootstrap.
+Bounded non-canonical output mode preserves limited methodology usability under surfaced non-canonical conditions. Recovery and re-entry are defined separately below.
 
 ---
 
@@ -513,11 +513,9 @@ Canonical bootstrap re-entry is required whenever the runtime intends to resume 
 
 Re-entry into canonical bootstrap is distinct from bounded non-canonical output mode.
 
-Bounded non-canonical continuation may preserve limited methodology usability under surfaced non-canonical conditions, but it does not by itself resume the canonical-bootstrap path.
+Canonical bootstrap re-entry reopens the canonical-bootstrap path only when a later methodology rule provides a valid recovery basis for renewed canonical resolution and verification.
 
 Canonical bootstrap re-entry does not by itself establish canonical authority or bootstrap completion.
-
-It reopens the canonical-bootstrap path only when a later methodology rule provides a valid recovery basis for renewed canonical resolution and verification.
 
 ---
 
@@ -555,8 +553,6 @@ Recovery does not relax:
 A bounded recovery input is not self-validating and must not be treated as sufficient merely because it is available, operator-provided, recent, or plausibly correct.
 
 Canonical bootstrap recovery must proceed through renewed canonical resolution and verification under the methodology's bootstrap rules.
-
-Recovery attempt, recovery input availability, and bootstrap completion are distinct conditions and must not be collapsed.
 
 ---
 
