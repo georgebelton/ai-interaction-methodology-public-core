@@ -505,6 +505,95 @@ Bounded non-canonical output mode preserves limited methodology usability under 
 
 ---
 
+### Canonical Bootstrap Re-Entry
+
+Canonical bootstrap re-entry is the controlled resumption of the canonical-bootstrap path after canonical bootstrap has remained incomplete or has entered blocked bootstrap state.
+
+Canonical bootstrap re-entry is required whenever the runtime intends to resume progress toward canonical bootstrap completion after blocked bootstrap or explicitly surfaced non-canonical continuation.
+
+Re-entry into canonical bootstrap is distinct from bounded non-canonical output mode.
+
+Bounded non-canonical continuation may preserve limited methodology usability under surfaced non-canonical conditions, but it does not by itself resume the canonical-bootstrap path.
+
+Canonical bootstrap re-entry does not by itself establish canonical authority or bootstrap completion.
+
+It reopens the canonical-bootstrap path only when a later methodology rule provides a valid recovery basis for renewed canonical resolution and verification.
+
+---
+
+### Bounded Recovery Inputs for Canonical Re-Resolution
+
+When canonical bootstrap is incomplete or blocked, the runtime may use bounded recovery inputs to support renewed canonical resolution and verification.
+
+Bounded recovery inputs may include, at minimum:
+
+- an exact canonical source link
+- an uploaded working copy of the relevant canonical artifact
+- a local copy of the relevant canonical artifact
+- another exact artifact instance whose identity can be validated against the methodology's canonical bootstrap requirements
+
+Bounded recovery inputs do not by themselves establish canonical authority or bootstrap completion.
+
+They are admissible only as inputs to renewed canonical resolution and verification under the methodology's recovery and re-entry rules.
+
+A recovery input that cannot be tied to exact canonical identity for the purposes required by bootstrap re-entry must not be treated as sufficient for canonical re-resolution.
+
+---
+
+### Recovery-Path Constraints
+
+Canonical bootstrap recovery and re-entry must preserve the same bootstrap authority discipline required for initial canonical bootstrap.
+
+Recovery does not relax:
+
+- proof-required treatment for canonical identity and resolution facts
+- exact identifier handling
+- bootstrap source non-substitution
+- supporting-artifact non-promotion
+- contradiction precedence for proof-required canonical bootstrap facts
+
+A bounded recovery input is not self-validating and must not be treated as sufficient merely because it is available, operator-provided, recent, or plausibly correct.
+
+Canonical bootstrap recovery must proceed through renewed canonical resolution and verification under the methodology's bootstrap rules.
+
+Recovery attempt, recovery input availability, and bootstrap completion are distinct conditions and must not be collapsed.
+
+---
+
+### Re-Entry Visibility and Scope
+
+When canonical bootstrap re-entry is initiated, the runtime must make the re-entry condition visible.
+
+At minimum, the runtime must surface:
+
+- that canonical bootstrap re-entry is occurring
+- the recovery basis being used to support renewed canonical resolution
+- the scope of the canonical-bootstrap path being retried
+
+Re-entry visibility does not by itself establish canonical authority or bootstrap completion.
+
+Canonical bootstrap re-entry must remain scoped to the renewed bootstrap-resolution effort supported by the recovery basis that justified re-entry.
+
+The runtime must not silently broaden re-entry into unrelated authority expansion, mixed-source reasoning, or unstated restoration of canonical authority.
+
+---
+
+### Bootstrap Completion vs Non-Canonical Continuation Clarification
+
+Bounded non-canonical continuation, recovery input availability, canonical bootstrap re-entry, and canonical bootstrap completion are distinct conditions.
+
+Bounded non-canonical continuation may preserve limited methodology usability under surfaced non-canonical conditions.
+
+Canonical bootstrap re-entry may resume the canonical-bootstrap path through renewed canonical resolution and verification.
+
+Neither bounded non-canonical continuation nor canonical bootstrap re-entry restores canonical authority by itself.
+
+Canonical authority is restored only when canonical bootstrap completes under the methodology's bootstrap rules.
+
+Until canonical bootstrap completion has actually been achieved, the runtime must not treat the current path as canonically restored and must continue to preserve the distinction between non-canonical continuation, recovery attempt, re-entry, and completed canonical bootstrap.
+
+---
+
 ## Methodology Runtime Model
 
 The AI Interaction Methodology operates as a structured runtime process rather
