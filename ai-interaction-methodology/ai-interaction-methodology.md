@@ -455,6 +455,29 @@ When blocked bootstrap state applies, the runtime must treat canonical bootstrap
 
 ---
 
+### Blocked Bootstrap Allowed and Prohibited Behavior
+
+When blocked bootstrap state applies, the runtime may only:
+
+- surface the blocking condition
+- identify the unresolved proof-required canonical bootstrap fact or facts
+- request clarification
+- request scope narrowing
+- request a valid alternate authority input
+- await a later methodology-permitted recovery or re-entry path
+
+When blocked bootstrap state applies, the runtime must not:
+
+- emit canonical bootstrap facts as established
+- continue the canonical-bootstrap claim path as though bootstrap were still eligible to complete without resolution
+- silently substitute nearby, supporting, cached, inferred, or semantically related materials for the unresolved canonical bootstrap fact
+- treat canonical authority as established
+- present bootstrap completion as achieved
+
+Blocked bootstrap behavior limits canonical-path continuation. It does not by itself define the conditions for surfaced non-canonical continuation or for valid canonical re-entry.
+
+---
+
 ## Methodology Runtime Model
 
 The AI Interaction Methodology operates as a structured runtime process rather
