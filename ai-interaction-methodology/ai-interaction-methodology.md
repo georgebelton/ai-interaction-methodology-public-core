@@ -276,6 +276,35 @@ This exact audit resolution is a derived refinement of the declared public relea
 
 ---
 
+### Canonical Bootstrap State Model
+
+Canonical bootstrap operates as an explicit bounded runtime control state for sessions that depend on canonical public-core authority.
+
+For canonical bootstrap, the runtime distinguishes the following states:
+
+- **bootstrap unresolved**
+- **lock file resolved**
+- **canonical set resolved**
+- **canonical set verified**
+- **bootstrap complete**
+- **bootstrap blocked**
+
+Canonical bootstrap is execution-affecting. Until bootstrap is complete, canonical facts are unresolved and are not eligible for canonical use.
+
+`lock file resolved` means the exact lock file has been resolved as the active bootstrap source for the task.
+
+`canonical set resolved` means the required canonical artifacts have been resolved from the declared repository, canonical paths, and pinned reference.
+
+`canonical set verified` means the runtime has verified exact identity for the resolved canonical artifact set sufficiently for canonical use.
+
+`bootstrap complete` means the runtime may use canonical facts and proceed with canonical execution.
+
+`bootstrap blocked` means canonical bootstrap could not be completed exactly or unambiguously and canonical execution is not authorized.
+
+Bounded non-canonical output, where later permitted under a narrowed task path, is not a bootstrap state, is not canonical execution, and does not satisfy bootstrap completion.
+
+---
+
 ## Methodology Runtime Model
 
 The AI Interaction Methodology operates as a structured runtime process rather
