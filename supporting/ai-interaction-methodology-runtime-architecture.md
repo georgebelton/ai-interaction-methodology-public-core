@@ -15,10 +15,10 @@ Canonical runtime semantics, execution-state behavior, artifact-authority contro
 User Input
      │
      ▼
-Methodology Bootstrap
+Methodology Bootstrap and Canonical Bootstrap Control
      │
      ▼
-Canonical Artifact Resolution
+Canonical Artifact Resolution and Verification
      │
      ▼
 Configuration Assembly
@@ -53,7 +53,7 @@ Final Response or Handoff Artifact
 
 **Responsibility**
 
-Establish the canonical runtime configuration.
+Establish the canonical bootstrap contract and the bounded runtime conditions under which canonical execution may begin.
 
 **Inputs**
 
@@ -64,13 +64,15 @@ Establish the canonical runtime configuration.
 * artifact resolution instructions
 * configuration precedence rules
 * methodology invariants
+* canonical bootstrap gating conditions
 
 **Key functions**
 
-```
+~~~
 load_methodology()
 initialize_runtime_contract()
-```
+initialize_bootstrap_gate()
+~~~
 
 ---
 
@@ -78,29 +80,31 @@ initialize_runtime_contract()
 
 **Responsibility**
 
-Resolve the canonical system components defined by the methodology.
+Resolve and verify the canonical system components defined by the methodology under the active canonical bootstrap rules.
 
 **Artifacts**
 
-```
+~~~
 AI Collaboration Guidelines
 AI Interaction Framework
-```
+~~~
 
 **Outputs**
 
-```
+~~~
 behavior_contract
 reasoning_contract
-```
+verified_canonical_set
+~~~
 
 **Failure states**
 
 * artifact unavailable
 * incompatible version
 * partial resolution
+* blocked or incomplete canonical bootstrap
 
-These states trigger the **resolution failure policy**.
+These states trigger the methodology's canonical resolution and failure-handling rules.
 
 ---
 
@@ -202,7 +206,7 @@ readiness-threshold progression
 
 This layer sits between configuration and substantive reasoning.
 
-It ensures that reasoning begins only against the correct authoritative materials, under a valid execution-control state, and with the appropriate workflow and operation-class constraints already resolved.
+It ensures that reasoning begins only after canonical bootstrap and artifact-authority conditions permit execution, against the correct authoritative materials, under a valid execution-control state, and with the appropriate workflow and operation-class constraints already resolved.
 
 This supporting artifact does not redefine these controls locally.
 
@@ -300,12 +304,12 @@ Resulting output characteristics are influenced by:
                         │
                         ▼
         ┌───────────────────────────────┐
-        │      Methodology Bootstrap    │
+        │ Methodology Bootstrap + Gate  │
         └───────────────┬───────────────┘
                         │
                         ▼
         ┌───────────────────────────────┐
-        │   Canonical Artifact Resolve  │
+        │ Canonical Resolve + Verify    │
         │    (Guidelines + Framework)   │
         └───────────────┬───────────────┘
                         │
@@ -372,7 +376,8 @@ This supporting artifact does not define canonical execution guarantees locally.
 
 Deterministic runtime behavior remains governed by the canonical methodology and framework source artifacts, including:
 
-- canonical startup ordering
+- canonical bootstrap ordering and gating
+- canonical artifact resolution and verification
 - artifact-authority resolution
 - execution-state model
 - workflow classification
