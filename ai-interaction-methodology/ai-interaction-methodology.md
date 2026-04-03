@@ -505,6 +505,22 @@ Bounded non-canonical output mode preserves limited methodology usability under 
 
 ---
 
+### Canonical Bootstrap Re-Entry
+
+Canonical bootstrap re-entry is the controlled resumption of the canonical-bootstrap path after canonical bootstrap has remained incomplete or has entered blocked bootstrap state.
+
+Canonical bootstrap re-entry is required whenever the runtime intends to resume progress toward canonical bootstrap completion after blocked bootstrap or explicitly surfaced non-canonical continuation.
+
+Re-entry into canonical bootstrap is distinct from bounded non-canonical output mode.
+
+Bounded non-canonical continuation may preserve limited methodology usability under surfaced non-canonical conditions, but it does not by itself resume the canonical-bootstrap path.
+
+Canonical bootstrap re-entry does not by itself establish canonical authority or bootstrap completion.
+
+It reopens the canonical-bootstrap path only when a later methodology rule provides a valid recovery basis for renewed canonical resolution and verification.
+
+---
+
 ## Methodology Runtime Model
 
 The AI Interaction Methodology operates as a structured runtime process rather
