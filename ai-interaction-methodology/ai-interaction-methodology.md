@@ -1698,15 +1698,20 @@ This preserves deterministic and auditable startup behavior.
 
 ### Degraded Resolution State
 
-In limited environments where artifact retrieval may be unreliable, implementations may use a cached artifact.
+In limited environments where direct artifact retrieval is unavailable or unreliable, a cached or local artifact may still be used, but not as silent evidence that canonical bootstrap has completed.
 
-Degraded operation is permitted only if:
+When direct canonical bootstrap cannot complete, degraded handling is permitted only under one of the following conditions:
 
-- the artifact was previously retrieved successfully
-- the cached artifact can be verified as complete
-- the cached artifact satisfies the compatibility policy
+- explicitly surfaced non-canonical continuation on a task path that does not require canonical authority, or
+- use of the cached or local artifact as a bounded recovery input supporting later canonical bootstrap re-entry
 
-When degraded resolution is used, the system should indicate that cached artifacts were used during initialization.
+Under degraded resolution handling:
+
+- canonical bootstrap remains incomplete unless and until canonical bootstrap is later completed under the methodology's bootstrap rules
+- cached or local artifact availability does not by itself establish canonical authority
+- the degraded or non-canonical condition must be surfaced explicitly
+
+Compatibility and integrity requirements for cached artifacts remain governed by the methodology's cached-artifact compatibility rules.
 
 ---
 
