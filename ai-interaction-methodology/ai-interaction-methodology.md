@@ -424,6 +424,87 @@ Active task artifacts remain usable after proper bootstrap for the task they gov
 
 ---
 
+### Canonical Bootstrap Contradiction Precedence
+
+When candidate materials relevant to a proof-required canonical bootstrap fact conflict, the contradiction must take precedence over plausibility, recency appearance, semantic similarity, or supporting-context alignment.
+
+A contradicted proof-required canonical bootstrap fact is unresolved for canonical bootstrap purposes unless and until the contradiction is resolved through an allowed bootstrap path.
+
+The runtime must surface bootstrap-relevant contradiction explicitly and must not continue the canonical-bootstrap claim path by informally selecting the more plausible, more familiar, more recent-looking, or more contextually aligned conflicting source.
+
+Supporting artifacts, adjacent materials, and alternate artifact sources may reveal contradiction. They do not resolve contradiction for canonical bootstrap purposes unless they are themselves validly admitted bootstrap authority under the methodology.
+
+If such contradiction leaves a proof-required canonical bootstrap fact unresolved in a way that prevents canonical bootstrap completion, blocked bootstrap state applies as defined below.
+
+---
+
+### Blocked Bootstrap State
+
+Blocked bootstrap state applies when canonical bootstrap cannot complete because one or more proof-required canonical bootstrap facts remain unresolved for canonical bootstrap purposes.
+
+Blocked bootstrap may result from conditions including:
+
+- unresolved contradiction affecting a proof-required canonical bootstrap fact
+- failure of exact identifier or exact artifact resolution
+- attempted satisfaction of a proof-required canonical bootstrap fact through a disallowed completion path
+- unresolved bootstrap authority conditions that prevent exact canonical bootstrap completion
+
+Blocked bootstrap is a bootstrap control state.
+
+It is not canonical execution, not bootstrap completion, and not evidence that canonical authority has been established.
+
+When blocked bootstrap state applies, the runtime must treat canonical bootstrap as incomplete unless and until a later methodology rule validly permits recovery, re-entry, or explicitly surfaced non-canonical continuation.
+
+One path into blocked bootstrap state is unresolved contradiction affecting a proof-required canonical bootstrap fact, as defined in Canonical Bootstrap Contradiction Precedence.
+
+---
+
+### Blocked Bootstrap Allowed and Prohibited Behavior
+
+When blocked bootstrap state applies, the runtime may only:
+
+- surface the blocking condition
+- identify the unresolved proof-required canonical bootstrap fact or facts
+- request clarification
+- request scope narrowing
+- request a valid alternate authority input
+- await a later methodology-permitted recovery or re-entry path
+
+When blocked bootstrap state applies, the runtime must not:
+
+- emit canonical bootstrap facts as established
+- continue the canonical-bootstrap claim path as though bootstrap were still eligible to complete without resolution
+- silently substitute nearby, supporting, cached, inferred, or semantically related materials for the unresolved canonical bootstrap fact
+- treat canonical authority as established
+- present bootstrap completion as achieved
+
+Blocked bootstrap behavior limits canonical-path continuation. It does not by itself define the conditions for surfaced non-canonical continuation or for valid canonical re-entry.
+
+---
+
+### Bounded Non-Canonical Output Mode
+
+Bounded non-canonical output mode is a surfaced continuation mode permitted only when canonical bootstrap is incomplete or blocked and the remaining task path does not require canonical authority.
+
+Bounded non-canonical output mode is not canonical execution, not bootstrap completion, and not a substitute bootstrap state.
+
+This mode may be used only when the runtime explicitly surfaces that:
+
+- canonical bootstrap has not completed
+- canonical authority is not established for the current output path
+- the current continuation is limited to a non-canonical task path whose remaining work does not require canonical bootstrap completion
+
+When operating in bounded non-canonical output mode, the runtime must not:
+
+- present canonical bootstrap facts as established
+- imply that canonical authority has been restored
+- treat local copies, working copies, supporting artifacts, or alternate artifact sources as having silently completed canonical bootstrap
+- blur the distinction between non-canonical continuation and canonical execution
+
+Bounded non-canonical output mode preserves limited methodology usability under surfaced non-canonical conditions. It does not by itself define valid recovery or re-entry into canonical bootstrap.
+
+---
+
 ## Methodology Runtime Model
 
 The AI Interaction Methodology operates as a structured runtime process rather
