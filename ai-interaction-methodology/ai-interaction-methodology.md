@@ -1681,11 +1681,15 @@ One artifact resolves successfully while another fails.
 
 Implementations must not silently ignore artifact resolution failures.
 
-If a required artifact cannot be resolved, the methodology must enter one of the following states.
+If a required artifact cannot be resolved, canonical bootstrap may become blocked or remain incomplete under the methodology's bootstrap rules.
+
+The resulting behavior must then follow the methodology's hardened bootstrap model, including hard failure where no valid bounded continuation or recovery basis exists, and surfaced limited handling only where later methodology rules explicitly permit it.
+
+---
 
 ### Hard Failure
 
-If no compatible artifact can be obtained, the methodology must terminate initialization.
+If no compatible artifact can be obtained and no later methodology rule permits surfaced non-canonical continuation or bounded recovery input handling for the current task path, the methodology must terminate initialization.
 
 The system should report:
 
@@ -1698,15 +1702,20 @@ This preserves deterministic and auditable startup behavior.
 
 ### Degraded Resolution State
 
-In limited environments where artifact retrieval may be unreliable, implementations may use a cached artifact.
+In limited environments where direct artifact retrieval is unavailable or unreliable, a cached or local artifact may still be used, but not as silent evidence that canonical bootstrap has completed.
 
-Degraded operation is permitted only if:
+When direct canonical bootstrap cannot complete, degraded handling is permitted only under one of the following conditions:
 
-- the artifact was previously retrieved successfully
-- the cached artifact can be verified as complete
-- the cached artifact satisfies the compatibility policy
+- explicitly surfaced non-canonical continuation on a task path that does not require canonical authority, or
+- use of the cached or local artifact as a bounded recovery input supporting later canonical bootstrap re-entry
 
-When degraded resolution is used, the system should indicate that cached artifacts were used during initialization.
+Under degraded resolution handling:
+
+- canonical bootstrap remains incomplete unless and until canonical bootstrap is later completed under the methodology's bootstrap rules
+- cached or local artifact availability does not by itself establish canonical authority
+- the degraded or non-canonical condition must be surfaced explicitly
+
+Compatibility and integrity requirements for cached artifacts remain governed by the methodology's cached-artifact compatibility rules.
 
 ---
 
@@ -1724,12 +1733,19 @@ Artifacts that are truncated or corrupted must be treated as resolution failures
 
 ## Deterministic Startup Requirement
 
-Artifact resolution must produce one of two outcomes:
+Artifact resolution must produce a deterministic startup outcome.
 
-1. successful resolution of all required artifacts  
-2. deterministic startup failure
+For canonical execution, deterministic startup requires canonical bootstrap completion through successful resolution of all required canonical artifacts under the methodology's bootstrap rules.
 
-The methodology must not attempt to execute with missing canonical artifacts.
+If canonical bootstrap cannot complete, the methodology must not silently proceed as though startup had succeeded.
+
+Instead, startup must resolve deterministically to one of the following outcomes:
+
+1. canonical bootstrap completion  
+2. hard failure / terminated initialization  
+3. explicitly surfaced limited handling permitted by later methodology rules, such as bounded non-canonical continuation or bounded recovery/re-entry handling
+
+The methodology must not attempt to execute canonically with missing canonical artifacts or unresolved canonical bootstrap authority.
 
 This requirement ensures that implementations remain reproducible, auditable, and consistent across environments.
 
@@ -3549,14 +3565,25 @@ Pinned reference expectations for this public-core must not be interpreted to re
 
 ## Cached Artifact Compatibility
 
-A cached artifact may only be used in degraded resolution mode if:
+A cached artifact is compatible only if all of the following are true:
 
 - it was originally retrieved from the correct canonical repository
 - it matches the required canonical file
 - it matches the required pinned reference
 - its integrity can still be verified
 
-If the cached artifact cannot be tied to a compatible pinned reference, it must be treated as incompatible.
+If a cached artifact cannot be tied to the required canonical identity and pinned compatibility reference, it must be treated as incompatible.
+
+Cached artifact compatibility is an admissibility condition only.
+
+A compatible cached artifact does not by itself establish canonical bootstrap completion, restored canonical authority, or eligibility for canonical fact use.
+
+When later methodology rules permit its use, a compatible cached artifact may support:
+
+- explicitly surfaced non-canonical continuation on a task path that does not require canonical authority, or
+- bounded recovery input handling for canonical bootstrap re-entry and renewed canonical resolution
+
+Compatibility therefore determines whether a cached artifact may participate in these later bounded paths. It does not convert cached availability into completed canonical bootstrap.
 
 ---
 
