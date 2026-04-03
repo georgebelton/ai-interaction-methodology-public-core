@@ -1733,12 +1733,19 @@ Artifacts that are truncated or corrupted must be treated as resolution failures
 
 ## Deterministic Startup Requirement
 
-Artifact resolution must produce one of two outcomes:
+Artifact resolution must produce a deterministic startup outcome.
 
-1. successful resolution of all required artifacts  
-2. deterministic startup failure
+For canonical execution, deterministic startup requires canonical bootstrap completion through successful resolution of all required canonical artifacts under the methodology's bootstrap rules.
 
-The methodology must not attempt to execute with missing canonical artifacts.
+If canonical bootstrap cannot complete, the methodology must not silently proceed as though startup had succeeded.
+
+Instead, startup must resolve deterministically to one of the following outcomes:
+
+1. canonical bootstrap completion  
+2. hard failure / terminated initialization  
+3. explicitly surfaced limited handling permitted by later methodology rules, such as bounded non-canonical continuation or bounded recovery/re-entry handling
+
+The methodology must not attempt to execute canonically with missing canonical artifacts or unresolved canonical bootstrap authority.
 
 This requirement ensures that implementations remain reproducible, auditable, and consistent across environments.
 
