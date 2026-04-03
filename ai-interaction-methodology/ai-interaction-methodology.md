@@ -1379,6 +1379,8 @@ When resolving a required canonical artifact after canonical startup has determi
 
 If any of these steps fail, the artifact must be treated as unresolved.
 
+If exact canonical bootstrap does not complete through exact lock-file resolution, pinned-reference resolution, canonical artifact resolution, and sufficient identity verification for canonical use, the runtime must not treat canonical resolution as complete.
+
 ---
 
 ## Resolution Failure States
