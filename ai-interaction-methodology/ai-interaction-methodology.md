@@ -3554,14 +3554,25 @@ Pinned reference expectations for this public-core must not be interpreted to re
 
 ## Cached Artifact Compatibility
 
-A cached artifact may only be used in degraded resolution mode if:
+A cached artifact is compatible only if all of the following are true:
 
 - it was originally retrieved from the correct canonical repository
 - it matches the required canonical file
 - it matches the required pinned reference
 - its integrity can still be verified
 
-If the cached artifact cannot be tied to a compatible pinned reference, it must be treated as incompatible.
+If a cached artifact cannot be tied to the required canonical identity and pinned compatibility reference, it must be treated as incompatible.
+
+Cached artifact compatibility is an admissibility condition only.
+
+A compatible cached artifact does not by itself establish canonical bootstrap completion, restored canonical authority, or eligibility for canonical fact use.
+
+When later methodology rules permit its use, a compatible cached artifact may support:
+
+- explicitly surfaced non-canonical continuation on a task path that does not require canonical authority, or
+- bounded recovery input handling for canonical bootstrap re-entry and renewed canonical resolution
+
+Compatibility therefore determines whether a cached artifact may participate in these later bounded paths. It does not convert cached availability into completed canonical bootstrap.
 
 ---
 
