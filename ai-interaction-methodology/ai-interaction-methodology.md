@@ -521,6 +521,25 @@ It reopens the canonical-bootstrap path only when a later methodology rule provi
 
 ---
 
+### Bounded Recovery Inputs for Canonical Re-Resolution
+
+When canonical bootstrap is incomplete or blocked, the runtime may use bounded recovery inputs to support renewed canonical resolution and verification.
+
+Bounded recovery inputs may include, at minimum:
+
+- an exact canonical source link
+- an uploaded working copy of the relevant canonical artifact
+- a local copy of the relevant canonical artifact
+- another exact artifact instance whose identity can be validated against the methodology's canonical bootstrap requirements
+
+Bounded recovery inputs do not by themselves establish canonical authority or bootstrap completion.
+
+They are admissible only as inputs to renewed canonical resolution and verification under the methodology's recovery and re-entry rules.
+
+A recovery input that cannot be tied to exact canonical identity for the purposes required by bootstrap re-entry must not be treated as sufficient for canonical re-resolution.
+
+---
+
 ## Methodology Runtime Model
 
 The AI Interaction Methodology operates as a structured runtime process rather
