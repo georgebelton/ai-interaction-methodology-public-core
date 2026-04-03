@@ -3254,6 +3254,8 @@ For this public-core, that pinned public reference is the declared release tag.
 
 Exact-commit audit resolution may be used only as a derived refinement of that declared public release state.
 
+When canonical bootstrap completes successfully, routine execution need not narrate bootstrap status beyond what the task requires. When canonical bootstrap does not complete, canonical execution is not authorized. Any later bounded non-canonical output on a narrowed task path, where permitted, is not canonical execution and does not satisfy bootstrap completion.
+
 ---
 
 ## Compatibility Requirements
