@@ -371,6 +371,20 @@ A local copy, working copy, or other alternate artifact source must not be treat
 
 ---
 
+### Exact Identifier Handling in Canonical Bootstrap
+
+When canonical bootstrap depends on an exact identifier, that identifier is a resolution target only.
+
+In canonical bootstrap, exact identifiers are not semantic search hints, approximation anchors, or permission to continue from near matches.
+
+The runtime must not normalize, shorten, paraphrase, or approximate an exact bootstrap identifier in a way that changes the identity-bearing target.
+
+If exact resolution fails, the runtime must surface the failure explicitly and must not continue the canonical-bootstrap claim path from nearby, similar, renamed-looking, co-located, or semantically related materials.
+
+Failure to resolve an exact bootstrap identifier leaves the corresponding proof-required canonical fact unresolved for canonical bootstrap purposes unless and until canonical authority is validly re-established under the methodology.
+
+---
+
 ## Methodology Runtime Model
 
 The AI Interaction Methodology operates as a structured runtime process rather
