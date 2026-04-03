@@ -1681,11 +1681,15 @@ One artifact resolves successfully while another fails.
 
 Implementations must not silently ignore artifact resolution failures.
 
-If a required artifact cannot be resolved, the methodology must enter one of the following states.
+If a required artifact cannot be resolved, canonical bootstrap may become blocked or remain incomplete under the methodology's bootstrap rules.
+
+The resulting behavior must then follow the methodology's hardened bootstrap model, including hard failure where no valid bounded continuation or recovery basis exists, and surfaced limited handling only where later methodology rules explicitly permit it.
+
+---
 
 ### Hard Failure
 
-If no compatible artifact can be obtained, the methodology must terminate initialization.
+If no compatible artifact can be obtained and no later methodology rule permits surfaced non-canonical continuation or bounded recovery input handling for the current task path, the methodology must terminate initialization.
 
 The system should report:
 
