@@ -578,6 +578,22 @@ The runtime must not silently broaden re-entry into unrelated authority expansio
 
 ---
 
+### Bootstrap Completion vs Non-Canonical Continuation Clarification
+
+Bounded non-canonical continuation, recovery input availability, canonical bootstrap re-entry, and canonical bootstrap completion are distinct conditions.
+
+Bounded non-canonical continuation may preserve limited methodology usability under surfaced non-canonical conditions.
+
+Canonical bootstrap re-entry may resume the canonical-bootstrap path through renewed canonical resolution and verification.
+
+Neither bounded non-canonical continuation nor canonical bootstrap re-entry restores canonical authority by itself.
+
+Canonical authority is restored only when canonical bootstrap completes under the methodology's bootstrap rules.
+
+Until canonical bootstrap completion has actually been achieved, the runtime must not treat the current path as canonically restored and must continue to preserve the distinction between non-canonical continuation, recovery attempt, re-entry, and completed canonical bootstrap.
+
+---
+
 ## Methodology Runtime Model
 
 The AI Interaction Methodology operates as a structured runtime process rather
