@@ -436,6 +436,25 @@ Supporting artifacts, adjacent materials, and alternate artifact sources may rev
 
 ---
 
+### Blocked Bootstrap State
+
+Blocked bootstrap state applies when canonical bootstrap cannot complete because one or more proof-required canonical bootstrap facts remain unresolved for canonical bootstrap purposes.
+
+Blocked bootstrap may result from conditions including:
+
+- unresolved contradiction affecting a proof-required canonical bootstrap fact
+- failure of exact identifier or exact artifact resolution
+- attempted satisfaction of a proof-required canonical bootstrap fact through a disallowed completion path
+- unresolved bootstrap authority conditions that prevent exact canonical bootstrap completion
+
+Blocked bootstrap is a bootstrap control state.
+
+It is not canonical execution, not bootstrap completion, and not evidence that canonical authority has been established.
+
+When blocked bootstrap state applies, the runtime must treat canonical bootstrap as incomplete unless and until a later methodology rule validly permits recovery, re-entry, or explicitly surfaced non-canonical continuation.
+
+---
+
 ## Methodology Runtime Model
 
 The AI Interaction Methodology operates as a structured runtime process rather
