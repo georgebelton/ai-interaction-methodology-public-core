@@ -276,6 +276,60 @@ This exact audit resolution is a derived refinement of the declared public relea
 
 ---
 
+### Canonical Bootstrap State Model
+
+Canonical bootstrap operates as an explicit bounded runtime control state for sessions that depend on canonical public-core authority.
+
+For canonical bootstrap, the runtime distinguishes the following states:
+
+- **bootstrap unresolved**
+- **lock file resolved**
+- **canonical set resolved**
+- **canonical set verified**
+- **bootstrap complete**
+- **bootstrap blocked**
+
+Canonical bootstrap is execution-affecting. Until bootstrap is complete, canonical facts are unresolved and are not eligible for canonical use.
+
+`lock file resolved` means the exact lock file has been resolved as the active bootstrap source for the task.
+
+`canonical set resolved` means the required canonical artifacts have been resolved from the declared repository, canonical paths, and pinned reference.
+
+`canonical set verified` means the runtime has verified exact identity for the resolved canonical artifact set sufficiently for canonical use.
+
+`bootstrap complete` means the runtime may use canonical facts and proceed with canonical execution.
+
+`bootstrap blocked` means canonical bootstrap could not be completed exactly or unambiguously and canonical execution is not authorized.
+
+Bounded non-canonical output, where later permitted under a narrowed task path, is not a bootstrap state, is not canonical execution, and does not satisfy bootstrap completion.
+
+---
+
+### Canonical Claim Emission Gate
+
+The runtime must not emit, use, or inherit canonical facts before canonical bootstrap is complete.
+
+For this rule, canonical facts include at minimum:
+
+- the pinned public reference
+- canonical repository identity
+- canonical artifact set identity
+- canonical artifact reference or version
+
+Before bootstrap complete, canonical facts must not be presented as established, active, or usable runtime facts.
+
+Before bootstrap complete, the runtime must not present unresolved canonical values as:
+
+- likely
+- default
+- remembered
+- inferred
+- assumed from adjacent or related materials
+
+Canonical execution may begin only after bootstrap complete.
+
+---
+
 ## Methodology Runtime Model
 
 The AI Interaction Methodology operates as a structured runtime process rather
@@ -1324,6 +1378,8 @@ When resolving a required canonical artifact after canonical startup has determi
 4. verify that the artifact is readable, complete, and structurally valid
 
 If any of these steps fail, the artifact must be treated as unresolved.
+
+If exact canonical bootstrap does not complete through exact lock-file resolution, pinned-reference resolution, canonical artifact resolution, and sufficient identity verification for canonical use, the runtime must not treat canonical resolution as complete.
 
 ---
 
@@ -3197,6 +3253,8 @@ Unless stricter audit requirements are explicitly in effect, methodology assembl
 For this public-core, that pinned public reference is the declared release tag.
 
 Exact-commit audit resolution may be used only as a derived refinement of that declared public release state.
+
+When canonical bootstrap completes successfully, routine execution need not narrate bootstrap status beyond what the task requires. When canonical bootstrap does not complete, canonical execution is not authorized. Any later bounded non-canonical output on a narrowed task path, where permitted, is not canonical execution and does not satisfy bootstrap completion.
 
 ---
 
