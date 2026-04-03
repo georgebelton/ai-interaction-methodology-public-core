@@ -1679,7 +1679,7 @@ Implementations must not silently ignore artifact resolution failures.
 
 If a required artifact cannot be resolved, canonical bootstrap may become blocked or remain incomplete under the methodology's bootstrap rules.
 
-The resulting behavior must then follow the methodology's hardened bootstrap model, including hard failure where no valid bounded continuation or recovery basis exists, and surfaced limited handling only where later methodology rules explicitly permit it.
+This section defines downstream failure handling under that hardened bootstrap model, including hard failure where no valid bounded continuation or recovery basis exists, and surfaced limited handling only where later methodology rules explicitly permit it.
 
 ---
 
@@ -1692,7 +1692,7 @@ The system should report:
 - which artifact failed
 - the reason resolution failed
 
-This preserves deterministic and auditable startup behavior.
+This is the terminal startup outcome when no later methodology-permitted bounded path remains available.
 
 ---
 
@@ -1711,7 +1711,7 @@ Under degraded resolution handling:
 - cached or local artifact availability does not by itself establish canonical authority
 - the degraded or non-canonical condition must be surfaced explicitly
 
-Compatibility and integrity requirements for cached artifacts remain governed by the methodology's cached-artifact compatibility rules.
+This subsection governs limited downstream handling only. Compatibility and integrity requirements for cached artifacts remain governed by the methodology's cached-artifact compatibility rules.
 
 ---
 
