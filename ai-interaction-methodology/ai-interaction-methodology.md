@@ -478,6 +478,29 @@ Blocked bootstrap behavior limits canonical-path continuation. It does not by it
 
 ---
 
+### Bounded Non-Canonical Output Mode
+
+Bounded non-canonical output mode is a surfaced continuation mode permitted only when canonical bootstrap is incomplete or blocked and the remaining task path does not require canonical authority.
+
+Bounded non-canonical output mode is not canonical execution, not bootstrap completion, and not a substitute bootstrap state.
+
+This mode may be used only when the runtime explicitly surfaces that:
+
+- canonical bootstrap has not completed
+- canonical authority is not established for the current output path
+- the current continuation is limited to a non-canonical task path whose remaining work does not require canonical bootstrap completion
+
+When operating in bounded non-canonical output mode, the runtime must not:
+
+- present canonical bootstrap facts as established
+- imply that canonical authority has been restored
+- treat local copies, working copies, supporting artifacts, or alternate artifact sources as having silently completed canonical bootstrap
+- blur the distinction between non-canonical continuation and canonical execution
+
+Bounded non-canonical output mode preserves limited methodology usability under surfaced non-canonical conditions. It does not by itself define valid recovery or re-entry into canonical bootstrap.
+
+---
+
 ## Methodology Runtime Model
 
 The AI Interaction Methodology operates as a structured runtime process rather
