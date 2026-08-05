@@ -348,26 +348,39 @@ A proof-required canonical fact is not eligible for canonical use unless it has 
 
 ---
 
-### Disallowed Bootstrap Fact Completion Paths
-
-The runtime must not satisfy proof-required canonical identity or resolution facts through any of the following paths:
-
-- cached state
-- prior session memory
-- prior uncited runtime claims
-- visible branch or default-branch state not verified as the exact canonical target
-- supporting planning artifacts
-- semantically related artifacts
-- nearby repository material
-- plausibility, naming similarity, or owner similarity
+### Bootstrap Source and Fact-Completion Non-Substitution
 
 Similarity, accessibility, visibility, and plausibility are not substitutes for exact canonical bootstrap resolution.
 
+Canonical bootstrap authority is not conferred by, and a proof-required canonical identity or resolution fact must not be satisfied from, any of the following:
+
+- cached state
+- prior session memory, prior session summaries, or prior appearance in session context
+- prior uncited runtime claims
+- visible branch or default-branch state not verified as the exact canonical target
+- repository co-location, same-owner proximity, or nearby repository material
+- naming similarity, owner similarity, or contextual plausibility
+- semantic relevance
+- supporting uploads, planning documents, roadmaps, working notes, comments, or index artifacts
+- corroborating materials
+
+#### Bootstrap Source Non-Substitution
+
+A bootstrap artifact is authoritative for canonical bootstrap only if it is the exact requested or exact active bootstrap source and its identity has been verified for the current bootstrap run.
+
+#### Disallowed Fact-Completion Paths
+
 If a proof-required canonical fact cannot be resolved exactly through an allowed bootstrap path, that fact remains unresolved for canonical bootstrap purposes.
 
-This section governs invalid completion paths for proof-required canonical bootstrap facts. It does not by itself prohibit explicitly surfaced non-canonical continuation on a narrowed or alternate-authority path where the methodology later permits such continuation.
-
 A local copy, working copy, or other alternate artifact source must not be treated as evidence that canonical bootstrap has completed unless canonical authority has been validly re-established under the methodology's later recovery or re-entry rules.
+
+#### Supporting-Artifact Non-Promotion
+
+Supporting artifacts may corroborate canonical bootstrap results after those facts have been exactly resolved. They may not originate, backfill, or supply a missing pinned reference, missing canonical artifact identity, missing canonical repository identity, or any other unresolved proof-required canonical bootstrap fact.
+
+Active task artifacts remain usable after proper bootstrap for the task they govern. Being in-session, recent, or operator-provided does not make an artifact a substitute source for an unresolved canonical bootstrap fact.
+
+This section governs bootstrap-source authority and invalid fact-completion paths. It does not by itself prohibit explicitly surfaced non-canonical continuation on a narrowed or alternate-authority path where the methodology later permits such continuation.
 
 ---
 
@@ -382,45 +395,6 @@ The runtime must not normalize, shorten, paraphrase, or approximate an exact boo
 If exact resolution fails, the runtime must surface the failure explicitly and must not continue the canonical-bootstrap claim path from nearby, similar, renamed-looking, co-located, or semantically related materials.
 
 Failure to resolve an exact bootstrap identifier leaves the corresponding proof-required canonical fact unresolved for canonical bootstrap purposes unless and until canonical authority is validly re-established under the methodology.
-
----
-
-### Bootstrap Source Non-Substitution
-
-Canonical bootstrap authority is not conferred by:
-
-- same-owner repository proximity
-- branch or default-branch visibility
-- naming similarity
-- prior appearance in session context
-- semantic relevance
-- supporting uploads
-- planning documents
-- corroborating materials
-
-A bootstrap artifact is authoritative for canonical bootstrap only if it is the exact requested or exact active bootstrap source and its identity has been verified for the current bootstrap run.
-
-Discoverability, relevance, accessibility, or contextual plausibility do not promote a source into canonical bootstrap authority. This section governs bootstrap-source authority, not completion of proof-required facts through prohibited fill paths.
-
----
-
-### Supporting-Artifact Non-Promotion for Canonical Bootstrap Facts
-
-Supporting artifacts may corroborate canonical bootstrap results, but they may not originate, backfill, or supply unresolved canonical bootstrap facts.
-
-This applies to materials such as:
-
-- planning documents
-- comments
-- prior prompts
-- roadmaps
-- working notes
-- prior session summaries
-- index artifacts
-
-Such artifacts may confirm consistency after canonical bootstrap facts have been exactly resolved, but they may not supply a missing pinned reference, missing canonical artifact identity, missing canonical repository identity, or other unresolved proof-required canonical bootstrap fact.
-
-Active task artifacts remain usable after proper bootstrap for the task they govern. This section preserves the distinction between corroboration and supply: such artifacts do not become substitute sources for unresolved canonical bootstrap identity or resolution facts merely because they are in-session, recent, or operator-provided.
 
 ---
 
@@ -517,6 +491,10 @@ Canonical bootstrap re-entry reopens the canonical-bootstrap path only when a la
 
 Canonical bootstrap re-entry does not by itself establish canonical authority or bootstrap completion.
 
+Canonical authority is restored only when canonical bootstrap completes under the methodology's bootstrap rules. Bounded non-canonical continuation, availability of a recovery input, and re-entry are each distinct from that completion and from each other.
+
+Until canonical bootstrap completion has been achieved, the runtime must preserve these distinctions and must not present the current path as canonically restored.
+
 ---
 
 ### Bounded Recovery Inputs for Canonical Re-Resolution
@@ -571,22 +549,6 @@ Re-entry visibility does not by itself establish canonical authority or bootstra
 Canonical bootstrap re-entry must remain scoped to the renewed bootstrap-resolution effort supported by the recovery basis that justified re-entry.
 
 The runtime must not silently broaden re-entry into unrelated authority expansion, mixed-source reasoning, or unstated restoration of canonical authority.
-
----
-
-### Bootstrap Completion vs Non-Canonical Continuation Clarification
-
-Bounded non-canonical continuation, recovery input availability, canonical bootstrap re-entry, and canonical bootstrap completion are distinct conditions.
-
-Bounded non-canonical continuation may preserve limited methodology usability under surfaced non-canonical conditions.
-
-Canonical bootstrap re-entry may resume the canonical-bootstrap path through renewed canonical resolution and verification.
-
-Neither bounded non-canonical continuation nor canonical bootstrap re-entry restores canonical authority by itself.
-
-Canonical authority is restored only when canonical bootstrap completes under the methodology's bootstrap rules.
-
-Until canonical bootstrap completion has actually been achieved, the runtime must not treat the current path as canonically restored and must continue to preserve the distinction between non-canonical continuation, recovery attempt, re-entry, and completed canonical bootstrap.
 
 ---
 
@@ -5880,6 +5842,7 @@ Evidence of conformance may include:
 
 - explicit problem framing
 - structured evaluation before recommendation
+- structured reasoning before tool recommendation
 - avoidance of premature conclusions
 
 ---

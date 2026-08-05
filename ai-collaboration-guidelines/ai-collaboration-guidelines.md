@@ -258,14 +258,9 @@ Profiles exist to support safe customization while preserving the methodology’
 
 Some aspects of the collaboration model are fundamental to the AI Interaction Methodology and are not intended to be modified by collaboration profiles.
 
-These include:
+The canonical list of these invariants is defined under **Methodology Invariants** in `ai-interaction-methodology/ai-interaction-methodology.md`. Concrete evidence of conformance for each is given under **Required Conformance Criteria** in the same document.
 
-- diagnosis before solutioning
-- structured reasoning before tool recommendation
-- explicit evaluation of assumptions, tradeoffs, and uncertainty
-- critical evaluation rather than automatic validation
-- systems-level reasoning orientation
-- reliability validation before conclusions
+This document does not restate that list locally. The behavioral expectations elaborated in the sections above are the collaboration-level expression of those invariants, not a second definition of them.
 
 These invariants are enforced through the canonical methodology artifacts and do not establish a separate local precedence model within this document.
 
