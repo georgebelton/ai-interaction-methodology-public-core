@@ -41,6 +41,11 @@ it before starting work in this repo.
   several narrower statements rather than one, say so and let the operator decide whether
   the summary is worth keeping — distributed guarantees are harder to keep in lockstep
   under later edits than a single stated one.
+- After any term-driven cross-reference search, do one full non-term-driven read of the
+  affected file before treating the map as complete. Keyword search cannot find
+  paraphrases, renamed labels, or content that is miscategorized by proximity to its
+  neighbours rather than by its own content. Both times this has been done it found
+  something the search missed, including a live classification question.
 - For byte-level checks (line endings, encoding, whitespace), use methods immune to
   shell-quoting loss: `git cat-file -p` for raw blob content (`git show` can apply
   filters), `tr -dc '\r' | wc -c`, or a direct read in python. Do **not** use `grep` with
