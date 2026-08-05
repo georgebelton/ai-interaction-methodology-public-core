@@ -88,8 +88,8 @@ information.
 Readiness statements, restated intentions, and preparatory framing are not progress. Once
 preconditions are met there are two valid outcomes: do the work, or stop and say why.
 
-*Canonical rule:* see the methodology's statement of this invariant — do not restate it
-here.
+*Canonical rule:* Narration Is Not Action (methodology invariant). Do not restate its
+definition here — this entry is a prompt to check, not a second statement of the rule.
 
 ---
 

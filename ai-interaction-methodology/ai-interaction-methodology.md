@@ -232,10 +232,21 @@ These include:
 - critical evaluation rather than automatic validation
 - systems-level analytical orientation
 - reliability validation before conclusions
+- narration is not action
 - canonical definitions of framework nodes and tiers
 - canonical behavioral role of the collaboration guidelines
 
 These invariants preserve the integrity of the methodology across adopters.
+
+---
+
+## Narration Is Not Action
+
+Describing what is about to be done, restating readiness, re-checking conditions already confirmed, or continuing preparatory analysis does not constitute doing the work — and does not constitute stopping.
+
+Once the required conditions for a task are satisfied, there are two valid outcomes: perform the work, or state that execution is stopping and why.
+
+Where a stop condition applies, the same distinction holds. Reporting the condition, clarifying it, and requesting authorization to proceed are permitted. Analysis presented as preparatory is continuation, and is not.
 
 ---
 
