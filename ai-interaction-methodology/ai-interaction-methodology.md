@@ -798,7 +798,7 @@ This state applies when the methodology explicitly permits continuation despite 
 
 When operating in `degraded state`, the runtime must make the degraded condition visible and constrain claims accordingly.
 
-`degraded state` is not equivalent to normal active execution.
+`degraded state` is distinct from normal active execution, since continuation is permitted only under explicitly declared and visible limitations, and distinct from `blocked halt state`, since continuation remains permitted at all.
 
 ---
 
@@ -2664,7 +2664,7 @@ Degraded state applies when execution may continue only under explicitly limited
 
 Degraded state permits bounded continuation only when the methodology explicitly allows degradation for the relevant condition.
 
-Degraded state is not equivalent to blocked halt state.
+Degraded state is distinct from normal active execution, since continuation is permitted only under explicitly declared and visible limitations, and distinct from blocked halt state, since continuation remains permitted at all.
 
 ---
 
@@ -2674,7 +2674,7 @@ Blocked halt state applies when the methodology or the operator defines a condit
 
 When a blocked halt state is entered, substantive execution must cease immediately.
 
-Blocked halt state permits reporting and clarification behavior only, unless explicit re-entry conditions are later satisfied.
+The actions that remain permitted are those enumerated under Blocked Execution State, which include requesting clarification, override, or scope narrowing. Blocked halt state does not authorize substantive continuation.
 
 ---
 
