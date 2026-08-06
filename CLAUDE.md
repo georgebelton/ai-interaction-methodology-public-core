@@ -41,6 +41,14 @@ it before starting work in this repo.
   several narrower statements rather than one, say so and let the operator decide whether
   the summary is worth keeping — distributed guarantees are harder to keep in lockstep
   under later edits than a single stated one.
+- **A deletion's dependency map must be checked in both directions.** What points at the
+  content being deleted, *and* what is being kept that points into it. The second
+  direction is the one that gets missed, because sequencing cannot fix it: there is no
+  "commit this first" that saves a surviving section whose text refers to a deleted one.
+  The content itself has to be replaced. Note that resolving a duplication by replacing a
+  restatement with a pointer — usually the right call, since it removes a copy that can
+  drift — converts a drift risk into a dangling-reference risk, and the deletion map is
+  where that debt comes due.
 - After any term-driven cross-reference search, do one full non-term-driven read of the
   affected file before treating the map as complete. Every time this has been done it
   found something the search missed. Keyword search fails in at least four distinct ways,

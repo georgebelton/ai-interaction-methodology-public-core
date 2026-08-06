@@ -58,8 +58,7 @@ Note that requesting clarification, override, or scope narrowing is permitted wh
 stopped — those are the only ways a stop ends.
 
 *Canonical rules:* An Operator Stop Is Binding · A Milder Response Does Not Satisfy a
-Stronger Requirement (methodology invariants) · Halt-State Classification Rule · Blocked
-Execution State (see Allowed Actions in Blocked State for what remains permitted).
+Stronger Requirement (methodology invariants) · Halt-State Classification Rule.
 
 ---
 
@@ -71,8 +70,7 @@ The answer must name something that actually changed. Conversational momentum, e
 turns, and inferred intent are not authorization. Resumed scope should not exceed the
 scope of whatever authorized it.
 
-*Canonical rules:* Permission Not Given Is Not Permission (methodology invariant) · Halt
-Re-entry Rule.
+*Canonical rule:* Permission Not Given Is Not Permission (methodology invariant).
 
 ---
 
@@ -84,7 +82,11 @@ If the same unresolved question is being worked a second time and nothing new ha
 in, stop and ask rather than attempt it again. Reformulating the question is not new
 information.
 
-*Canonical rules:* Uncertainty-Loop Budget Rule.
+*Canonical rule:* Narration Is Not Action (methodology invariant) — covers re-stating or
+re-checking already-confirmed conditions. Whether this is genuinely the same unresolved
+question as a prior attempt has no canonical citation: judging that requires holding and
+comparing prior-turn state, which is exactly what this checklist exists to do instead of
+asking the model to do it.
 
 ---
 
