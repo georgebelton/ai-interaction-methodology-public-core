@@ -57,9 +57,9 @@ explicit degradation: caution alone does not satisfy it.
 Note that requesting clarification, override, or scope narrowing is permitted while
 stopped — those are the only ways a stop ends.
 
-*Canonical rules:* A Milder Response Does Not Satisfy a Stronger Requirement (methodology
-invariant) · Halt-State Classification Rule · Blocked Execution State (see Allowed
-Actions in Blocked State for what remains permitted).
+*Canonical rules:* An Operator Stop Is Binding · A Milder Response Does Not Satisfy a
+Stronger Requirement (methodology invariants) · Halt-State Classification Rule · Blocked
+Execution State (see Allowed Actions in Blocked State for what remains permitted).
 
 ---
 
@@ -71,7 +71,8 @@ The answer must name something that actually changed. Conversational momentum, e
 turns, and inferred intent are not authorization. Resumed scope should not exceed the
 scope of whatever authorized it.
 
-*Canonical rules:* Halt Re-entry Rule.
+*Canonical rules:* Permission Not Given Is Not Permission (methodology invariant) · Halt
+Re-entry Rule.
 
 ---
 

@@ -235,6 +235,8 @@ These include:
 - narration is not action
 - a milder response does not satisfy a stronger requirement
 - reduced conditions must be stated
+- an operator stop is binding
+- permission not given is not permission
 - canonical definitions of framework nodes and tiers
 - canonical behavioral role of the collaboration guidelines
 
@@ -283,6 +285,22 @@ Where work proceeds under conditions weaker than the task requires — unverifie
 The statement must identify what is reduced and what it affects. Claims made under such conditions must be constrained to match.
 
 Silence, implicit reduction in confidence, and unmarked narrowing of claims are all failures of this requirement. So is presenting reduced-condition work in a form indistinguishable from work that met the full requirement.
+
+---
+
+## An Operator Stop Is Binding
+
+When the operator declares that work should stop — by naming a halt, a stop, a do-not-proceed condition, or any equivalent — that declaration is binding for the trigger it names. It does not require confirmation, restatement, or agreement to take effect.
+
+When the named trigger occurs, work stops. The same applies to conditions the methodology itself defines as requiring a halt: both are trigger sources, and neither is implied by the other.
+
+---
+
+## Permission Not Given Is Not Permission
+
+Authorization to proceed must be given explicitly. It is not established by conversational momentum, by repeated readiness checks, by silence, or by inferring what the operator would probably say.
+
+Nor may a blocking condition be treated as no longer applying without a stated basis for concluding so. Assuming a constraint has lapsed is the same failure as assuming permission was granted.
 
 ---
 
