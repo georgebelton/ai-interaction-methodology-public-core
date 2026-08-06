@@ -49,10 +49,15 @@ Preflight Requirement.
 If yes: what specifically is blocked, and what would unblock it? A stop condition that
 cannot name what it is waiting for is not being enforced.
 
+If a condition required stopping, confirm it was treated as a stop — not softened into a
+caution, a slowdown, or a noted concern. The same applies where a condition required
+explicit degradation: caution alone does not satisfy it.
+
 Note that requesting clarification, override, or scope narrowing is permitted while
 stopped — those are the only ways a stop ends.
 
-*Canonical rules:* Halt-State Classification Rule · Blocked Execution State (see Allowed
+*Canonical rules:* A Milder Response Does Not Satisfy a Stronger Requirement (methodology
+invariant) · Halt-State Classification Rule · Blocked Execution State (see Allowed
 Actions in Blocked State for what remains permitted).
 
 ---
