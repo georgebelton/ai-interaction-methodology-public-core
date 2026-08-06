@@ -26,6 +26,7 @@ it is authorized to proceed:
 - before substantive work begins on an artifact-bound task
 - when the model reports being blocked, or resumes after having been blocked
 - when the same question has been revisited without resolving
+- when inputs turn out to be weaker than the task assumed
 - before accepting output as complete
 
 ## The checks
@@ -95,6 +96,21 @@ preconditions are met there are two valid outcomes: do the work, or stop and say
 
 *Canonical rule:* Narration Is Not Action (methodology invariant). Do not restate its
 definition here — this entry is a prompt to check, not a second statement of the rule.
+
+---
+
+### 6. Reduced conditions
+
+**Is anything here working with less than it needs — and was that said?**
+
+Unverified sources, incomplete evidence, unconfirmed boundaries, authority that was never
+established. Any of these can appear partway through, long after entry conditions were
+satisfied, so this is not a start-of-task check and is not covered by check 1.
+
+Look for the absence rather than the statement: work that reads as though it met the full
+requirement, with nothing saying it didn't.
+
+*Canonical rule:* Reduced Conditions Must Be Stated (methodology invariant).
 
 ---
 

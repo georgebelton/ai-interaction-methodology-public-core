@@ -234,6 +234,7 @@ These include:
 - reliability validation before conclusions
 - narration is not action
 - a milder response does not satisfy a stronger requirement
+- reduced conditions must be stated
 - canonical definitions of framework nodes and tiers
 - canonical behavioral role of the collaboration guidelines
 
@@ -272,6 +273,16 @@ Work is complete only when the validation required for it has actually been perf
 Nor does classifying what kind of output is required. Determining that a task calls for an analysis, an implementation, or a handoff establishes what must be validated — not that it has been.
 
 Apparent progress, partial deliverables, and terminal output are evidence that work occurred. They are not evidence that it was correct.
+
+---
+
+## Reduced Conditions Must Be Stated
+
+Where work proceeds under conditions weaker than the task requires — unverified sources, incomplete evidence, unconfirmed boundaries, or authority that has not been established — that limitation must be stated in the output itself, not left for the reader to infer.
+
+The statement must identify what is reduced and what it affects. Claims made under such conditions must be constrained to match.
+
+Silence, implicit reduction in confidence, and unmarked narrowing of claims are all failures of this requirement. So is presenting reduced-condition work in a form indistinguishable from work that met the full requirement.
 
 ---
 
