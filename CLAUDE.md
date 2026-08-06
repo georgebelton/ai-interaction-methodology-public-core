@@ -42,10 +42,20 @@ it before starting work in this repo.
   the summary is worth keeping — distributed guarantees are harder to keep in lockstep
   under later edits than a single stated one.
 - After any term-driven cross-reference search, do one full non-term-driven read of the
-  affected file before treating the map as complete. Keyword search cannot find
-  paraphrases, renamed labels, or content that is miscategorized by proximity to its
-  neighbours rather than by its own content. Both times this has been done it found
-  something the search missed, including a live classification question.
+  affected file before treating the map as complete. Every time this has been done it
+  found something the search missed. Keyword search fails in at least four distinct ways,
+  and each was observed producing a real undercount:
+    - **paraphrase** — a renamed label carrying the same meaning (`Authority + Execution
+      Controls` for an execution-state reference)
+    - **concept vs word** — the idea stated without its keyword (searching "downgrade"
+      found 3 of 28; searching the concept found the rest)
+    - **proximity miscategorization** — content bucketed by the section containing it
+      rather than by what it says, so it does not read as the thing being searched for
+    - **negative phrasing** — the same obligation stated inverted, sharing no keywords
+      with the positive form (`must not silently continue` for a disclosure requirement;
+      searching only the positive form found 15 of 32)
+  A count that stops where the first search ended is almost certainly short. State the
+  search that was run, not the conclusion drawn from it.
 - For byte-level checks (line endings, encoding, whitespace), use methods immune to
   shell-quoting loss: `git cat-file -p` for raw blob content (`git show` can apply
   filters), `tr -dc '\r' | wc -c`, or a direct read in python. Do **not** use `grep` with
