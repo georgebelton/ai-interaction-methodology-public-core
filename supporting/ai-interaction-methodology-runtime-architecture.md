@@ -271,6 +271,8 @@ Within the methodology runtime, workflow classification and output preparation d
 
 Validated completion is reached only when the required validation conditions for the active workflow class have been satisfied.
 
+Both statements follow from the methodology's `Producing Output Is Not Completing Work`, which is canonical. They are not defined here.
+
 ---
 
 ## 8. Final Response or Handoff Artifact

@@ -263,6 +263,18 @@ Degraded continuation is permitted only where the methodology explicitly defines
 
 ---
 
+## Producing Output Is Not Completing Work
+
+This states the failure mode guarded by the invariant `reliability validation before conclusions`. It is not a separate invariant.
+
+Work is complete only when the validation required for it has actually been performed. Producing an artifact, generating a response, or reaching the end of a process does not by itself establish that the work is done.
+
+Nor does classifying what kind of output is required. Determining that a task calls for an analysis, an implementation, or a handoff establishes what must be validated — not that it has been.
+
+Apparent progress, partial deliverables, and terminal output are evidence that work occurred. They are not evidence that it was correct.
+
+---
+
 ## Profile and Override Boundaries
 
 Local profiles may customize allowed defaults, but they must not:
