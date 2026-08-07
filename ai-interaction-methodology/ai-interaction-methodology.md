@@ -4566,14 +4566,8 @@ Protected surfaces and override prohibitions are defined in the Profile and Over
 
 ### Methodology Invariants
 
-Profiles must not alter or disable methodology invariants, including:
-
-- diagnosis before solutioning
-- structured reasoning over conversational response generation
-- explicit handling of assumptions, tradeoffs, and uncertainty
-- critical evaluation rather than automatic validation
-- systems-level analytical orientation
-- reliability validation before conclusions
+Profiles must not alter or disable any methodology invariant. The canonical list is in
+`Methodology Invariants`; do not restate it here.
 
 ---
 
