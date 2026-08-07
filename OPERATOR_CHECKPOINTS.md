@@ -58,7 +58,8 @@ Note that requesting clarification, override, or scope narrowing is permitted wh
 stopped — those are the only ways a stop ends.
 
 *Canonical rules:* An Operator Stop Is Binding · A Milder Response Does Not Satisfy a
-Stronger Requirement (methodology invariants) · Halt-State Classification Rule.
+Stronger Requirement · Narration Is Not Action, which states the permitted actions
+(methodology invariants) · Halt-State Classification Rule.
 
 ---
 

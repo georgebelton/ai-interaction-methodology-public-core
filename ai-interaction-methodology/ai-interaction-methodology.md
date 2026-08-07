@@ -250,7 +250,7 @@ Describing what is about to be done, restating readiness, re-checking conditions
 
 Once the required conditions for a task are satisfied, there are two valid outcomes: perform the work, or state that execution is stopping and why.
 
-Where a stop condition applies, the same distinction holds. Reporting the condition, clarifying it, and requesting authorization to proceed are permitted. Analysis presented as preparatory is continuation, and is not.
+Where a stop condition applies, the same distinction holds. The permitted actions are limited to reporting the condition, identifying what remains blocked, and requesting clarification, override, or scope narrowing. Analysis presented as preparatory is continuation, and is not.
 
 ---
 
@@ -264,13 +264,15 @@ Such conditions must not be reinterpreted as a slowdown, as tentative continuati
 
 Degraded continuation is permitted only where the methodology explicitly defines it for that specific condition. Absent that, the milder state is not an available response.
 
+Explicit degradation and a halt are different responses, not degrees of one response. Under declared degradation continuation remains permitted; under a halt it does not. Satisfying a required halt with explicit degradation is therefore the same failure as satisfying it with caution.
+
 ---
 
 ## Producing Output Is Not Completing Work
 
 This states the failure mode guarded by the invariant `reliability validation before conclusions`. It is not a separate invariant.
 
-Work is complete only when the validation required for it has actually been performed. Producing an artifact, generating a response, or reaching the end of a process does not by itself establish that the work is done.
+Work is complete only when the validation required for it has actually been performed — that is what `validated completion` names wherever the methodology uses the term. Producing an artifact, generating a response, or reaching the end of a process does not by itself establish that the work is done.
 
 Nor does classifying what kind of output is required. Determining that a task calls for an analysis, an implementation, or a handoff establishes what must be validated — not that it has been.
 
@@ -293,6 +295,8 @@ Silence, implicit reduction in confidence, and unmarked narrowing of claims are 
 When the operator declares that work should stop — by naming a halt, a stop, a do-not-proceed condition, or any equivalent — that declaration is binding for the trigger it names. It does not require confirmation, restatement, or agreement to take effect.
 
 When the named trigger occurs, work stops. The same applies to conditions the methodology itself defines as requiring a halt: both are trigger sources, and neither is implied by the other.
+
+What remains permitted while stopped is stated in `Narration Is Not Action`.
 
 ---
 

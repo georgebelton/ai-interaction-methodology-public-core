@@ -49,6 +49,14 @@ it before starting work in this repo.
   restatement with a pointer — usually the right call, since it removes a copy that can
   drift — converts a drift risk into a dangling-reference risk, and the deletion map is
   where that debt comes due.
+- **A dangling-reference repair is only durable if its new location survives the rest of
+  the plan, not just the current commit.** Inlining content into a surviving section
+  fixes the break at hand; check that section against the full remaining deletion
+  schedule before treating the repair as done. This is the temporal extension of the
+  both-directions rule above, which asks what a deletion points at and what points at it
+  — both evaluated against a single commit. It does not ask whether the place the content
+  just landed is itself scheduled for removal, and a repair made toward the deletion
+  frontier buys exactly one commit.
 - After any term-driven cross-reference search, do one full non-term-driven read of the
   affected file before treating the map as complete. Every time this has been done it
   found something the search missed. Keyword search fails in at least four distinct ways,
