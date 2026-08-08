@@ -817,14 +817,6 @@ The methodology must enforce evidence stage gating as a mandatory control layer 
 
 ## Evidence Lineage and Traceability Contract
 
-### Purpose
-
-Define the required lineage and traceability model for evidence-sensitive workflows.
-
-The methodology must preserve explicit relationships between source evidence, transformed intermediates, and derived conclusions so that evidence-bound analysis remains auditable and resistant to silent contamination.
-
----
-
 ### Lineage Principle
 
 For evidence-bound workflows, each derived layer must preserve traceability to the specific prior layer from which it was produced.
@@ -905,16 +897,6 @@ For evidence-bound workflows, the methodology must enforce explicit lineage and 
 ---
 
 ## Evidence Integrity Failure Policy
-
-### Purpose
-
-The methodology must define deterministic behavior when evidence integrity cannot be maintained during execution.
-
-Evidence integrity failures represent violations of methodological correctness, not merely degradation in output quality.
-
-This policy ensures that evidence-sensitive workflows do not silently continue after source fidelity has been compromised.
-
----
 
 ### Definition of Evidence Integrity Failure
 
@@ -1416,20 +1398,6 @@ Explicit resolution policies ensure that methodology initialization behaves pred
 
 ## Active Artifact Set Resolution
 
-### Purpose
-
-The methodology must define how artifact authority is resolved during interactive analysis, validation, and modification workflows.
-
-Canonical artifact resolution defines how the methodology bootstraps from declared sources.
-
-Interactive execution introduces an additional requirement:
-
-the system must determine which specific artifact instances are authoritative for the current session.
-
-This section defines the rules for resolving that active artifact set.
-
----
-
 ### Canonical Publication Artifacts vs Active Working-Copy Artifacts
 
 The methodology distinguishes between two artifact categories.
@@ -1563,27 +1531,7 @@ This requirement preserves deterministic reasoning, prevents stale-document exec
 
 ---
 
-### Architectural Rationale — Active Artifact Set Resolution
-
-Canonical publication authority is sufficient for methodology bootstrap, but it is not sufficient for interactive development workflows where multiple working copies may exist simultaneously.
-
-Without active artifact set resolution, the system may reason against stale, mixed, or inferred document state.
-
-Explicit active artifact resolution preserves the methodology’s deterministic runtime model by extending artifact authority rules from startup behavior into live session execution.
-
----
-
 ## Grounding Preflight Requirement
-
-### Purpose
-
-The methodology must ensure that all artifact-bound analysis, document modification, validation, and implementation workflows are grounded in the current active artifact set immediately prior to execution.
-
-Deterministic artifact resolution alone is insufficient if execution proceeds using stale, inferred, or previously cached document state.
-
-This section defines the required preflight grounding behavior.
-
----
 
 ### Grounding Requirement
 
@@ -1709,29 +1657,7 @@ Grounding preflight extends the deterministic runtime model by enforcing alignme
 
 ---
 
-### Architectural Rationale — Grounding Preflight Requirement
-
-Deterministic artifact resolution establishes which artifacts are authoritative.
-
-Grounding preflight ensures that execution is actually based on those artifacts at the time of action.
-
-Without grounding preflight, the system may operate on stale or inferred state even when artifact authority is correctly defined, and artifact-bound analysis may begin without fresh confirmation of the active source materials.
-
-By requiring immediate, pre-execution grounding, the methodology eliminates this gap and preserves deterministic, verifiable behavior in interactive document workflows and artifact-bound analytical review.
-
----
-
 ## Reasoning-Set Closure Rule
-
-### Purpose
-
-The methodology must define how the reasoning surface is constrained after active artifact authority has been resolved and grounding preflight has been completed.
-
-Artifact authority alone does not prevent later scope widening if adjacent materials are silently treated as eligible reasoning inputs.
-
-This section defines the required closure behavior for the active reasoning set.
-
----
 
 ### Closure Principle
 
@@ -1794,28 +1720,6 @@ Reasoning from mixed authority states is prohibited.
 
 ---
 
-### Relationship to Active Artifact Resolution
-
-Active Artifact Set Resolution determines which artifact instances are authoritative for the current execution context.
-
-The Reasoning-Set Closure Rule defines the reasoning boundary that follows from that resolution.
-
-Closure therefore operates after active artifact resolution and does not replace it.
-
----
-
-### Relationship to Grounding Preflight
-
-Grounding Preflight Requirement ensures that the active artifact set has been freshly read and confirmed immediately prior to execution.
-
-The Reasoning-Set Closure Rule constrains the reasoning surface after that grounding step is complete.
-
-Grounding establishes freshness against the active artifact set.
-
-Closure prevents silent widening beyond it.
-
----
-
 ### Failure Behavior
 
 If the system cannot confirm that reasoning remains constrained to the resolved active artifact set, execution must halt or explicitly suspend definitive reasoning pending authority re-resolution.
@@ -1824,29 +1728,7 @@ The system must not silently continue under boundary uncertainty.
 
 ---
 
-### Architectural Rationale — Reasoning-Set Closure Rule
-
-Deterministic artifact resolution and grounding preflight establish which artifacts are authoritative and confirm that they have been freshly read.
-
-Without an explicit closure rule, the reasoning process may still drift into adjacent, plausible, or previously surfaced materials that were never admitted into the active artifact set.
-
-Reasoning-set closure eliminates this gap by making post-resolution scope widening non-conformant unless authority is explicitly re-resolved.
-
----
-
 ## Authority Transition Rule
-
-### Purpose
-
-The methodology must define how scope expansion is handled when reasoning against the current active artifact set is insufficient for the task.
-
-The active reasoning set is closed after active artifact resolution and grounding preflight.
-
-Any expansion beyond that boundary must therefore occur through an explicit authority transition rather than opportunistic use of adjacent material.
-
-This section defines the required transition behavior.
-
----
 
 ### Transition Principle
 
@@ -1915,26 +1797,6 @@ The system must not:
 
 ---
 
-### Relationship to Reasoning-Set Closure
-
-The Reasoning-Set Closure Rule defines that the active reasoning set is closed after active artifact resolution and grounding preflight.
-
-The Authority Transition Rule defines the only valid mechanism for expanding that reasoning boundary.
-
-This rule therefore complements closure by defining controlled expansion rather than weakening closure.
-
----
-
-### Relationship to Active Artifact Resolution
-
-Active Artifact Set Resolution determines the authoritative artifact set for the current task.
-
-Authority transition applies when that existing set is no longer sufficient and a new or expanded set must be considered.
-
-Any successful authority transition therefore requires re-resolution of the active artifact set rather than ad hoc supplementation.
-
----
-
 ### Failure Behavior
 
 If the system cannot determine whether the candidate material should be admitted into a newly resolved active artifact set, execution must halt or remain explicitly limited to the existing authoritative materials.
@@ -1943,29 +1805,7 @@ The system must not bridge unresolved authority gaps through assumption, relevan
 
 ---
 
-### Architectural Rationale — Authority Transition Rule
-
-Reasoning-set closure prevents silent widening of the reasoning surface after authority has been resolved.
-
-Without an explicit authority-transition rule, legitimate expansion needs would either force premature halt in all cases or encourage opportunistic contamination of the reasoning set.
-
-The Authority Transition Rule preserves both control and flexibility by requiring expansion to occur through explicit declaration, authority re-resolution, and deterministic outcome handling.
-
----
-
 ## Adjacent-Source Non-Promotion Rule
-
-### Purpose
-
-The methodology must explicitly distinguish relevance, accessibility, and proximity from authority.
-
-In artifact-bound work, adjacent materials may appear usable because they are nearby, visible, retrievable, or semantically related.
-
-These properties do not make them authoritative.
-
-This section defines the required non-promotion rule for adjacent sources.
-
----
 
 ### Non-Promotion Principle
 
@@ -2012,41 +1852,11 @@ The system must not:
 
 ---
 
-### Relationship to Reasoning-Set Closure
-
-The Reasoning-Set Closure Rule defines that the active reasoning set is closed after authority resolution and grounding preflight.
-
-The Adjacent-Source Non-Promotion Rule clarifies that adjacent materials remain outside that closed reasoning set unless explicitly admitted.
-
-This rule therefore strengthens closure by making non-authority explicit.
-
----
-
-### Relationship to Authority Transition
-
-Authority Transition Rule defines the only valid mechanism for admitting additional material into the active reasoning set after closure.
-
-The Adjacent-Source Non-Promotion Rule defines that adjacent materials must remain non-authoritative unless that transition occurs.
-
-This rule therefore prevents semantic plausibility from substituting for transition handling.
-
----
-
 ### Failure Behavior
 
 If the system cannot determine whether a source is already included in the active artifact set, it must treat that source as non-authoritative until authority is explicitly confirmed or re-resolved.
 
 The system must not provisionally promote adjacent sources during ambiguity.
-
----
-
-### Architectural Rationale — Adjacent-Source Non-Promotion Rule
-
-Artifact-bound failures often occur not because authority was never defined, but because nearby or relevant materials were silently treated as eligible once they became visible during execution.
-
-This produces context bleed and post-resolution authority drift even when the active artifact set was initially resolved correctly.
-
-The Adjacent-Source Non-Promotion Rule closes this gap by explicitly separating discoverability and relevance from authority, and by requiring formal admission before adjacent materials become eligible reasoning inputs.
 
 ---
 
@@ -2954,23 +2764,6 @@ This rule preserves bounded customization and supports governed environments.
 ---
 
 ## Output Artifact Selection Policy
-
-### Purpose
-
-Define deterministic rules governing when responses should be presented as
-structured artifacts versus concise narrative explanations.
-
-Artifact selection is a **derived runtime directive** determined from the
-analytical requirements of the task.
-
-The objective is to prevent artifact-heavy outputs from becoming the default
-while ensuring structured artifacts are used when they materially improve
-analysis clarity, decision support, or governance visibility.
-
-This policy governs **presentation format only** and does not affect the
-underlying reasoning process.
-
----
 
 ### Selection Principle
 
