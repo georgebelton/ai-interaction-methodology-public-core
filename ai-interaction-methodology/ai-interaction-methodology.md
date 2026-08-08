@@ -731,16 +731,6 @@ These constraints are mandatory for evidence-bound workflows and must be enforce
 
 ## Evidence Stage Gating Rules
 
-### Purpose
-
-Define mandatory entry conditions for evidence-sensitive workflows within the runtime lifecycle.
-
-Stage order alone is insufficient for correctness. Entry conditions must also be satisfied before execution may proceed.
-
-Evidence stage gating ensures that structured reasoning does not begin until evidence availability and source fidelity requirements have been satisfied.
-
----
-
 ### Gating Principle
 
 For evidence-bound workflows, the runtime must enforce the following:
@@ -752,19 +742,7 @@ For evidence-bound workflows, the runtime must enforce the following:
 
 Silent continuation is prohibited.
 
----
-
-### Relationship to the Runtime Lifecycle
-
-Evidence stage gating is enforced prior to structured reasoning within the runtime lifecycle.
-
-Structured reasoning must not begin until all required evidence conditions and source fidelity requirements are satisfied.
-
-Stage order alone is insufficient; entry conditions must also be satisfied.
-
-Evidence stage gating augments the runtime lifecycle by introducing entry conditions on stage transitions, and does not redefine or replace the existing lifecycle structure.
-
-Gating rules constrain when stages may execute, not the ordering or composition of the stages themselves.
+Gating introduces entry conditions on stage transitions. It does not redefine the runtime lifecycle, or the ordering and composition of its stages.
 
 ---
 
@@ -1862,16 +1840,6 @@ The system must not provisionally promote adjacent sources during ambiguity.
 
 ## Explicit Snapshot Precedence Rule
 
-### Purpose
-
-The methodology must define how provided archives, local snapshots, and working-copy packages control execution scope for artifact-bound tasks.
-
-When the operator provides a bounded task-local artifact package, that package may be visible alongside live repository state, connector-accessible materials, or other adjacent sources.
-
-This section defines the required precedence rule for such snapshot-based execution.
-
----
-
 ### Snapshot Precedence Principle
 
 When the operator provides a tagged archive, local snapshot, or working-copy package for the current task, that provided artifact package is the active execution authority for the named task scope unless the operator explicitly requests comparison, historical evaluation, or authority expansion.
@@ -1916,41 +1884,11 @@ The system must not:
 
 ---
 
-### Relationship to Active Artifact Set Resolution
-
-Active Artifact Set Resolution defines how a single authoritative artifact set is selected for execution.
-
-The Explicit Snapshot Precedence Rule clarifies that, for the named task scope, an explicitly provided archive, snapshot, or working-copy package is sufficient to establish that active execution authority unless the operator directs comparison or expansion.
-
-This rule therefore refines active artifact selection for snapshot-based workflows.
-
----
-
-### Relationship to Authority Transition
-
-If the system needs material outside the provided snapshot or archive, that need must be handled through the Authority Transition Rule.
-
-Snapshot precedence does not prohibit expansion.
-
-It prohibits silent expansion.
-
----
-
 ### Failure Behavior
 
 If it is unclear whether a provided archive, snapshot, or working-copy package is intended to control the current task scope, execution must halt and request clarification.
 
 The system must not assume that live repository or connector materials may be used as supplementary authority while that task-local authority question remains unresolved.
-
----
-
-### Architectural Rationale — Explicit Snapshot Precedence Rule
-
-Archive-based and snapshot-based workflows fail when the system treats a provided task-local artifact package as merely suggestive while silently incorporating live or adjacent materials that were never admitted for the task.
-
-This causes mixed-source reasoning even when the operator attempted to bound execution to a specific working set.
-
-The Explicit Snapshot Precedence Rule closes this gap by making task-local artifact packages first-class execution authorities and by requiring explicit comparison or authority transition before live or adjacent materials may be used.
 
 ---
 
@@ -1998,15 +1936,6 @@ Execution may resume only after artifact authority has been explicitly resolved.
 
 ---
 
-### Relationship to Grounding and Resolution
-
-- Active Artifact Set Resolution defines how a single authoritative artifact set is selected  
-- Grounding Preflight Requirement ensures that the selected artifact set is read and confirmed prior to execution  
-
-This policy enforces failure behavior when those conditions are not satisfied.
-
----
-
 ### Conformance Requirement
 
 Proceeding under ambiguous artifact authority constitutes a violation of methodology correctness.
@@ -2016,16 +1945,6 @@ Implementations must enforce halt-and-resolve behavior as a required condition f
 ---
 
 ## Boundary-Uncertainty Degradation Rule
-
-### Purpose
-
-The methodology must define deterministic behavior for cases where the system cannot confirm that the active reasoning set remains identical to the resolved active artifact set during execution.
-
-A system may otherwise continue producing coherent-looking analysis after boundary integrity has been lost or can no longer be verified.
-
-This section defines the required degradation behavior for boundary uncertainty.
-
----
 
 ### Boundary-Uncertainty Principle
 
@@ -2047,6 +1966,8 @@ When boundary integrity cannot be confirmed, the system must do one of the follo
 2. continue only with an explicit degraded-status statement that makes the loss of confirmed boundary integrity visible  
 
 The system must not silently continue under boundary uncertainty.
+
+If authority is explicitly re-resolved and execution re-grounded against the newly admitted artifact set, normal reasoning may resume.
 
 ---
 
@@ -2079,51 +2000,11 @@ Such conclusions require confirmed boundary integrity.
 
 ---
 
-### Relationship to Fail-Closed Artifact Authority Policy
-
-The Fail-Closed Artifact Authority Policy governs cases where artifact authority is unresolved, conflicting, or incomplete prior to execution.
-
-The Boundary-Uncertainty Degradation Rule governs cases where active authority was resolved, but continued boundary integrity cannot later be confirmed during execution.
-
-This rule therefore addresses post-resolution authority degradation rather than initial authority ambiguity.
-
----
-
-### Relationship to Reasoning-Set Closure
-
-The Reasoning-Set Closure Rule requires that the active reasoning set remain identical to the resolved active artifact set.
-
-The Boundary-Uncertainty Degradation Rule defines the required behavior when the system can no longer confirm that this condition still holds.
-
-Closure defines the required boundary.
-
-This rule defines the consequence of losing confidence in that boundary.
-
----
-
-### Relationship to Authority Transition
-
-If boundary uncertainty is resolved by explicitly re-resolving authority and grounding against a newly admitted artifact set, normal reasoning may resume under the Authority Transition Rule.
-
-If such re-resolution does not occur, continuation may proceed only under explicit degraded status or must halt.
-
----
-
 ### Failure Behavior
 
 If the system cannot determine whether boundary integrity has been preserved and cannot produce an explicit degraded-status statement consistent with this rule, execution must halt.
 
 The system must not default to silent continuation, implicit confidence reduction, or unmarked narrowing of claims.
-
----
-
-### Architectural Rationale — Boundary-Uncertainty Degradation Rule
-
-Authority-boundary failures are dangerous because the resulting analysis may remain internally coherent even after the system has lost confidence that it is still reasoning only from the resolved authoritative materials.
-
-Without an explicit degradation rule, such cases can appear trustworthy while no longer satisfying the methodology’s authority discipline.
-
-The Boundary-Uncertainty Degradation Rule makes this loss of confirmed integrity visible and prevents definitive conclusions from being produced under unverified boundary conditions.
 
 ---
 
@@ -2213,18 +2094,6 @@ The Authority-Boundary Drift Failure Case makes this pattern explicit and reusab
 
 ## Working Copy Supersession Rule
 
-### Purpose
-
-The methodology must define how newer working-copy artifacts interact with prior in-session versions of the same logical artifact.
-
-Interactive workflows may introduce multiple revisions of a document during a single session.
-
-Without an explicit supersession rule, the system may regress to older artifact state even after newer working copies have been provided.
-
-This section defines the required supersession behavior.
-
----
-
 ### Supersession Principle
 
 When a new working copy of an artifact is explicitly introduced into the active session, that working copy supersedes all earlier in-session working copies of the same logical artifact unless the operator explicitly requests comparison, history inspection, or use of a prior version.
@@ -2258,26 +2127,6 @@ The system must not:
 
 ---
 
-### Relationship to Active Artifact Resolution
-
-Active Artifact Set Resolution defines how a single authoritative artifact set is selected for execution.
-
-The Working Copy Supersession Rule defines how that artifact set must be updated when newer in-session revisions of an artifact are introduced.
-
-Supersession therefore operates within the active artifact model rather than replacing it.
-
----
-
-### Relationship to Grounding Preflight
-
-Grounding Preflight Requirement requires that execution be based on the current active artifact set immediately prior to modification or validation.
-
-When supersession has occurred, grounding must use the newest superseding working copy rather than any earlier in-session version.
-
-Grounding against a superseded artifact is invalid.
-
----
-
 ### Failure Behavior
 
 If the system cannot determine which in-session working copy is the latest authoritative version, execution must halt and request clarification.
@@ -2291,18 +2140,6 @@ The system must not infer supersession from incomplete evidence or silently choo
 For interactive workflows involving updated working copies, the methodology must enforce working-copy supersession so that reasoning, validation, and modification remain constrained to the latest resolved artifact version within the active artifact set.
 
 This requirement prevents stale-state regression and preserves deterministic session behavior.
-
----
-
-### Architectural Rationale — Working Copy Supersession Rule
-
-Active artifact resolution establishes which artifacts are authoritative for the session.
-
-Grounding preflight ensures that execution is based on those artifacts immediately prior to action.
-
-The supersession rule extends this model across iterative editing by ensuring that newer working copies deterministically replace prior in-session versions unless the operator explicitly requests otherwise.
-
-This preserves correctness, prevents regression to stale artifact state, and keeps interactive document workflows reproducible.
 
 ---
 
