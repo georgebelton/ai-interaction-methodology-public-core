@@ -78,6 +78,14 @@ it before starting work in this repo.
   ANSI-C quoted patterns — `$'\r'` can lose its escaping through nested quoting and
   degrade to a pattern matching every line. The result then looks like a plausible count
   rather than an error, so the failure is silent.
+- **A verification whose success condition is "no matches" must not be chained on its exit
+  status.** `grep`/`grep -c` exit non-zero on zero matches, so the command confirming *"no
+  occurrences remain"* reports shell-level failure exactly when the news is good. Chained
+  with `&&`, or under `set -e`, that aborts the script partway — and it aborts the run that
+  was verifying the correct result, so what surfaces is a broken check rather than a passing
+  one. Assert the count explicitly (capture it and compare), or append `|| true`. Same
+  silent-failure shape as the `$'\r'` case above: the outcome looks like a legitimate
+  negative rather than a malfunction, which is why neither is caught by reading the output.
 - If a section's purpose is unclear, ask rather than guess. Getting this repo's own
   epistemics wrong while editing a methodology about reasoning discipline is the kind of
   irony worth avoiding.
