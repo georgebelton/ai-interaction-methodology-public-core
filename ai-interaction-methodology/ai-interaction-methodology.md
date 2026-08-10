@@ -2776,16 +2776,6 @@ This policy ensures:
 
 ## Delegated Execution Activation Policy
 
-### Purpose
-
-Define deterministic rules governing when the methodology should classify a workflow as preparing for downstream execution by a specialized model or tool rather than treating the current response as the terminal implementation step.
-
-Delegated execution activation is a **derived runtime directive** determined from task conditions and expected workflow outcome.
-
-The objective is to make delegation decisions explicit, bounded, and reviewable.
-
----
-
 ### Activation Principle
 
 The methodology must distinguish between:
@@ -2797,6 +2787,10 @@ The methodology must distinguish between:
 These workflow classes are not interchangeable.
 
 The active workflow class must be determined before terminal output preparation so that the resulting output matches the actual execution path of the work.
+
+Delegated execution is not a framework tier. It does not replace Core Framework, Advanced Framework, or Governance Extensions, and framework tier selection continues to determine analytical depth and control structure.
+
+Delegated execution determines the expected terminal use of the completed analysis, and composes with any framework tier rather than substituting for one.
 
 ---
 
@@ -2874,43 +2868,6 @@ This rule allows delegated execution to be recognized deterministically without 
 
 ---
 
-### Relationship to Framework Tier Selection
-
-Delegated execution is not a framework tier.
-
-It does not replace:
-
-- Core Framework
-- Advanced Framework
-- Governance Extensions
-
-Framework tier selection continues to determine analytical depth and control structure.
-
-Delegated execution determines the expected terminal use of the completed analysis.
-
-This means valid runtime states may include:
-
-- Core analysis-only
-- Advanced analysis-only
-- Advanced in-session implementation
-- Advanced delegated execution
-- Core + Governance delegated execution
-- Advanced + Governance delegated execution
-
-Delegated execution therefore operates as a runtime workflow classification layered on top of framework tier selection.
-
----
-
-### Relationship to Output Artifact Selection
-
-Delegated execution does not itself define the handoff artifact.
-
-It determines that terminal output preparation must support downstream execution rather than only direct explanatory response.
-
-The canonical structure of the downstream handoff artifact is defined separately.
-
----
-
 ### Effect on Analysis Preparation
 
 When delegated execution is active, analysis should be prepared with downstream reuse in mind.
@@ -2956,16 +2913,6 @@ This classification is required so that output preparation remains aligned with 
 
 ## Handoff Artifact Specification
 
-### Purpose
-
-Define the canonical structure used to transfer completed analysis into a downstream execution context when delegated execution is active.
-
-The handoff artifact enables a downstream model or tool to operate from structured, bounded analysis rather than reconstructing intent from conversational context.
-
-The objective is to ensure that analysis performed in the current session remains usable, reviewable, and execution-ready.
-
----
-
 ### Handoff Artifact Principle
 
 When delegated execution is active, the methodology must produce a **bounded handoff artifact** rather than relying solely on explanatory response.
@@ -2979,6 +2926,10 @@ The handoff artifact must:
 - constrain downstream execution behavior
 
 The handoff artifact is a **derived runtime artifact** selected based on delegated execution activation.
+
+A handoff artifact is produced only when delegated execution is active.
+
+This specializes output artifact selection for delegation workflows rather than replacing the general artifact selection policy.
 
 ---
 
@@ -3102,47 +3053,6 @@ A valid handoff artifact must satisfy the following characteristics:
 - **execution readiness** — usable without reconstructing conversational history  
 
 Handoff artifacts must not rely on implicit context.
-
----
-
-### Relationship to Delegated Execution Activation
-
-The handoff artifact is produced only when delegated execution is active.
-
-Delegated execution activation determines:
-
-- that a handoff artifact is required  
-- that output preparation must support downstream execution  
-
-This section defines the structure of that artifact.
-
----
-
-### Relationship to Output Artifact Selection
-
-Handoff artifacts are a specific class of structured output.
-
-They are selected when:
-
-- delegated execution is active  
-- the terminal output must support downstream execution  
-
-This does not replace the general artifact selection policy.  
-It specializes artifact selection for delegation workflows.
-
----
-
-### Relationship to Framework Reasoning
-
-The handoff artifact does not replace structured reasoning.
-
-The AI Interaction Framework remains responsible for:
-
-- analytical structure  
-- reasoning completeness  
-- evaluation of options and constraints  
-
-The handoff artifact represents the **output of completed reasoning**, formatted for downstream execution.
 
 ---
 
