@@ -92,6 +92,16 @@ it before starting work in this repo.
   one. Assert the count explicitly (capture it and compare), or append `|| true`. Same
   silent-failure shape as the `$'\r'` case above: the outcome looks like a legitimate
   negative rather than a malfunction, which is why neither is caught by reading the output.
+- **Never cite the operator's internal failure records in this repo.** Work here may be
+  informed by private incident and root-cause documentation held outside the repo. Nothing
+  committed to public-core — commit messages, file content, comments — may name those
+  documents, quote them, describe their structure, or reference their existence. Cite the
+  *class of failure* instead: "addresses a documented evidence-handling failure" is fine;
+  identifying the record it came from is not. The leak is structural rather than textual —
+  naming a document discloses that it exists, what it covers, and how the private record is
+  organised, none of which a public repo should reveal. This applies to paraphrase, and to
+  counts and enumerations, as much as to titles — stating how many records exist, or of what
+  kinds, is the same disclosure by a different route.
 - If a section's purpose is unclear, ask rather than guess. Getting this repo's own
   epistemics wrong while editing a methodology about reasoning discipline is the kind of
   irony worth avoiding.
