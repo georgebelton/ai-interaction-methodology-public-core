@@ -56,7 +56,13 @@ it before starting work in this repo.
   both-directions rule above, which asks what a deletion points at and what points at it
   — both evaluated against a single commit. It does not ask whether the place the content
   just landed is itself scheduled for removal, and a repair made toward the deletion
-  frontier buys exactly one commit.
+  frontier buys exactly one commit. **The same applies to per-claim destination-table
+  entries: a claim's cited surviving home must itself be checked against the remaining
+  deletion schedule, not merely confirmed to exist today.** Citing coverage and placing
+  content are the same assertion — *this claim now lives at X* — so if X is scheduled for
+  deletion the table is wrong in precisely the way this rule exists to prevent. The
+  asymmetry that makes this easy to miss: placing content feels like an edit and invites
+  the durability check, while citing a location feels like an observation and does not.
 - After any term-driven cross-reference search, do one full non-term-driven read of the
   affected file before treating the map as complete. Every time this has been done it
   found something the search missed. Keyword search fails in at least four distinct ways,
