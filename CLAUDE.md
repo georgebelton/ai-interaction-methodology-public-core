@@ -33,6 +33,16 @@ it before starting work in this repo.
   asking. Work happens on a task branch, never directly on `main`.
 - Don't commit automatically after edits — stage and describe changes, let the operator
   review and commit.
+- **A history-rewriting operation must be recorded in `NOTES.md` when it happens**, in the
+  same per-commit pattern as any other commit, naming **both** hashes — the new one and the
+  one it discarded — and what the rewrite changed and why. Amend, rebase, and reset are the
+  cases. This is a recording requirement, not a prohibition: amending before push is often
+  correct, as when a commit's own text violates the rule it establishes. But **disclosure in
+  conversation is not the record.** Prose scrolls away, and the discarded hash in particular
+  tends to go unnamed because it no longer appears in `git log` — so a rewrite that exists
+  only in chat leaves the durable record with a hole exactly where history diverged from what
+  was reported. The hole is worst where it is most load-bearing: an undescribed object cannot
+  be reasoned about, and should never be the subject of a request to delete it.
 - **Any whole-section deletion requires a per-claim destination table before staging, at
   the same granularity as a merge.** List each claim in the deleted section and the
   specific line it now lives at. A merge forces this accounting because the content has
