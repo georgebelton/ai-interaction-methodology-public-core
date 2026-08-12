@@ -2,7 +2,7 @@
 
 This repository contains the **public core** of the AI Interaction Methodology.
 
-It is the stable public foundation of the system: the canonical artifacts that define its core structure, plus a small supporting layer included only to help explain them. Internal roadmaps, conformance machinery, and private working materials are intentionally excluded.
+It is the stable public foundation of the system: the canonical artifacts that define its core structure, plus a small supporting layer included only to help explain them. Internal working materials are intentionally excluded.
 
 ## Contents
 
@@ -37,33 +37,35 @@ These files are explanatory only. They are included to support understanding of 
 
 ```text
 .
-├── README.md
-├── LICENSE
-├── ai-interaction-methodology/
-│   └── ai-interaction-methodology.md
-├── ai-interaction-framework/
-│   └── framework.md
+├── .github/
+│   └── workflows/
+│       └── validate.yml
 ├── ai-collaboration-guidelines/
 │   └── ai-collaboration-guidelines.md
-└── supporting/
-    ├── ai-interaction-framework-node-architecture.md
-    └── ai-interaction-methodology-runtime-architecture.md
+├── ai-interaction-framework/
+│   └── framework.md
+├── ai-interaction-methodology/
+│   └── ai-interaction-methodology.md
+├── supporting/
+│   ├── ai-interaction-framework-node-architecture.md
+│   └── ai-interaction-methodology-runtime-architecture.md
+├── .gitattributes
+├── .gitignore
+├── CANONICAL_SOURCE_LOCK.md
+├── CLAUDE.md
+├── LICENSE
+├── OPERATOR_CHECKPOINTS.md
+├── README.md
+└── what-this-is.md
 ```
 
 ## What is intentionally excluded
 
 This repository is not a full development archive.
 
-It intentionally excludes internal working materials such as:
+It intentionally excludes internal working materials that supported stabilizing the public core.
 
-* conformance roadmaps
-* implementation plans
-* freeze-control artifacts
-* stress-test artifacts
-* private profiles
-* failure-analysis working references
-
-Those materials were useful in stabilizing the public core, but they are not part of the public canonical surface.
+Those materials are not part of the public canonical surface.
 
 ## Recommended reading order
 
