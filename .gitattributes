@@ -1,7 +1,7 @@
 # Line endings
 #
-# All markdown in this repo is already stored in git as LF (verified against the
-# v1.1.5 blobs: zero CR bytes in every tracked .md).
+# All markdown in this repo is already stored in git as LF (verified when this
+# was added: zero CR bytes in every tracked .md).
 #
 # core.autocrlf=true converts these to CRLF in the Windows working tree on
 # checkout. Pinning eol=lf keeps the working copy byte-identical to what git

@@ -1,12 +1,12 @@
 ---
 Status: Canonical
-Version: 1.1.5
+Version: 2.0.0
 Canonical: true
 Canonical File: ai-interaction-framework/framework.md
 Creator: George Belton
 Maintainer: George Belton
 Created: 2026-03-10
-Last Updated: 2026-04-03
+Last Updated: 2026-08-11
 License: CC-BY-4.0
 ---
 
@@ -285,9 +285,8 @@ Governance may attach to either Core or Advanced depending on the analytical and
 The core framework provides a minimal structure suitable for:
 
 - learning the framework  
-- general AI interaction  
-- documentation and explanation tasks  
 - introductory workshops  
+- adopting the framework incrementally  
 
 It focuses on clarity and accessibility.
 
@@ -792,6 +791,7 @@ The framework does not:
 - resolve directive precedence
 - determine presentation format
 - select output artifacts
+- select the framework tier for a given task
 - orchestrate execution flow
 
 These responsibilities are owned by the methodology runtime.
