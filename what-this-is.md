@@ -84,7 +84,7 @@ It is most useful when the user cares about clarity, consistency, source fidelit
 
 The public core is intentionally narrower than the full internal development surface.
 
-It includes the stable canonical foundation and a small supporting layer, but excludes internal roadmaps, conformance machinery, experimental artifacts, and private working material.
+It includes the stable canonical foundation and a small supporting layer.
 
 That is deliberate.
 
