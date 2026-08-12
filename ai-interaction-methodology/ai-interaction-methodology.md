@@ -345,35 +345,6 @@ This exact audit resolution is a derived refinement of the declared public relea
 
 ---
 
-### Canonical Bootstrap State Model
-
-Canonical bootstrap operates as an explicit bounded runtime control state for sessions that depend on canonical public-core authority.
-
-For canonical bootstrap, the runtime distinguishes the following states:
-
-- **bootstrap unresolved**
-- **lock file resolved**
-- **canonical set resolved**
-- **canonical set verified**
-- **bootstrap complete**
-- **bootstrap blocked**
-
-Canonical bootstrap is execution-affecting. Until bootstrap is complete, canonical facts are unresolved and are not eligible for canonical use.
-
-`lock file resolved` means the exact lock file has been resolved as the active bootstrap source for the task.
-
-`canonical set resolved` means the required canonical artifacts have been resolved from the declared repository, canonical paths, and pinned reference.
-
-`canonical set verified` means the runtime has verified exact identity for the resolved canonical artifact set sufficiently for canonical use.
-
-`bootstrap complete` means the runtime may use canonical facts and proceed with canonical execution.
-
-`bootstrap blocked` means canonical bootstrap could not be completed exactly or unambiguously and canonical execution is not authorized.
-
-Bounded non-canonical output, where later permitted under a narrowed task path, is not a bootstrap state, is not canonical execution, and does not satisfy bootstrap completion.
-
----
-
 ### Canonical Claim Emission Gate
 
 The runtime must not emit, use, or inherit canonical facts before canonical bootstrap is complete.
@@ -385,9 +356,9 @@ For this rule, canonical facts include at minimum:
 - canonical artifact set identity
 - canonical artifact reference or version
 
-Before bootstrap complete, canonical facts must not be presented as established, active, or usable runtime facts.
+Before canonical bootstrap is complete, canonical facts must not be presented as established, active, or usable runtime facts.
 
-Before bootstrap complete, the runtime must not present unresolved canonical values as:
+Before canonical bootstrap is complete, the runtime must not present unresolved canonical values as:
 
 - likely
 - default
@@ -395,7 +366,9 @@ Before bootstrap complete, the runtime must not present unresolved canonical val
 - inferred
 - assumed from adjacent or related materials
 
-Canonical execution may begin only after bootstrap complete.
+Canonical execution may begin only after canonical bootstrap is complete.
+
+Where canonical bootstrap cannot complete, the permitted actions are those stated in `Narration Is Not Action`, and additionally: requesting a valid alternate authority input, and awaiting a later methodology-permitted recovery or re-entry path. Canonical bootstrap facts must not be presented as established, and bootstrap completion must not be presented as achieved.
 
 ---
 
@@ -477,59 +450,15 @@ The runtime must surface bootstrap-relevant contradiction explicitly and must no
 
 Supporting artifacts, adjacent materials, and alternate artifact sources may reveal contradiction. They do not resolve contradiction for canonical bootstrap purposes unless they are themselves validly admitted bootstrap authority under the methodology.
 
-If such contradiction leaves a proof-required canonical bootstrap fact unresolved in a way that prevents canonical bootstrap completion, blocked bootstrap state applies as defined below.
-
----
-
-### Blocked Bootstrap State
-
-Blocked bootstrap state applies when canonical bootstrap cannot complete because one or more proof-required canonical bootstrap facts remain unresolved for canonical bootstrap purposes.
-
-Blocked bootstrap may result from conditions including:
-
-- unresolved contradiction affecting a proof-required canonical bootstrap fact
-- failure of exact identifier or exact artifact resolution
-- attempted satisfaction of a proof-required canonical bootstrap fact through a disallowed completion path
-- unresolved bootstrap authority conditions that prevent exact canonical bootstrap completion
-
-Blocked bootstrap is a bootstrap control state.
-
-It is not canonical execution, not bootstrap completion, and not evidence that canonical authority has been established.
-
-When blocked bootstrap state applies, the runtime must treat canonical bootstrap as incomplete unless and until a later methodology rule validly permits recovery, re-entry, or explicitly surfaced non-canonical continuation.
-
-One path into blocked bootstrap state is unresolved contradiction affecting a proof-required canonical bootstrap fact, as defined in Canonical Bootstrap Contradiction Precedence.
-
----
-
-### Blocked Bootstrap Allowed and Prohibited Behavior
-
-When blocked bootstrap state applies, the runtime may only:
-
-- surface the blocking condition
-- identify the unresolved proof-required canonical bootstrap fact or facts
-- request clarification
-- request scope narrowing
-- request a valid alternate authority input
-- await a later methodology-permitted recovery or re-entry path
-
-When blocked bootstrap state applies, the runtime must not:
-
-- emit canonical bootstrap facts as established
-- continue the canonical-bootstrap claim path as though bootstrap were still eligible to complete without resolution
-- silently substitute nearby, supporting, cached, inferred, or semantically related materials for the unresolved canonical bootstrap fact
-- treat canonical authority as established
-- present bootstrap completion as achieved
-
-Blocked bootstrap behavior limits canonical-path continuation. It does not by itself define the conditions for surfaced non-canonical continuation or for valid canonical re-entry.
+If such contradiction leaves a proof-required canonical bootstrap fact unresolved in a way that prevents canonical bootstrap completion, canonical bootstrap cannot complete and canonical execution is not authorized.
 
 ---
 
 ### Bounded Non-Canonical Output Mode
 
-Bounded non-canonical output mode is a surfaced continuation mode permitted only when canonical bootstrap is incomplete or blocked and the remaining task path does not require canonical authority.
+Bounded non-canonical output mode is a surfaced continuation mode permitted only when canonical bootstrap is incomplete or cannot be completed and the remaining task path does not require canonical authority.
 
-Bounded non-canonical output mode is not canonical execution, not bootstrap completion, and not a substitute bootstrap state.
+Bounded non-canonical output mode is not canonical execution and does not satisfy canonical bootstrap completion.
 
 This mode may be used only when the runtime explicitly surfaces that:
 
@@ -544,15 +473,15 @@ When operating in bounded non-canonical output mode, the runtime must not:
 - treat local copies, working copies, supporting artifacts, or alternate artifact sources as having silently completed canonical bootstrap
 - blur the distinction between non-canonical continuation and canonical execution
 
-Bounded non-canonical output mode preserves limited methodology usability under surfaced non-canonical conditions. Recovery and re-entry are defined separately below.
+Bounded non-canonical output mode preserves limited methodology usability under surfaced non-canonical conditions. Recovery and re-entry are defined separately, in `Canonical Bootstrap Re-Entry` and `Bounded Recovery Inputs for Canonical Re-Resolution`.
 
 ---
 
 ### Canonical Bootstrap Re-Entry
 
-Canonical bootstrap re-entry is the controlled resumption of the canonical-bootstrap path after canonical bootstrap has remained incomplete or has entered blocked bootstrap state.
+Canonical bootstrap re-entry is the controlled resumption of the canonical-bootstrap path after canonical bootstrap has remained incomplete, or could not be completed exactly and unambiguously.
 
-Canonical bootstrap re-entry is required whenever the runtime intends to resume progress toward canonical bootstrap completion after blocked bootstrap or explicitly surfaced non-canonical continuation.
+Canonical bootstrap re-entry is required whenever the runtime intends to resume progress toward canonical bootstrap completion after bootstrap failed to complete, or after explicitly surfaced non-canonical continuation.
 
 Re-entry into canonical bootstrap is distinct from bounded non-canonical output mode.
 
@@ -568,7 +497,7 @@ Until canonical bootstrap completion has been achieved, the runtime must preserv
 
 ### Bounded Recovery Inputs for Canonical Re-Resolution
 
-When canonical bootstrap is incomplete or blocked, the runtime may use bounded recovery inputs to support renewed canonical resolution and verification.
+When canonical bootstrap is incomplete or cannot be completed, the runtime may use bounded recovery inputs to support renewed canonical resolution and verification.
 
 Bounded recovery inputs may include, at minimum:
 
