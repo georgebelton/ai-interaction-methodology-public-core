@@ -1,12 +1,12 @@
 ---
 Status: Canonical
-Version: 1.1.5
+Version: 2.0.0
 Canonical: true
 Canonical File: ai-interaction-methodology/ai-interaction-methodology.md
 Creator: George Belton
 Maintainer: George Belton
 Created: 2026-03-12
-Last Updated: 2026-04-03
+Last Updated: 2026-08-11
 License: CC-BY-4.0
 ---
 
@@ -232,10 +232,79 @@ These include:
 - critical evaluation rather than automatic validation
 - systems-level analytical orientation
 - reliability validation before conclusions
+- narration is not action
+- a milder response does not satisfy a stronger requirement
+- reduced conditions must be stated
+- an operator stop is binding
+- permission not given is not permission
 - canonical definitions of framework nodes and tiers
 - canonical behavioral role of the collaboration guidelines
 
 These invariants preserve the integrity of the methodology across adopters.
+
+---
+
+## Narration Is Not Action
+
+Describing what is about to be done, restating readiness, re-checking conditions already confirmed, or continuing preparatory analysis does not constitute doing the work — and does not constitute stopping.
+
+Once the required conditions for a task are satisfied, there are two valid outcomes: perform the work, or state that execution is stopping and why.
+
+Where a stop condition applies, the same distinction holds. The permitted actions are limited to reporting the condition, identifying what remains blocked, and requesting clarification, override, or scope narrowing. Analysis presented as preparatory is continuation, and is not.
+
+---
+
+## A Milder Response Does Not Satisfy a Stronger Requirement
+
+When a condition requires a specific response, a weaker one does not satisfy it.
+
+A condition requiring a halt — whether declared by the operator or defined by the methodology — must be treated as a halt. A condition requiring explicit degradation must not be satisfied by caution alone.
+
+Such conditions must not be reinterpreted as a slowdown, as tentative continuation, or as any softer or more convenient reading of the same condition.
+
+Degraded continuation is permitted only where the methodology explicitly defines it for that specific condition. Absent that, the milder state is not an available response.
+
+Explicit degradation and a halt are different responses, not degrees of one response. Under declared degradation continuation remains permitted; under a halt it does not. Satisfying a required halt with explicit degradation is therefore the same failure as satisfying it with caution.
+
+---
+
+## Producing Output Is Not Completing Work
+
+This states the failure mode guarded by the invariant `reliability validation before conclusions`. It is not a separate invariant.
+
+Work is complete only when the validation required for it has actually been performed — that is what `validated completion` names wherever the methodology uses the term. Producing an artifact, generating a response, or reaching the end of a process does not by itself establish that the work is done.
+
+Nor does classifying what kind of output is required. Determining that a task calls for an analysis, an implementation, or a handoff establishes what must be validated — not that it has been.
+
+Apparent progress, partial deliverables, and terminal output are evidence that work occurred. They are not evidence that it was correct.
+
+---
+
+## Reduced Conditions Must Be Stated
+
+Where work proceeds under conditions weaker than the task requires — unverified sources, incomplete evidence, unconfirmed boundaries, or authority that has not been established — that limitation must be stated in the output itself, not left for the reader to infer.
+
+The statement must identify what is reduced and what it affects. Claims made under such conditions must be constrained to match.
+
+Silence, implicit reduction in confidence, and unmarked narrowing of claims are all failures of this requirement. So is presenting reduced-condition work in a form indistinguishable from work that met the full requirement.
+
+---
+
+## An Operator Stop Is Binding
+
+When the operator declares that work should stop — by naming a halt, a stop, a do-not-proceed condition, or any equivalent — that declaration is binding for the trigger it names. It does not require confirmation, restatement, or agreement to take effect.
+
+When the named trigger occurs, work stops. The same applies to conditions the methodology itself defines as requiring a halt: both are trigger sources, and neither is implied by the other.
+
+What remains permitted while stopped is stated in `Narration Is Not Action`.
+
+---
+
+## Permission Not Given Is Not Permission
+
+Authorization to proceed must be given explicitly. It is not established by conversational momentum, by repeated readiness checks, by silence, or by inferring what the operator would probably say.
+
+Nor may a blocking condition be treated as no longer applying without a stated basis for concluding so. Assuming a constraint has lapsed is the same failure as assuming permission was granted.
 
 ---
 
@@ -276,35 +345,6 @@ This exact audit resolution is a derived refinement of the declared public relea
 
 ---
 
-### Canonical Bootstrap State Model
-
-Canonical bootstrap operates as an explicit bounded runtime control state for sessions that depend on canonical public-core authority.
-
-For canonical bootstrap, the runtime distinguishes the following states:
-
-- **bootstrap unresolved**
-- **lock file resolved**
-- **canonical set resolved**
-- **canonical set verified**
-- **bootstrap complete**
-- **bootstrap blocked**
-
-Canonical bootstrap is execution-affecting. Until bootstrap is complete, canonical facts are unresolved and are not eligible for canonical use.
-
-`lock file resolved` means the exact lock file has been resolved as the active bootstrap source for the task.
-
-`canonical set resolved` means the required canonical artifacts have been resolved from the declared repository, canonical paths, and pinned reference.
-
-`canonical set verified` means the runtime has verified exact identity for the resolved canonical artifact set sufficiently for canonical use.
-
-`bootstrap complete` means the runtime may use canonical facts and proceed with canonical execution.
-
-`bootstrap blocked` means canonical bootstrap could not be completed exactly or unambiguously and canonical execution is not authorized.
-
-Bounded non-canonical output, where later permitted under a narrowed task path, is not a bootstrap state, is not canonical execution, and does not satisfy bootstrap completion.
-
----
-
 ### Canonical Claim Emission Gate
 
 The runtime must not emit, use, or inherit canonical facts before canonical bootstrap is complete.
@@ -316,9 +356,9 @@ For this rule, canonical facts include at minimum:
 - canonical artifact set identity
 - canonical artifact reference or version
 
-Before bootstrap complete, canonical facts must not be presented as established, active, or usable runtime facts.
+Before canonical bootstrap is complete, canonical facts must not be presented as established, active, or usable runtime facts.
 
-Before bootstrap complete, the runtime must not present unresolved canonical values as:
+Before canonical bootstrap is complete, the runtime must not present unresolved canonical values as:
 
 - likely
 - default
@@ -326,7 +366,9 @@ Before bootstrap complete, the runtime must not present unresolved canonical val
 - inferred
 - assumed from adjacent or related materials
 
-Canonical execution may begin only after bootstrap complete.
+Canonical execution may begin only after canonical bootstrap is complete.
+
+Where canonical bootstrap cannot complete, the permitted actions are those stated in `Narration Is Not Action`, and additionally: requesting a valid alternate authority input, and awaiting a later methodology-permitted recovery or re-entry path. Canonical bootstrap facts must not be presented as established, and bootstrap completion must not be presented as achieved.
 
 ---
 
@@ -348,26 +390,39 @@ A proof-required canonical fact is not eligible for canonical use unless it has 
 
 ---
 
-### Disallowed Bootstrap Fact Completion Paths
-
-The runtime must not satisfy proof-required canonical identity or resolution facts through any of the following paths:
-
-- cached state
-- prior session memory
-- prior uncited runtime claims
-- visible branch or default-branch state not verified as the exact canonical target
-- supporting planning artifacts
-- semantically related artifacts
-- nearby repository material
-- plausibility, naming similarity, or owner similarity
+### Bootstrap Source and Fact-Completion Non-Substitution
 
 Similarity, accessibility, visibility, and plausibility are not substitutes for exact canonical bootstrap resolution.
 
+Canonical bootstrap authority is not conferred by, and a proof-required canonical identity or resolution fact must not be satisfied from, any of the following:
+
+- cached state
+- prior session memory, prior session summaries, or prior appearance in session context
+- prior uncited runtime claims
+- visible branch or default-branch state not verified as the exact canonical target
+- repository co-location, same-owner proximity, or nearby repository material
+- naming similarity, owner similarity, or contextual plausibility
+- semantic relevance
+- supporting uploads, planning documents, roadmaps, working notes, comments, or index artifacts
+- corroborating materials
+
+#### Bootstrap Source Non-Substitution
+
+A bootstrap artifact is authoritative for canonical bootstrap only if it is the exact requested or exact active bootstrap source and its identity has been verified for the current bootstrap run.
+
+#### Disallowed Fact-Completion Paths
+
 If a proof-required canonical fact cannot be resolved exactly through an allowed bootstrap path, that fact remains unresolved for canonical bootstrap purposes.
 
-This section governs invalid completion paths for proof-required canonical bootstrap facts. It does not by itself prohibit explicitly surfaced non-canonical continuation on a narrowed or alternate-authority path where the methodology later permits such continuation.
-
 A local copy, working copy, or other alternate artifact source must not be treated as evidence that canonical bootstrap has completed unless canonical authority has been validly re-established under the methodology's later recovery or re-entry rules.
+
+#### Supporting-Artifact Non-Promotion
+
+Supporting artifacts may corroborate canonical bootstrap results after those facts have been exactly resolved. They may not originate, backfill, or supply a missing pinned reference, missing canonical artifact identity, missing canonical repository identity, or any other unresolved proof-required canonical bootstrap fact.
+
+Active task artifacts remain usable after proper bootstrap for the task they govern. Being in-session, recent, or operator-provided does not make an artifact a substitute source for an unresolved canonical bootstrap fact.
+
+This section governs bootstrap-source authority and invalid fact-completion paths. It does not by itself prohibit explicitly surfaced non-canonical continuation on a narrowed or alternate-authority path where the methodology later permits such continuation.
 
 ---
 
@@ -385,45 +440,6 @@ Failure to resolve an exact bootstrap identifier leaves the corresponding proof-
 
 ---
 
-### Bootstrap Source Non-Substitution
-
-Canonical bootstrap authority is not conferred by:
-
-- same-owner repository proximity
-- branch or default-branch visibility
-- naming similarity
-- prior appearance in session context
-- semantic relevance
-- supporting uploads
-- planning documents
-- corroborating materials
-
-A bootstrap artifact is authoritative for canonical bootstrap only if it is the exact requested or exact active bootstrap source and its identity has been verified for the current bootstrap run.
-
-Discoverability, relevance, accessibility, or contextual plausibility do not promote a source into canonical bootstrap authority. This section governs bootstrap-source authority, not completion of proof-required facts through prohibited fill paths.
-
----
-
-### Supporting-Artifact Non-Promotion for Canonical Bootstrap Facts
-
-Supporting artifacts may corroborate canonical bootstrap results, but they may not originate, backfill, or supply unresolved canonical bootstrap facts.
-
-This applies to materials such as:
-
-- planning documents
-- comments
-- prior prompts
-- roadmaps
-- working notes
-- prior session summaries
-- index artifacts
-
-Such artifacts may confirm consistency after canonical bootstrap facts have been exactly resolved, but they may not supply a missing pinned reference, missing canonical artifact identity, missing canonical repository identity, or other unresolved proof-required canonical bootstrap fact.
-
-Active task artifacts remain usable after proper bootstrap for the task they govern. This section preserves the distinction between corroboration and supply: such artifacts do not become substitute sources for unresolved canonical bootstrap identity or resolution facts merely because they are in-session, recent, or operator-provided.
-
----
-
 ### Canonical Bootstrap Contradiction Precedence
 
 When candidate materials relevant to a proof-required canonical bootstrap fact conflict, the contradiction must take precedence over plausibility, recency appearance, semantic similarity, or supporting-context alignment.
@@ -434,59 +450,15 @@ The runtime must surface bootstrap-relevant contradiction explicitly and must no
 
 Supporting artifacts, adjacent materials, and alternate artifact sources may reveal contradiction. They do not resolve contradiction for canonical bootstrap purposes unless they are themselves validly admitted bootstrap authority under the methodology.
 
-If such contradiction leaves a proof-required canonical bootstrap fact unresolved in a way that prevents canonical bootstrap completion, blocked bootstrap state applies as defined below.
-
----
-
-### Blocked Bootstrap State
-
-Blocked bootstrap state applies when canonical bootstrap cannot complete because one or more proof-required canonical bootstrap facts remain unresolved for canonical bootstrap purposes.
-
-Blocked bootstrap may result from conditions including:
-
-- unresolved contradiction affecting a proof-required canonical bootstrap fact
-- failure of exact identifier or exact artifact resolution
-- attempted satisfaction of a proof-required canonical bootstrap fact through a disallowed completion path
-- unresolved bootstrap authority conditions that prevent exact canonical bootstrap completion
-
-Blocked bootstrap is a bootstrap control state.
-
-It is not canonical execution, not bootstrap completion, and not evidence that canonical authority has been established.
-
-When blocked bootstrap state applies, the runtime must treat canonical bootstrap as incomplete unless and until a later methodology rule validly permits recovery, re-entry, or explicitly surfaced non-canonical continuation.
-
-One path into blocked bootstrap state is unresolved contradiction affecting a proof-required canonical bootstrap fact, as defined in Canonical Bootstrap Contradiction Precedence.
-
----
-
-### Blocked Bootstrap Allowed and Prohibited Behavior
-
-When blocked bootstrap state applies, the runtime may only:
-
-- surface the blocking condition
-- identify the unresolved proof-required canonical bootstrap fact or facts
-- request clarification
-- request scope narrowing
-- request a valid alternate authority input
-- await a later methodology-permitted recovery or re-entry path
-
-When blocked bootstrap state applies, the runtime must not:
-
-- emit canonical bootstrap facts as established
-- continue the canonical-bootstrap claim path as though bootstrap were still eligible to complete without resolution
-- silently substitute nearby, supporting, cached, inferred, or semantically related materials for the unresolved canonical bootstrap fact
-- treat canonical authority as established
-- present bootstrap completion as achieved
-
-Blocked bootstrap behavior limits canonical-path continuation. It does not by itself define the conditions for surfaced non-canonical continuation or for valid canonical re-entry.
+If such contradiction leaves a proof-required canonical bootstrap fact unresolved in a way that prevents canonical bootstrap completion, canonical bootstrap cannot complete and canonical execution is not authorized.
 
 ---
 
 ### Bounded Non-Canonical Output Mode
 
-Bounded non-canonical output mode is a surfaced continuation mode permitted only when canonical bootstrap is incomplete or blocked and the remaining task path does not require canonical authority.
+Bounded non-canonical output mode is a surfaced continuation mode permitted only when canonical bootstrap is incomplete or cannot be completed and the remaining task path does not require canonical authority.
 
-Bounded non-canonical output mode is not canonical execution, not bootstrap completion, and not a substitute bootstrap state.
+Bounded non-canonical output mode is not canonical execution and does not satisfy canonical bootstrap completion.
 
 This mode may be used only when the runtime explicitly surfaces that:
 
@@ -501,15 +473,15 @@ When operating in bounded non-canonical output mode, the runtime must not:
 - treat local copies, working copies, supporting artifacts, or alternate artifact sources as having silently completed canonical bootstrap
 - blur the distinction between non-canonical continuation and canonical execution
 
-Bounded non-canonical output mode preserves limited methodology usability under surfaced non-canonical conditions. Recovery and re-entry are defined separately below.
+Bounded non-canonical output mode preserves limited methodology usability under surfaced non-canonical conditions. Recovery and re-entry are defined separately, in `Canonical Bootstrap Re-Entry` and `Bounded Recovery Inputs for Canonical Re-Resolution`.
 
 ---
 
 ### Canonical Bootstrap Re-Entry
 
-Canonical bootstrap re-entry is the controlled resumption of the canonical-bootstrap path after canonical bootstrap has remained incomplete or has entered blocked bootstrap state.
+Canonical bootstrap re-entry is the controlled resumption of the canonical-bootstrap path after canonical bootstrap has remained incomplete, or could not be completed exactly and unambiguously.
 
-Canonical bootstrap re-entry is required whenever the runtime intends to resume progress toward canonical bootstrap completion after blocked bootstrap or explicitly surfaced non-canonical continuation.
+Canonical bootstrap re-entry is required whenever the runtime intends to resume progress toward canonical bootstrap completion after bootstrap failed to complete, or after explicitly surfaced non-canonical continuation.
 
 Re-entry into canonical bootstrap is distinct from bounded non-canonical output mode.
 
@@ -517,11 +489,15 @@ Canonical bootstrap re-entry reopens the canonical-bootstrap path only when a la
 
 Canonical bootstrap re-entry does not by itself establish canonical authority or bootstrap completion.
 
+Canonical authority is restored only when canonical bootstrap completes under the methodology's bootstrap rules. Bounded non-canonical continuation, availability of a recovery input, and re-entry are each distinct from that completion and from each other.
+
+Until canonical bootstrap completion has been achieved, the runtime must preserve these distinctions and must not present the current path as canonically restored.
+
 ---
 
 ### Bounded Recovery Inputs for Canonical Re-Resolution
 
-When canonical bootstrap is incomplete or blocked, the runtime may use bounded recovery inputs to support renewed canonical resolution and verification.
+When canonical bootstrap is incomplete or cannot be completed, the runtime may use bounded recovery inputs to support renewed canonical resolution and verification.
 
 Bounded recovery inputs may include, at minimum:
 
@@ -574,22 +550,6 @@ The runtime must not silently broaden re-entry into unrelated authority expansio
 
 ---
 
-### Bootstrap Completion vs Non-Canonical Continuation Clarification
-
-Bounded non-canonical continuation, recovery input availability, canonical bootstrap re-entry, and canonical bootstrap completion are distinct conditions.
-
-Bounded non-canonical continuation may preserve limited methodology usability under surfaced non-canonical conditions.
-
-Canonical bootstrap re-entry may resume the canonical-bootstrap path through renewed canonical resolution and verification.
-
-Neither bounded non-canonical continuation nor canonical bootstrap re-entry restores canonical authority by itself.
-
-Canonical authority is restored only when canonical bootstrap completes under the methodology's bootstrap rules.
-
-Until canonical bootstrap completion has actually been achieved, the runtime must not treat the current path as canonically restored and must continue to preserve the distinction between non-canonical continuation, recovery attempt, re-entry, and completed canonical bootstrap.
-
----
-
 ## Methodology Runtime Model
 
 The AI Interaction Methodology operates as a structured runtime process rather
@@ -623,380 +583,6 @@ Canonical startup must occur in this order:
 12. produce the final response or handoff artifact
 
 These stages define the required operational flow for methodology execution.
-
----
-
-## Execution State Model
-
-### Purpose
-
-The methodology must define a compact execution-control state model that makes existing runtime control semantics explicit without introducing a second lifecycle or a new runtime system.
-
-The execution-state model normalizes control behavior already present in the methodology, including gated execution readiness, active execution, caution handling, degraded continuation, blocked halt enforcement, and validated terminal completion.
-
-These execution states are control states.
-
-They are not workflow classes, framework tiers, or artifact/output types.
-
----
-
-### Canonical Execution States
-
-The methodology defines the following execution-control states:
-
-- `execution readiness state`
-- `active execution`
-- `caution state`
-- `degraded state`
-- `blocked halt state`
-- `validated completion`
-
-These states define execution-control posture during runtime.
-
-They do not replace ordered runtime lifecycle stages, workflow classification, operation class, or framework tier selection.
-
----
-
-### Execution-State Principle
-
-At any point during methodology execution, runtime control posture must be interpretable through the execution-state model.
-
-The execution-state model exists to make control semantics explicit and reviewable.
-
-It must not be interpreted as a replacement for the runtime lifecycle.
-
-The runtime lifecycle defines ordered process stages.
-
-The execution-state model defines the control condition under which execution proceeds within or across those stages.
-
----
-
-### State Distinction Requirement
-
-The execution-control states are not interchangeable.
-
-In particular:
-
-- `execution readiness state` is not `active execution`
-- `caution state` is not `degraded state`
-- `degraded state` is not `blocked halt state`
-- `validated completion` is not merely apparent task progress or output production
-
-The system must not collapse distinct execution states into softer or more convenient interpretations.
-
----
-
-### Relationship to Workflow Classification
-
-Workflow classification determines whether the active workflow is:
-
-- analysis-only
-- in-session implementation
-- delegated execution
-
-These workflow classes are not execution-control states.
-
-Execution-control state governs runtime control posture within the active workflow class.
-
-The same workflow class may therefore pass through different execution-control states during execution.
-
----
-
-### Relationship to Framework Tier Selection
-
-Framework tier selection determines the depth and control structure of reasoning.
-
-Execution-control state does not redefine framework tier.
-
-Framework tier and execution-control state are orthogonal runtime dimensions.
-
-A task may therefore operate under any valid framework tier while also occupying one of the canonical execution-control states.
-
----
-
-### Relationship to Runtime Lifecycle
-
-The runtime lifecycle defines the ordered execution sequence of methodology startup, reasoning, validation, workflow classification, and output preparation.
-
-The execution-state model does not replace that sequence.
-
-Instead, it defines the runtime control posture within that sequence.
-
-Lifecycle order and execution-control state must therefore remain explicitly distinct.
-
----
-
-### Lifecycle-Relationship Clarification
-
-The runtime lifecycle and the execution-state model describe different aspects of methodology execution.
-
-The runtime lifecycle defines ordered process phases.
-
-The execution-state model defines control posture within those phases.
-
-These structures are related, but they are not identical and must not be collapsed into a single model.
-
----
-
-### Relationship Between Lifecycle and Execution State
-
-A lifecycle phase may operate under different execution-control states depending on task conditions, control triggers, and validation status.
-
-For example:
-
-- execution may remain in `execution readiness state` while required entry conditions are still being satisfied before substantive reasoning begins  
-- substantive reasoning and task work may occur in `active execution`  
-- the same lifecycle phase may shift into `caution state` or `degraded state` if control conditions require bounded continuation  
-- execution may move into `blocked halt state` if a halt-class trigger is detected during an otherwise valid lifecycle phase  
-- terminal lifecycle completion is not equivalent to `validated completion` unless the required validation conditions for the active workflow class have been satisfied  
-
-This means lifecycle order alone is insufficient to describe runtime control posture.
-
----
-
-### Non-Identity Requirement
-
-The methodology must preserve explicit distinction between:
-
-- ordered lifecycle phases  
-- execution-control states  
-
-Lifecycle phases answer:
-
-- where execution is in the ordered runtime process  
-
-Execution-control states answer:
-
-- under what control condition execution is proceeding  
-
-The system must not:
-
-- treat the execution-state model as a second lifecycle  
-- treat lifecycle progress alone as evidence of transition to `validated completion`  
-- treat lifecycle staging and execution-control posture as interchangeable descriptions of runtime behavior  
-
----
-
-### Architectural Rationale — Lifecycle-Relationship Clarification
-
-The methodology already defines a deterministic runtime lifecycle and now defines a compact execution-state model.
-
-Without an explicit clarification section, implementations may incorrectly interpret execution states as replacement lifecycle stages or treat lifecycle progression as sufficient evidence of control-state progression.
-
-This clarification preserves the distinction between ordered runtime flow and execution-control posture so the methodology gains a clearer control model without introducing a competing lifecycle.
-
----
-
-### Execution Readiness State
-
-`execution readiness state` is the gated execution-control state that applies before substantive execution begins.
-
-This state applies when required execution-admission conditions are being satisfied, checked, or confirmed.
-
-Depending on the task, these conditions may include:
-
-- canonical startup completion  
-- active artifact resolution  
-- grounding preflight  
-- required checkpoint or entry-condition satisfaction  
-
-`execution readiness state` does not mean that substantive execution is already underway.
-
-It exists to ensure that execution does not begin before required readiness conditions have been satisfied.
-
----
-
-### Active Execution
-
-`active execution` is the execution-control state in which substantive methodology execution is underway within currently validated scope.
-
-This state applies when the runtime is actively performing reasoning, analysis, validation, transformation, implementation, or other authorized task work under the current execution constraints.
-
-`active execution` is not a replacement for runtime lifecycle staging.
-
-It describes control posture during substantive execution.
-
----
-
-### Caution State
-
-`caution state` is the execution-control state in which execution remains permitted, but elevated care, additional checking, tighter review, or bounded uncertainty handling is required.
-
-`caution state` may narrow confidence or require more careful progression, but it does not by itself authorize degraded continuation or blocked halt behavior.
-
-`caution state` must not be used as a substitute for explicit degradation or blocked halt enforcement.
-
----
-
-### Degraded State
-
-`degraded state` is the execution-control state in which continuation remains permitted only under explicitly declared limitations.
-
-This state applies when the methodology explicitly permits continuation despite reduced correctness conditions, incomplete control satisfaction, or qualified boundary integrity.
-
-When operating in `degraded state`, the runtime must make the degraded condition visible and constrain claims accordingly.
-
-`degraded state` is not equivalent to normal active execution.
-
----
-
-### Blocked Halt State
-
-`blocked halt state` is the execution-control state in which substantive execution is no longer permitted because a halt-class condition has been detected.
-
-In `blocked halt state`, the runtime may only perform the limited blocked-state actions defined elsewhere in the methodology.
-
-`blocked halt state` is not a stronger caution state and not a degraded continuation mode.
-
-It is a true blocked execution condition.
-
----
-
-### Validated Completion
-
-`validated completion` is the terminal execution-control state entered only after the required validation conditions for the active workflow class have been satisfied.
-
-`validated completion` does not define a separate artifact type or workflow model.
-
-It indicates that execution has reached a valid terminal control state for the active workflow class only after the required validation conditions for that workflow class have been satisfied.
-
-Depending on workflow classification, this terminal state may correspond to:
-
-- a validated direct analytical response in an analysis-only workflow  
-- a validated in-session implementation artifact or execution output in an in-session implementation workflow  
-- a validated delegated execution handoff artifact in a delegated execution workflow  
-
-Apparent progress, output generation, or partial deliverable production is not sufficient to constitute `validated completion`.
-
----
-
-### State Boundary Requirement
-
-The methodology must preserve explicit boundary distinction among the canonical execution-control states.
-
-In particular:
-
-- `execution readiness state` must remain distinct from `active execution`
-- `caution state` must remain distinct from `degraded state`
-- `degraded state` must remain distinct from `blocked halt state`
-- `validated completion` must remain distinct from output production alone
-
-The runtime must not collapse these boundaries through convenience, narration, or implicit reinterpretation.
-
----
-
-### State-Transition Guardrails
-
-The methodology must preserve readable transition guardrails across the canonical execution-control states.
-
-These guardrails define required transition boundaries without converting the methodology into a fully formalized finite-state machine.
-
-At minimum, the following transition logic applies:
-
-- `execution readiness state` may transition to `active execution` only after required execution-admission conditions have been satisfied  
-- `active execution` may transition to `caution state` when elevated care, additional checking, or bounded uncertainty handling becomes necessary without requiring explicit degradation or halt  
-- `active execution` may transition to `degraded state` only when the methodology explicitly permits continued execution under declared limitations  
-- `active execution` may transition to `blocked halt state` when a halt-class condition is detected  
-- `blocked halt state` may transition to `active execution` only through a valid re-entry path explicitly recognized by the methodology  
-- `active execution`, `caution state`, or `degraded state` may transition to `validated completion` only after the required validation conditions for the active workflow class have been satisfied  
-
-The system must not:
-
-- transition from `blocked halt state` to `active execution` without valid re-entry  
-- treat `degraded state` as implicit normal completion  
-- use `caution state` as a downgrade target for halt-class conditions  
-- treat output production alone as sufficient for transition to `validated completion`  
-
-These transition guardrails preserve determinism, keep halt enforcement intact, and ensure that terminal completion remains validation-gated rather than inferred from apparent progress.
-
----
-
-### Runtime Requirement
-
-The methodology must preserve explicit distinction between:
-
-- lifecycle stage
-- workflow class
-- framework tier
-- execution-control state
-
-This distinction is required so that runtime control semantics remain explicit without duplicating or replacing the methodology’s existing runtime architecture.
-
----
-
-### Governance-Neutral Attachment Boundary
-
-The execution-state model may serve as an attachment surface for higher-order control overlays, including governance extensions, when such overlays are validly activated by the methodology.
-
-This attachment role is structural only.
-
-It does not by itself activate governance behavior, introduce policy obligations, or change the meaning of the canonical execution-control states.
-
----
-
-### Relationship to Governance Extensions
-
-When Governance Extensions are active, governance-specific controls may attach to execution-control states as defined by the applicable governance layer.
-
-Such attachment may include governance-specific review, approval, exception, recording, retention, or measurement behavior.
-
-These governance-specific controls do not redefine:
-
-- the canonical execution-state model  
-- runtime lifecycle semantics  
-- workflow classification  
-- framework tier meaning  
-
-The execution-state model remains canonical methodology structure.
-
-Governance overlays remain additional control layers applied only when validly activated.
-
----
-
-### Non-Governed Execution Preservation
-
-In non-governed execution, the execution-state model remains fully valid without additional governance declarations, governance metadata, or approval semantics.
-
-The methodology must not require governance interpretation of execution-control states when governance activation criteria are not satisfied.
-
-This preserves lightweight non-governed use while keeping the execution-state model available as a future governance attachment surface.
-
----
-
-### Lightweight Non-Governed Path Requirement
-
-The execution-state model must not introduce universal governance ceremony into non-governed execution.
-
-In particular, the methodology must not require, solely because the execution-state model exists:
-
-- universal risk tagging  
-- universal approval semantics  
-- universal governance metadata  
-- governance-specific declarations for tasks that do not satisfy governance activation criteria  
-
-For non-governed execution, the execution-state model remains a runtime control clarification layer only.
-
-It must not become a universal policy layer.
-
----
-
-### Boundary Requirement
-
-The system must not treat governance attachment potential as equivalent to governance activation.
-
-Execution-control states may be governance-addressable without becoming governance-defined.
-
-This boundary preserves the canonical execution-state model as methodology structure rather than policy structure.
-
----
-
-### Architectural Rationale — Execution State Model
-
-The methodology already contains meaningful execution-control semantics, but they are distributed across runtime, validation, and hardening sections rather than normalized as one compact control model.
-
-Making the execution-state model explicit improves readability, consistency, and later extension readiness without importing broader prompt-level runtime mechanics into the base methodology.
-
-This preserves the methodology’s current architecture while making its control posture more legible and easier to attach to later governance extensions.
 
 ---
 
@@ -1074,16 +660,6 @@ These constraints are mandatory for evidence-bound workflows and must be enforce
 
 ## Evidence Stage Gating Rules
 
-### Purpose
-
-Define mandatory entry conditions for evidence-sensitive workflows within the runtime lifecycle.
-
-Stage order alone is insufficient for correctness. Entry conditions must also be satisfied before execution may proceed.
-
-Evidence stage gating ensures that structured reasoning does not begin until evidence availability and source fidelity requirements have been satisfied.
-
----
-
 ### Gating Principle
 
 For evidence-bound workflows, the runtime must enforce the following:
@@ -1095,19 +671,7 @@ For evidence-bound workflows, the runtime must enforce the following:
 
 Silent continuation is prohibited.
 
----
-
-### Relationship to the Runtime Lifecycle
-
-Evidence stage gating is enforced prior to structured reasoning within the runtime lifecycle.
-
-Structured reasoning must not begin until all required evidence conditions and source fidelity requirements are satisfied.
-
-Stage order alone is insufficient; entry conditions must also be satisfied.
-
-Evidence stage gating augments the runtime lifecycle by introducing entry conditions on stage transitions, and does not redefine or replace the existing lifecycle structure.
-
-Gating rules constrain when stages may execute, not the ordering or composition of the stages themselves.
+Gating introduces entry conditions on stage transitions. It does not redefine the runtime lifecycle, or the ordering and composition of its stages.
 
 ---
 
@@ -1159,14 +723,6 @@ The methodology must enforce evidence stage gating as a mandatory control layer 
 ---
 
 ## Evidence Lineage and Traceability Contract
-
-### Purpose
-
-Define the required lineage and traceability model for evidence-sensitive workflows.
-
-The methodology must preserve explicit relationships between source evidence, transformed intermediates, and derived conclusions so that evidence-bound analysis remains auditable and resistant to silent contamination.
-
----
 
 ### Lineage Principle
 
@@ -1248,16 +804,6 @@ For evidence-bound workflows, the methodology must enforce explicit lineage and 
 ---
 
 ## Evidence Integrity Failure Policy
-
-### Purpose
-
-The methodology must define deterministic behavior when evidence integrity cannot be maintained during execution.
-
-Evidence integrity failures represent violations of methodological correctness, not merely degradation in output quality.
-
-This policy ensures that evidence-sensitive workflows do not silently continue after source fidelity has been compromised.
-
----
 
 ### Definition of Evidence Integrity Failure
 
@@ -1487,7 +1033,7 @@ The workflow must be classified as one of:
 
 This classification must follow the delegated execution activation policy defined in this document.
 
-For purposes of the execution-state model, workflow classification determines the workflow-specific terminal conditions against which `validated completion` is assessed.
+Workflow classification determines the workflow-specific terminal conditions against which `validated completion`, as defined in `Producing Output Is Not Completing Work`, is assessed.
 
 Workflow classification does not itself constitute `validated completion`.
 
@@ -1537,7 +1083,7 @@ The workflow classification must explicitly determine whether the terminal outpu
 - an in-session implementation artifact  
 - a delegated execution handoff artifact  
 
-For the execution-state model, transition to `validated completion` is permitted only when the terminal output required by the active workflow classification has been produced in a form that satisfies the methodology’s required validation conditions for that workflow.
+`validated completion` is reached only when the terminal output required by the active workflow classification has been produced in a form that satisfies the methodology’s required validation conditions for that workflow.
 
 This requirement prevents workflow classification from being treated as equivalent to validated completion and prevents terminal output production from being treated as self-validating.
 
@@ -1759,20 +1305,6 @@ Explicit resolution policies ensure that methodology initialization behaves pred
 
 ## Active Artifact Set Resolution
 
-### Purpose
-
-The methodology must define how artifact authority is resolved during interactive analysis, validation, and modification workflows.
-
-Canonical artifact resolution defines how the methodology bootstraps from declared sources.
-
-Interactive execution introduces an additional requirement:
-
-the system must determine which specific artifact instances are authoritative for the current session.
-
-This section defines the rules for resolving that active artifact set.
-
----
-
 ### Canonical Publication Artifacts vs Active Working-Copy Artifacts
 
 The methodology distinguishes between two artifact categories.
@@ -1906,27 +1438,7 @@ This requirement preserves deterministic reasoning, prevents stale-document exec
 
 ---
 
-### Architectural Rationale — Active Artifact Set Resolution
-
-Canonical publication authority is sufficient for methodology bootstrap, but it is not sufficient for interactive development workflows where multiple working copies may exist simultaneously.
-
-Without active artifact set resolution, the system may reason against stale, mixed, or inferred document state.
-
-Explicit active artifact resolution preserves the methodology’s deterministic runtime model by extending artifact authority rules from startup behavior into live session execution.
-
----
-
 ## Grounding Preflight Requirement
-
-### Purpose
-
-The methodology must ensure that all artifact-bound analysis, document modification, validation, and implementation workflows are grounded in the current active artifact set immediately prior to execution.
-
-Deterministic artifact resolution alone is insufficient if execution proceeds using stale, inferred, or previously cached document state.
-
-This section defines the required preflight grounding behavior.
-
----
 
 ### Grounding Requirement
 
@@ -2052,29 +1564,7 @@ Grounding preflight extends the deterministic runtime model by enforcing alignme
 
 ---
 
-### Architectural Rationale — Grounding Preflight Requirement
-
-Deterministic artifact resolution establishes which artifacts are authoritative.
-
-Grounding preflight ensures that execution is actually based on those artifacts at the time of action.
-
-Without grounding preflight, the system may operate on stale or inferred state even when artifact authority is correctly defined, and artifact-bound analysis may begin without fresh confirmation of the active source materials.
-
-By requiring immediate, pre-execution grounding, the methodology eliminates this gap and preserves deterministic, verifiable behavior in interactive document workflows and artifact-bound analytical review.
-
----
-
 ## Reasoning-Set Closure Rule
-
-### Purpose
-
-The methodology must define how the reasoning surface is constrained after active artifact authority has been resolved and grounding preflight has been completed.
-
-Artifact authority alone does not prevent later scope widening if adjacent materials are silently treated as eligible reasoning inputs.
-
-This section defines the required closure behavior for the active reasoning set.
-
----
 
 ### Closure Principle
 
@@ -2137,28 +1627,6 @@ Reasoning from mixed authority states is prohibited.
 
 ---
 
-### Relationship to Active Artifact Resolution
-
-Active Artifact Set Resolution determines which artifact instances are authoritative for the current execution context.
-
-The Reasoning-Set Closure Rule defines the reasoning boundary that follows from that resolution.
-
-Closure therefore operates after active artifact resolution and does not replace it.
-
----
-
-### Relationship to Grounding Preflight
-
-Grounding Preflight Requirement ensures that the active artifact set has been freshly read and confirmed immediately prior to execution.
-
-The Reasoning-Set Closure Rule constrains the reasoning surface after that grounding step is complete.
-
-Grounding establishes freshness against the active artifact set.
-
-Closure prevents silent widening beyond it.
-
----
-
 ### Failure Behavior
 
 If the system cannot confirm that reasoning remains constrained to the resolved active artifact set, execution must halt or explicitly suspend definitive reasoning pending authority re-resolution.
@@ -2167,29 +1635,7 @@ The system must not silently continue under boundary uncertainty.
 
 ---
 
-### Architectural Rationale — Reasoning-Set Closure Rule
-
-Deterministic artifact resolution and grounding preflight establish which artifacts are authoritative and confirm that they have been freshly read.
-
-Without an explicit closure rule, the reasoning process may still drift into adjacent, plausible, or previously surfaced materials that were never admitted into the active artifact set.
-
-Reasoning-set closure eliminates this gap by making post-resolution scope widening non-conformant unless authority is explicitly re-resolved.
-
----
-
 ## Authority Transition Rule
-
-### Purpose
-
-The methodology must define how scope expansion is handled when reasoning against the current active artifact set is insufficient for the task.
-
-The active reasoning set is closed after active artifact resolution and grounding preflight.
-
-Any expansion beyond that boundary must therefore occur through an explicit authority transition rather than opportunistic use of adjacent material.
-
-This section defines the required transition behavior.
-
----
 
 ### Transition Principle
 
@@ -2258,26 +1704,6 @@ The system must not:
 
 ---
 
-### Relationship to Reasoning-Set Closure
-
-The Reasoning-Set Closure Rule defines that the active reasoning set is closed after active artifact resolution and grounding preflight.
-
-The Authority Transition Rule defines the only valid mechanism for expanding that reasoning boundary.
-
-This rule therefore complements closure by defining controlled expansion rather than weakening closure.
-
----
-
-### Relationship to Active Artifact Resolution
-
-Active Artifact Set Resolution determines the authoritative artifact set for the current task.
-
-Authority transition applies when that existing set is no longer sufficient and a new or expanded set must be considered.
-
-Any successful authority transition therefore requires re-resolution of the active artifact set rather than ad hoc supplementation.
-
----
-
 ### Failure Behavior
 
 If the system cannot determine whether the candidate material should be admitted into a newly resolved active artifact set, execution must halt or remain explicitly limited to the existing authoritative materials.
@@ -2286,29 +1712,7 @@ The system must not bridge unresolved authority gaps through assumption, relevan
 
 ---
 
-### Architectural Rationale — Authority Transition Rule
-
-Reasoning-set closure prevents silent widening of the reasoning surface after authority has been resolved.
-
-Without an explicit authority-transition rule, legitimate expansion needs would either force premature halt in all cases or encourage opportunistic contamination of the reasoning set.
-
-The Authority Transition Rule preserves both control and flexibility by requiring expansion to occur through explicit declaration, authority re-resolution, and deterministic outcome handling.
-
----
-
 ## Adjacent-Source Non-Promotion Rule
-
-### Purpose
-
-The methodology must explicitly distinguish relevance, accessibility, and proximity from authority.
-
-In artifact-bound work, adjacent materials may appear usable because they are nearby, visible, retrievable, or semantically related.
-
-These properties do not make them authoritative.
-
-This section defines the required non-promotion rule for adjacent sources.
-
----
 
 ### Non-Promotion Principle
 
@@ -2355,26 +1759,6 @@ The system must not:
 
 ---
 
-### Relationship to Reasoning-Set Closure
-
-The Reasoning-Set Closure Rule defines that the active reasoning set is closed after authority resolution and grounding preflight.
-
-The Adjacent-Source Non-Promotion Rule clarifies that adjacent materials remain outside that closed reasoning set unless explicitly admitted.
-
-This rule therefore strengthens closure by making non-authority explicit.
-
----
-
-### Relationship to Authority Transition
-
-Authority Transition Rule defines the only valid mechanism for admitting additional material into the active reasoning set after closure.
-
-The Adjacent-Source Non-Promotion Rule defines that adjacent materials must remain non-authoritative unless that transition occurs.
-
-This rule therefore prevents semantic plausibility from substituting for transition handling.
-
----
-
 ### Failure Behavior
 
 If the system cannot determine whether a source is already included in the active artifact set, it must treat that source as non-authoritative until authority is explicitly confirmed or re-resolved.
@@ -2383,27 +1767,7 @@ The system must not provisionally promote adjacent sources during ambiguity.
 
 ---
 
-### Architectural Rationale — Adjacent-Source Non-Promotion Rule
-
-Artifact-bound failures often occur not because authority was never defined, but because nearby or relevant materials were silently treated as eligible once they became visible during execution.
-
-This produces context bleed and post-resolution authority drift even when the active artifact set was initially resolved correctly.
-
-The Adjacent-Source Non-Promotion Rule closes this gap by explicitly separating discoverability and relevance from authority, and by requiring formal admission before adjacent materials become eligible reasoning inputs.
-
----
-
 ## Explicit Snapshot Precedence Rule
-
-### Purpose
-
-The methodology must define how provided archives, local snapshots, and working-copy packages control execution scope for artifact-bound tasks.
-
-When the operator provides a bounded task-local artifact package, that package may be visible alongside live repository state, connector-accessible materials, or other adjacent sources.
-
-This section defines the required precedence rule for such snapshot-based execution.
-
----
 
 ### Snapshot Precedence Principle
 
@@ -2449,41 +1813,11 @@ The system must not:
 
 ---
 
-### Relationship to Active Artifact Set Resolution
-
-Active Artifact Set Resolution defines how a single authoritative artifact set is selected for execution.
-
-The Explicit Snapshot Precedence Rule clarifies that, for the named task scope, an explicitly provided archive, snapshot, or working-copy package is sufficient to establish that active execution authority unless the operator directs comparison or expansion.
-
-This rule therefore refines active artifact selection for snapshot-based workflows.
-
----
-
-### Relationship to Authority Transition
-
-If the system needs material outside the provided snapshot or archive, that need must be handled through the Authority Transition Rule.
-
-Snapshot precedence does not prohibit expansion.
-
-It prohibits silent expansion.
-
----
-
 ### Failure Behavior
 
 If it is unclear whether a provided archive, snapshot, or working-copy package is intended to control the current task scope, execution must halt and request clarification.
 
 The system must not assume that live repository or connector materials may be used as supplementary authority while that task-local authority question remains unresolved.
-
----
-
-### Architectural Rationale — Explicit Snapshot Precedence Rule
-
-Archive-based and snapshot-based workflows fail when the system treats a provided task-local artifact package as merely suggestive while silently incorporating live or adjacent materials that were never admitted for the task.
-
-This causes mixed-source reasoning even when the operator attempted to bound execution to a specific working set.
-
-The Explicit Snapshot Precedence Rule closes this gap by making task-local artifact packages first-class execution authorities and by requiring explicit comparison or authority transition before live or adjacent materials may be used.
 
 ---
 
@@ -2531,15 +1865,6 @@ Execution may resume only after artifact authority has been explicitly resolved.
 
 ---
 
-### Relationship to Grounding and Resolution
-
-- Active Artifact Set Resolution defines how a single authoritative artifact set is selected  
-- Grounding Preflight Requirement ensures that the selected artifact set is read and confirmed prior to execution  
-
-This policy enforces failure behavior when those conditions are not satisfied.
-
----
-
 ### Conformance Requirement
 
 Proceeding under ambiguous artifact authority constitutes a violation of methodology correctness.
@@ -2550,25 +1875,15 @@ Implementations must enforce halt-and-resolve behavior as a required condition f
 
 ## Boundary-Uncertainty Degradation Rule
 
-### Purpose
-
-The methodology must define deterministic behavior for cases where the system cannot confirm that the active reasoning set remains identical to the resolved active artifact set during execution.
-
-A system may otherwise continue producing coherent-looking analysis after boundary integrity has been lost or can no longer be verified.
-
-This section defines the required degradation behavior for boundary uncertainty.
-
----
-
 ### Boundary-Uncertainty Principle
 
 For artifact-bound tasks, definitive analytical reasoning requires confirmed boundary integrity.
 
 If the system cannot confirm that the active reasoning set remains identical to the resolved active artifact set, execution must not continue as if boundary integrity were still established.
 
-Loss of confirmed boundary integrity is an execution-control state problem, not merely a presentation concern.
+Loss of confirmed boundary integrity affects whether execution may continue, not merely how results are presented.
 
-For purposes of the execution-state model, this rule defines one condition under which transition into `degraded state` may be explicitly permitted.
+This rule defines one of the specific conditions for which the methodology explicitly permits degraded continuation.
 
 ---
 
@@ -2580,6 +1895,8 @@ When boundary integrity cannot be confirmed, the system must do one of the follo
 2. continue only with an explicit degraded-status statement that makes the loss of confirmed boundary integrity visible  
 
 The system must not silently continue under boundary uncertainty.
+
+If authority is explicitly re-resolved and execution re-grounded against the newly admitted artifact set, normal reasoning may resume.
 
 ---
 
@@ -2612,618 +1929,11 @@ Such conclusions require confirmed boundary integrity.
 
 ---
 
-### Relationship to Fail-Closed Artifact Authority Policy
-
-The Fail-Closed Artifact Authority Policy governs cases where artifact authority is unresolved, conflicting, or incomplete prior to execution.
-
-The Boundary-Uncertainty Degradation Rule governs cases where active authority was resolved, but continued boundary integrity cannot later be confirmed during execution.
-
-This rule therefore addresses post-resolution authority degradation rather than initial authority ambiguity.
-
----
-
-### Relationship to Reasoning-Set Closure
-
-The Reasoning-Set Closure Rule requires that the active reasoning set remain identical to the resolved active artifact set.
-
-The Boundary-Uncertainty Degradation Rule defines the required behavior when the system can no longer confirm that this condition still holds.
-
-Closure defines the required boundary.
-
-This rule defines the consequence of losing confidence in that boundary.
-
----
-
-### Relationship to Authority Transition
-
-If boundary uncertainty is resolved by explicitly re-resolving authority and grounding against a newly admitted artifact set, normal reasoning may resume under the Authority Transition Rule.
-
-If such re-resolution does not occur, continuation may proceed only under explicit degraded status or must halt.
-
----
-
 ### Failure Behavior
 
 If the system cannot determine whether boundary integrity has been preserved and cannot produce an explicit degraded-status statement consistent with this rule, execution must halt.
 
 The system must not default to silent continuation, implicit confidence reduction, or unmarked narrowing of claims.
-
----
-
-### Architectural Rationale — Boundary-Uncertainty Degradation Rule
-
-Authority-boundary failures are dangerous because the resulting analysis may remain internally coherent even after the system has lost confidence that it is still reasoning only from the resolved authoritative materials.
-
-Without an explicit degradation rule, such cases can appear trustworthy while no longer satisfying the methodology’s authority discipline.
-
-The Boundary-Uncertainty Degradation Rule makes this loss of confirmed integrity visible and prevents definitive conclusions from being produced under unverified boundary conditions.
-
----
-
-## Halt-State Classification Rule
-
-### Purpose
-
-The methodology must define halt-state semantics as a first-class runtime control category.
-
-Without explicit state classification, hard-stop conditions may be interpreted as caution, slowdown, or tentative continuation rather than blocked execution.
-
-This section defines the required runtime state distinctions for halt-class conditions.
-
----
-
-### State Classification Principle
-
-Within the execution-state model, the methodology distinguishes among the following execution-control states:
-
-- caution state  
-- degraded state  
-- blocked halt state  
-
-These states are not interchangeable.
-
-A blocked halt state is categorically distinct from caution and degraded execution.
-
----
-
-### Caution State
-
-Caution state applies when execution may continue, but elevated care, additional checking, or narrower confidence is required.
-
-Caution state does not authorize silent downgrade of halt-class conditions.
-
-Caution state is not a substitute for blocked execution.
-
----
-
-### Degraded State
-
-Degraded state applies when execution may continue only under explicitly limited conditions and with visible acknowledgment that required correctness conditions are not fully satisfied.
-
-Degraded state permits bounded continuation only when the methodology explicitly allows degradation for the relevant condition.
-
-Degraded state is not equivalent to blocked halt state.
-
----
-
-### Blocked Halt State
-
-Blocked halt state applies when the methodology or the operator defines a condition using halt, stop, do-not-proceed, or equivalent hard-stop semantics and that condition is detected.
-
-When a blocked halt state is entered, substantive execution must cease immediately.
-
-Blocked halt state permits reporting and clarification behavior only, unless explicit re-entry conditions are later satisfied.
-
----
-
-### Operator-Declared Halt Semantics
-
-If the operator declares a stop, halt, or do-not-proceed condition for the task, that declaration creates halt-class semantics for the named trigger.
-
-When the named trigger is detected, the runtime must classify the condition as blocked halt state.
-
-The runtime must not silently reinterpret operator-declared halt semantics as caution or degraded continuation.
-
----
-
-### Methodology-Required Halt Semantics
-
-If the methodology defines a condition that requires halt, execution must classify that condition as blocked halt state when detected.
-
-Methodology-required halt conditions are not eligible for silent downgrade into caution, slowdown behavior, recursive revalidation, or tentative continuation.
-
----
-
-### Prohibited Downgrade Behavior
-
-The system must not:
-
-- reinterpret halt-class conditions as caution only  
-- reinterpret halt-class conditions as degraded continuation unless the methodology explicitly defines degradation for that exact condition  
-- continue substantive execution after detecting a blocked halt state  
-- use narration of caution or readiness as a substitute for required halt-state transition  
-
----
-
-### Relationship to Boundary-Uncertainty Degradation
-
-Boundary-Uncertainty Degradation Rule defines one class of condition in which degradation may be explicitly permitted.
-
-The Halt-State Classification Rule defines the broader runtime state model in which caution, degraded, and blocked halt states are distinguished.
-
-This rule therefore formalizes the execution-state distinctions within which degradation and halt behavior must be interpreted.
-
----
-
-### Failure Behavior
-
-If the runtime cannot determine whether a detected condition is halt-class or is observed silently downgrading halt semantics into caution or tentative continuation, execution is non-conformant.
-
-The methodology must require explicit classification of halt-class conditions as blocked halt state.
-
----
-
-### Architectural Rationale — Halt-State Classification Rule
-
-Authority hardening and failure visibility are insufficient if the runtime can recognize a halt trigger while continuing under softer, informal control states.
-
-A methodology that permits halt semantics to collapse into caution semantics does not reliably enforce its own stop conditions.
-
-The Halt-State Classification Rule closes this gap by making blocked halt state explicit, distinct, and non-substitutable.
-
----
-
-## Blocked Execution State
-
-### Purpose
-
-The methodology must define the execution behavior that applies after a blocked halt state has been entered.
-
-Recognizing halt-class conditions is insufficient if the runtime may still continue through cautious continuation, recursive revalidation, or progress narration.
-
-This section defines the allowed and prohibited behavior for blocked execution.
-
----
-
-### Blocked-State Principle
-
-Once a blocked halt state is entered, substantive execution must stop immediately.
-
-Blocked execution is a real runtime stop condition, not a softened continuation mode.
-
-The blocked state exists to preserve enforcement of halt-class semantics after detection.
-
-Within the execution-state model, `blocked halt state` is a distinct execution-control state rather than a stronger caution mode or a softened degraded continuation state.
-
----
-
-### Allowed Actions in Blocked State
-
-When the runtime is in blocked halt state, it may only:
-
-- report the blocking condition  
-- identify what work is blocked  
-- request clarification  
-- request override  
-- request scope narrowing  
-
-These are the only permitted blocked-state actions unless a later rule explicitly defines re-entry behavior.
-
----
-
-### Prohibited Actions in Blocked State
-
-When the runtime is in blocked halt state, it must not:
-
-- continue substantive analysis  
-- continue validation as if execution remained authorized  
-- continue implementation work  
-- perform tentative execution  
-- continue recursive revalidation as a substitute for halt  
-- continue progress narration as a substitute for halt  
-- present further analysis as though normal continuation were still authorized  
-
-Blocked state prohibits continuation, not just overconfidence.
-
----
-
-### Reporting Requirement
-
-When blocked halt state is entered, the runtime must make the blocked condition visible.
-
-At minimum, blocked-state reporting must:
-
-- identify that execution is blocked  
-- name or describe the triggering condition  
-- indicate what work cannot proceed while the block remains active  
-
-This reporting requirement does not authorize continuation beyond blocked-state limits.
-
----
-
-### Relationship to Halt-State Classification
-
-The Halt-State Classification Rule defines when a detected condition must be classified as blocked halt state rather than caution or degraded execution.
-
-The Blocked Execution State section defines what the runtime may and may not do after that classification has occurred.
-
-This section therefore operationalizes blocked halt state rather than redefining it.
-
----
-
-### Prohibition on Narration-as-Substitute
-
-The runtime must not substitute blocked execution with conversational circling.
-
-In particular, the system must not treat any of the following as conformant substitutes for blocked state:
-
-- repeated readiness narration  
-- repeated caution narration  
-- recursive statements of intended future execution  
-- continued analytical probing presented as preparatory rather than substantive execution  
-
-If execution is blocked, the runtime must remain within the allowed blocked-state actions.
-
----
-
-### Failure Behavior
-
-If a halt-class condition is detected and the runtime does not enter blocked execution behavior consistent with this section, execution is non-conformant.
-
-Recognition without enforcement is insufficient.
-
----
-
-### Architectural Rationale — Blocked Execution State
-
-A halt-class condition does not achieve its control purpose unless the runtime transitions into a genuinely constrained state after detection.
-
-Without explicit blocked-state behavior, implementations may acknowledge a halt trigger while continuing through tentative analysis, recursive readiness checks, or narration that preserves the appearance of progress.
-
-The Blocked Execution State closes this gap by defining a true enforcement state in which reporting and clarification remain possible, but substantive continuation does not.
-
----
-
-## Halt Re-entry Rule
-
-### Purpose
-
-The methodology must define how execution may resume after blocked halt state has been entered.
-
-Without an explicit re-entry model, blocked execution can degrade into oscillation between blocked state, caution, and pseudo-resumption without a controlled authorization boundary.
-
-This section defines the required re-entry behavior.
-
----
-
-### Re-entry Principle
-
-Once blocked halt state has been entered, execution may not resume unless explicit re-entry conditions are satisfied.
-
-Blocked state is not exited by conversational momentum, repeated readiness checks, silence, or inferred operator intent.
-
-Continuation after halt must occur through explicit reauthorization.
-
-Within the execution-state model, re-entry governs the only valid transition from `blocked halt state` back to `active execution`.
-
----
-
-### Allowed Re-entry Paths
-
-Execution may re-enter from blocked halt state only through one of the following:
-
-- operator clarification  
-- explicit override  
-- scope narrowing  
-- confirmation that the halt trigger does not apply  
-
-These are the only valid re-entry paths unless a later rule explicitly defines an additional path.
-
----
-
-### Operator Clarification Re-entry
-
-If the operator provides clarification that resolves the blocking condition, the runtime may exit blocked state only after confirming that the clarification actually removes the halt trigger.
-
-Clarification must resolve the blocking condition, not merely restate the original request.
-
----
-
-### Explicit Override Re-entry
-
-If the operator explicitly overrides the blocked condition, the runtime may re-enter only within the scope of that override.
-
-Override does not erase the existence of the prior blocked condition.
-
-It authorizes continuation despite that condition within the newly declared bounds.
-
----
-
-### Scope-Narrowing Re-entry
-
-If the operator narrows the task so that the halt trigger no longer applies to the remaining work, the runtime may re-enter only for that narrowed task scope.
-
-Work outside the narrowed scope remains blocked.
-
----
-
-### Trigger-Non-Applicability Re-entry
-
-If it becomes clear that the detected halt trigger does not actually apply, the runtime may re-enter after explicitly stating that the blocking condition no longer applies.
-
-The runtime must not assume non-applicability without explicit basis.
-
----
-
-### Prohibited Re-entry Behavior
-
-The system must not:
-
-- resume execution without explicit reauthorization  
-- infer re-entry from conversational continuation alone  
-- treat repeated readiness narration as re-entry  
-- treat additional analysis during blocked state as implicit re-entry  
-- broaden resumed work beyond the explicit basis that authorized re-entry  
-
----
-
-### Re-entry Reporting Requirement
-
-When blocked state is exited, the runtime must make the re-entry basis visible.
-
-At minimum, the runtime must identify:
-
-- which re-entry path applies  
-- what changed to permit re-entry  
-- the scope within which execution is reauthorized  
-
-This requirement preserves reviewability and prevents implicit drift out of blocked state.
-
----
-
-### Relationship to Blocked Execution State
-
-Blocked Execution State defines what the runtime may do while execution is blocked.
-
-The Halt Re-entry Rule defines the only valid mechanisms by which blocked execution may end.
-
-This rule therefore governs exit from blocked state rather than behavior within it.
-
----
-
-### Failure Behavior
-
-If blocked execution ends without a valid re-entry path being satisfied and made visible, execution is non-conformant.
-
-Implicit resumption is prohibited.
-
----
-
-### Architectural Rationale — Halt Re-entry Rule
-
-Blocked execution is only enforceable if exit from blocked state is as controlled as entry into it.
-
-Without explicit re-entry semantics, blocked state can collapse into temporary hesitation followed by informal continuation, which defeats halt enforcement and weakens runtime determinism.
-
-The Halt Re-entry Rule closes this gap by requiring auditable, explicit reauthorization before execution may resume.
-
----
-
-## Uncertainty-Loop Budget Rule
-
-### Purpose
-
-The methodology must define bounded uncertainty-handling behavior by execution state.
-
-Not all uncertainty should trigger immediate halt, but unbounded looping creates narration without progression and can conceal state-classification failures.
-
-This section defines the required loop-budget model for uncertainty handling.
-
----
-
-### Loop-Budget Principle
-
-Uncertainty handling must be bounded and state-aware.
-
-The runtime must not remain in repeated uncertainty-resolution cycles without explicit budget limits, visible escalation rules, and state-sensitive stopping behavior.
-
-Loop budgets are control limits, not suggestions.
-
----
-
-### State-Based Loop Budgets
-
-Within the execution-state model, the methodology defines the following maximum uncertainty-loop budgets by execution-control state:
-
-- caution state: up to 2 uncertainty-resolution loops  
-- degraded state: up to 1 bounded recovery attempt  
-- blocked halt state: 0 loops  
-
-These budgets apply to repeated attempts to resolve the same blocking or non-advancing uncertainty without a material state improvement.
-
----
-
-### Caution-State Budget
-
-In caution state, the runtime may perform up to 2 bounded uncertainty-resolution loops when execution remains authorized and the uncertainty is plausibly recoverable within the current state.
-
-If the same uncertainty persists without material improvement after the allowed caution-state loop budget has been used, the runtime must escalate rather than continue circling.
-
----
-
-### Degraded-State Budget
-
-In degraded state, the runtime may perform 1 bounded recovery attempt when the methodology explicitly permits degraded continuation for the relevant condition.
-
-If that attempt does not materially improve state integrity or resolve the uncertainty, the runtime must escalate rather than continue under repeated degraded recovery behavior.
-
----
-
-### Blocked-Halt-State Budget
-
-In blocked halt state, the runtime may perform 0 uncertainty-resolution loops.
-
-Blocked state permits reporting, clarification, override handling, and scope narrowing requests only, as defined by the Blocked Execution State section.
-
-The runtime must not use iterative uncertainty-resolution behavior as a substitute for blocked execution.
-
----
-
-### Escalation Requirement
-
-If the same blocking or non-advancing uncertainty persists without state improvement across the allowed loop budget for the current state, the runtime must escalate.
-
-Escalation may include:
-
-- transition to degraded state, if the methodology explicitly permits degradation for the condition  
-- transition to blocked halt state  
-- request for clarification, override, or scope narrowing, where appropriate  
-
-The runtime must not continue uncertainty handling beyond the allowed budget without state change or operator intervention.
-
----
-
-### No Budget Reset Without State Change
-
-The runtime must not reset an uncertainty-loop budget unless one of the following occurs:
-
-- explicit state change  
-- operator intervention  
-- material resolution of the prior uncertainty such that the runtime is no longer handling the same unresolved condition  
-
-Repeated narration, reformulation, or rechecking without substantive change does not reset the budget.
-
----
-
-### Relationship to Halt-State Classification
-
-The Halt-State Classification Rule defines the execution states within which uncertainty handling occurs.
-
-The Uncertainty-Loop Budget Rule defines how many uncertainty-resolution attempts are permitted within each state before escalation is required.
-
-This rule therefore constrains repeated uncertainty handling within the state model rather than redefining the states themselves.
-
----
-
-### Relationship to Blocked Execution State
-
-Blocked Execution State already prohibits substantive continuation after halt-class detection.
-
-The zero-loop rule for blocked halt state makes explicit that blocked execution may not be converted into recursive uncertainty handling.
-
-This rule therefore reinforces blocked-state enforcement.
-
----
-
-### Failure Behavior
-
-If the runtime continues repeated uncertainty handling beyond the allowed loop budget for the current state without explicit state change or operator intervention, execution is non-conformant.
-
-Open-ended uncertainty circling is prohibited.
-
----
-
-### Architectural Rationale — Uncertainty-Loop Budget Rule
-
-Methodological control depends not only on correct state classification, but also on bounded behavior within each state.
-
-Without explicit loop budgets, a runtime may remain trapped in recursive uncertainty handling that appears careful while actually avoiding execution, escalation, or halt.
-
-The Uncertainty-Loop Budget Rule closes this gap by making uncertainty handling finite, state-aware, and escalation-driven.
-
----
-
-## Readiness Threshold Progression Rule
-
-### Purpose
-
-The methodology must prevent artifact-producing tasks from stalling in recursive readiness narration after execution preconditions are already satisfied or after a halt condition has already been reached.
-
-This section defines the required progression behavior once readiness threshold has been crossed.
-
----
-
-### Readiness-Threshold Principle
-
-For artifact-producing tasks, once required preconditions for execution are satisfied, the runtime must advance state.
-
-Advancement must occur through one of the following:
-
-- execution  
-- blocked halt state  
-
-The runtime must not remain in recursive readiness narration after readiness threshold has been reached.
-
-Within the execution-state model, once readiness threshold has been crossed, execution must advance from `execution readiness state` into `active execution` or into `blocked halt state` if a halt-class condition applies.
-
----
-
-### Scope of Application
-
-This rule applies to artifact-producing tasks in which the current session is expected to produce a concrete implementation artifact, execution output, modification, validation result, or other task-bounded deliverable.
-
-This rule governs progression after execution readiness has been established.
-
-It does not prohibit legitimate diagnosis or preparation before readiness threshold is reached.
-
----
-
-### Required Runtime Behavior
-
-Once readiness threshold has been reached, the runtime must do one of the following:
-
-1. execute the task within the authorized scope  
-2. enter blocked halt state if a halt-class condition applies  
-
-The runtime must not continue in readiness narration as a substitute for either execution or blocked-state transition.
-
----
-
-### Prohibited Non-Advancement Behavior
-
-After readiness threshold has been reached, the runtime must not:
-
-- repeat preflight-style narration without new blocking information  
-- continue readiness framing as if execution were still pending when no new gating condition has appeared  
-- remain in meta-level progress narration without state advancement  
-- continue preparatory analysis when the task is already execution-ready  
-- defer advancement through stylistic statements of caution or intended future action  
-
-Such behavior is non-conformant for artifact-producing tasks.
-
----
-
-### Relationship to Blocked Execution State
-
-If a halt-class condition applies after readiness threshold is reached, the runtime must enter blocked halt state and follow the Blocked Execution State rules.
-
-Readiness threshold does not authorize continued narration in place of blocked-state enforcement.
-
----
-
-### Relationship to Uncertainty-Loop Budget Rule
-
-The Uncertainty-Loop Budget Rule governs bounded uncertainty handling by execution state.
-
-The Readiness Threshold Progression Rule governs the separate condition in which readiness has already been established.
-
-Once readiness threshold is reached, the runtime may not use recursive readiness narration to simulate valid uncertainty handling.
-
----
-
-### Failure Behavior
-
-If readiness threshold has been reached and the runtime neither executes nor enters blocked halt state, but instead remains in recursive readiness narration or progress-style meta-language without state advancement, execution is non-conformant.
-
----
-
-### Architectural Rationale — Readiness Threshold Progression Rule
-
-A runtime can satisfy preconditions and still fail operationally if it remains trapped in readiness narration rather than advancing to execution or blocked-state enforcement.
-
-This creates the appearance of disciplined control while preventing actual task progression.
-
-The Readiness Threshold Progression Rule closes this gap by requiring state advancement once readiness has been established and by classifying narration-only non-advancement as a methodology failure for artifact-producing tasks.
 
 ---
 
@@ -3311,117 +2021,7 @@ The Authority-Boundary Drift Failure Case makes this pattern explicit and reusab
 
 ---
 
-## Halt-Enforcement Failure Case
-
-### Purpose
-
-The methodology benefits from recurring failure patterns being named in reusable structural terms for conformance review, runtime architecture evaluation, and future hardening.
-
-This section defines the reference failure case for halt-enforcement failure.
-
----
-
-### Failure Case Definition
-
-Halt-enforcement failure occurs when a halt trigger is recognized or should be recognized, but the runtime does not enter or preserve the blocked execution behavior required by the methodology.
-
-This failure class concerns failure of halt enforcement after halt-class semantics apply.
-
----
-
-### Representative Pattern
-
-A representative halt-enforcement failure pattern includes one or more of the following conditions:
-
-- a halt trigger was recognized or should have been recognized  
-- blocked halt state was not entered when required  
-- blocked halt state was entered but not preserved  
-- continuation, narration, or analytical probing persisted after halt-class enforcement should have stopped execution  
-
-This pattern is non-conformant.
-
----
-
-### Distinction from Authority-Boundary Failure
-
-Halt-enforcement failure is distinct from authority-boundary failure.
-
-Authority-boundary failure concerns unresolved, degraded, or drifted authority conditions affecting what materials may be treated as authoritative.
-
-Halt-enforcement failure concerns failure to enforce blocked execution behavior after halt-class conditions apply.
-
----
-
-### Distinction from Connector Dataset-Isolation Failure
-
-Halt-enforcement failure is distinct from connector dataset-isolation failure.
-
-Connector dataset-isolation failure concerns contamination across datasets, samples, or isolated evidence partitions within connector or evidence-processing workflows.
-
-Halt-enforcement failure concerns failure to stop execution after a halt-class trigger requires blocked-state enforcement.
-
----
-
-### Distinction from Evidence-Integrity Failure
-
-Halt-enforcement failure is distinct from evidence-integrity failure.
-
-Evidence-integrity failure concerns loss of source fidelity, evidence correctness, or evidence-stage discipline.
-
-Halt-enforcement failure concerns failure of runtime control enforcement after a halt-class trigger has been activated.
-
----
-
-### Required Methodology Use
-
-The Halt-Enforcement Failure Case must be reusable for:
-
-- conformance review  
-- runtime architecture evaluation  
-- stress testing  
-- future hardening work involving blocked execution, halt-state enforcement, re-entry handling, or progression controls  
-
----
-
-### Relationship to Halt-State Classification
-
-The Halt-State Classification Rule defines when a detected condition must be classified as blocked halt state.
-
-Halt-enforcement failure describes the non-conformant case in which this required classification or its required behavioral consequences are not actually enforced.
-
----
-
-### Relationship to Blocked Execution State
-
-Blocked Execution State defines the allowed and prohibited behavior once blocked halt state has been entered.
-
-Halt-enforcement failure includes cases where blocked execution is not entered, is not preserved, or is substituted with continuation or narration.
-
----
-
-### Architectural Rationale — Halt-Enforcement Failure Case
-
-A methodology can define halt-class semantics correctly and still fail operationally if implementations do not actually transition into blocked execution when required.
-
-Without a named halt-enforcement failure class, this control defect must be rediscovered separately in conformance review, runtime evaluation, and stress testing.
-
-The Halt-Enforcement Failure Case makes this failure pattern explicit and reusable without collapsing it into unrelated authority, evidence, or dataset-isolation failures.
-
----
-
 ## Working Copy Supersession Rule
-
-### Purpose
-
-The methodology must define how newer working-copy artifacts interact with prior in-session versions of the same logical artifact.
-
-Interactive workflows may introduce multiple revisions of a document during a single session.
-
-Without an explicit supersession rule, the system may regress to older artifact state even after newer working copies have been provided.
-
-This section defines the required supersession behavior.
-
----
 
 ### Supersession Principle
 
@@ -3456,26 +2056,6 @@ The system must not:
 
 ---
 
-### Relationship to Active Artifact Resolution
-
-Active Artifact Set Resolution defines how a single authoritative artifact set is selected for execution.
-
-The Working Copy Supersession Rule defines how that artifact set must be updated when newer in-session revisions of an artifact are introduced.
-
-Supersession therefore operates within the active artifact model rather than replacing it.
-
----
-
-### Relationship to Grounding Preflight
-
-Grounding Preflight Requirement requires that execution be based on the current active artifact set immediately prior to modification or validation.
-
-When supersession has occurred, grounding must use the newest superseding working copy rather than any earlier in-session version.
-
-Grounding against a superseded artifact is invalid.
-
----
-
 ### Failure Behavior
 
 If the system cannot determine which in-session working copy is the latest authoritative version, execution must halt and request clarification.
@@ -3489,18 +2069,6 @@ The system must not infer supersession from incomplete evidence or silently choo
 For interactive workflows involving updated working copies, the methodology must enforce working-copy supersession so that reasoning, validation, and modification remain constrained to the latest resolved artifact version within the active artifact set.
 
 This requirement prevents stale-state regression and preserves deterministic session behavior.
-
----
-
-### Architectural Rationale — Working Copy Supersession Rule
-
-Active artifact resolution establishes which artifacts are authoritative for the session.
-
-Grounding preflight ensures that execution is based on those artifacts immediately prior to action.
-
-The supersession rule extends this model across iterative editing by ensuring that newer working copies deterministically replace prior in-session versions unless the operator explicitly requests otherwise.
-
-This preserves correctness, prevents regression to stale artifact state, and keeps interactive document workflows reproducible.
 
 ---
 
@@ -3963,23 +2531,6 @@ This rule preserves bounded customization and supports governed environments.
 
 ## Output Artifact Selection Policy
 
-### Purpose
-
-Define deterministic rules governing when responses should be presented as
-structured artifacts versus concise narrative explanations.
-
-Artifact selection is a **derived runtime directive** determined from the
-analytical requirements of the task.
-
-The objective is to prevent artifact-heavy outputs from becoming the default
-while ensuring structured artifacts are used when they materially improve
-analysis clarity, decision support, or governance visibility.
-
-This policy governs **presentation format only** and does not affect the
-underlying reasoning process.
-
----
-
 ### Selection Principle
 
 Response presentation should match the **analytical needs of the task**.
@@ -4154,16 +2705,6 @@ This policy ensures:
 
 ## Delegated Execution Activation Policy
 
-### Purpose
-
-Define deterministic rules governing when the methodology should classify a workflow as preparing for downstream execution by a specialized model or tool rather than treating the current response as the terminal implementation step.
-
-Delegated execution activation is a **derived runtime directive** determined from task conditions and expected workflow outcome.
-
-The objective is to make delegation decisions explicit, bounded, and reviewable.
-
----
-
 ### Activation Principle
 
 The methodology must distinguish between:
@@ -4175,6 +2716,10 @@ The methodology must distinguish between:
 These workflow classes are not interchangeable.
 
 The active workflow class must be determined before terminal output preparation so that the resulting output matches the actual execution path of the work.
+
+Delegated execution is not a framework tier. It does not replace Core Framework, Advanced Framework, or Governance Extensions, and framework tier selection continues to determine analytical depth and control structure.
+
+Delegated execution determines the expected terminal use of the completed analysis, and composes with any framework tier rather than substituting for one.
 
 ---
 
@@ -4252,43 +2797,6 @@ This rule allows delegated execution to be recognized deterministically without 
 
 ---
 
-### Relationship to Framework Tier Selection
-
-Delegated execution is not a framework tier.
-
-It does not replace:
-
-- Core Framework
-- Advanced Framework
-- Governance Extensions
-
-Framework tier selection continues to determine analytical depth and control structure.
-
-Delegated execution determines the expected terminal use of the completed analysis.
-
-This means valid runtime states may include:
-
-- Core analysis-only
-- Advanced analysis-only
-- Advanced in-session implementation
-- Advanced delegated execution
-- Core + Governance delegated execution
-- Advanced + Governance delegated execution
-
-Delegated execution therefore operates as a runtime workflow classification layered on top of framework tier selection.
-
----
-
-### Relationship to Output Artifact Selection
-
-Delegated execution does not itself define the handoff artifact.
-
-It determines that terminal output preparation must support downstream execution rather than only direct explanatory response.
-
-The canonical structure of the downstream handoff artifact is defined separately.
-
----
-
 ### Effect on Analysis Preparation
 
 When delegated execution is active, analysis should be prepared with downstream reuse in mind.
@@ -4334,16 +2842,6 @@ This classification is required so that output preparation remains aligned with 
 
 ## Handoff Artifact Specification
 
-### Purpose
-
-Define the canonical structure used to transfer completed analysis into a downstream execution context when delegated execution is active.
-
-The handoff artifact enables a downstream model or tool to operate from structured, bounded analysis rather than reconstructing intent from conversational context.
-
-The objective is to ensure that analysis performed in the current session remains usable, reviewable, and execution-ready.
-
----
-
 ### Handoff Artifact Principle
 
 When delegated execution is active, the methodology must produce a **bounded handoff artifact** rather than relying solely on explanatory response.
@@ -4357,6 +2855,10 @@ The handoff artifact must:
 - constrain downstream execution behavior
 
 The handoff artifact is a **derived runtime artifact** selected based on delegated execution activation.
+
+A handoff artifact is produced only when delegated execution is active.
+
+This specializes output artifact selection for delegation workflows rather than replacing the general artifact selection policy.
 
 ---
 
@@ -4480,47 +2982,6 @@ A valid handoff artifact must satisfy the following characteristics:
 - **execution readiness** — usable without reconstructing conversational history  
 
 Handoff artifacts must not rely on implicit context.
-
----
-
-### Relationship to Delegated Execution Activation
-
-The handoff artifact is produced only when delegated execution is active.
-
-Delegated execution activation determines:
-
-- that a handoff artifact is required  
-- that output preparation must support downstream execution  
-
-This section defines the structure of that artifact.
-
----
-
-### Relationship to Output Artifact Selection
-
-Handoff artifacts are a specific class of structured output.
-
-They are selected when:
-
-- delegated execution is active  
-- the terminal output must support downstream execution  
-
-This does not replace the general artifact selection policy.  
-It specializes artifact selection for delegation workflows.
-
----
-
-### Relationship to Framework Reasoning
-
-The handoff artifact does not replace structured reasoning.
-
-The AI Interaction Framework remains responsible for:
-
-- analytical structure  
-- reasoning completeness  
-- evaluation of options and constraints  
-
-The handoff artifact represents the **output of completed reasoning**, formatted for downstream execution.
 
 ---
 
@@ -5574,14 +4035,8 @@ Protected surfaces and override prohibitions are defined in the Profile and Over
 
 ### Methodology Invariants
 
-Profiles must not alter or disable methodology invariants, including:
-
-- diagnosis before solutioning
-- structured reasoning over conversational response generation
-- explicit handling of assumptions, tradeoffs, and uncertainty
-- critical evaluation rather than automatic validation
-- systems-level analytical orientation
-- reliability validation before conclusions
+Profiles must not alter or disable any methodology invariant. The canonical list is in
+`Methodology Invariants`; do not restate it here.
 
 ---
 
@@ -5880,6 +4335,7 @@ Evidence of conformance may include:
 
 - explicit problem framing
 - structured evaluation before recommendation
+- structured reasoning before tool recommendation
 - avoidance of premature conclusions
 
 ---

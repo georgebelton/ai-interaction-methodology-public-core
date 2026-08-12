@@ -3,7 +3,9 @@ The goal is to show how the methodology operates as a **bootstrap → configurat
 
 This supporting artifact is descriptive only.
 
-Canonical runtime semantics, execution-state behavior, artifact-authority controls, operation-class behavior, and governance activation rules remain defined by the canonical methodology and framework source artifacts.
+Canonical runtime semantics, artifact-authority controls, operation-class behavior, and governance activation rules remain defined by the canonical methodology and framework source artifacts.
+
+Execution-control posture is not canonically defined. It is established by operator-performed checkpoints at defined points in the runtime, and appears here only as a pipeline stage.
 
 ---
 
@@ -30,7 +32,7 @@ Framework Tier / Governance Determination
 Workflow / Operation-Class Resolution
      │
      ▼
-Execution-State and Artifact-Authority Controls
+Artifact-Authority Controls and Execution Checkpoints
      │
      ▼
 Structured Reasoning Engine
@@ -182,34 +184,32 @@ These runtime dimensions constrain downstream execution behavior but do not repl
 
 ---
 
-## 4B. Execution-State and Artifact-Authority Controls
+## 4B. Artifact-Authority Controls and Execution Checkpoints
 
 **Responsibility**
 
-Apply the runtime control layer governing when execution may proceed, under what state, and against which authoritative materials.
+Apply the runtime control layer governing when execution may proceed, against which authoritative materials, and under what operator-confirmed conditions.
 
-**Control surfaces**
+**Canonically defined control surfaces**
 
 ```
 active artifact set resolution
 grounding preflight
 reasoning-set closure
 authority transition
-execution-state model
-halt / blocked execution / re-entry
-uncertainty-loop budgets
-readiness-threshold progression
 ```
+
+**Operator-performed checkpoints**
+
+Execution-control posture is not a state the runtime tracks. It is confirmed by a person at defined checkpoints, covering conditions such as whether execution may begin, whether a stop condition applies, and whether a stalled or repeating condition requires escalation.
 
 **Architectural role**
 
 This layer sits between configuration and substantive reasoning.
 
-It ensures that reasoning begins only after canonical bootstrap and artifact-authority conditions permit execution, against the correct authoritative materials, under a valid execution-control state, and with the appropriate workflow and operation-class constraints already resolved.
+It ensures that reasoning begins only after canonical bootstrap and artifact-authority conditions permit execution, against the correct authoritative materials, and with the appropriate workflow and operation-class constraints already resolved.
 
-This supporting artifact does not redefine these controls locally.
-
-It summarizes the control surfaces defined canonically in the methodology.
+This supporting artifact does not redefine these controls locally. The canonically defined surfaces are specified in the methodology; the checkpoints are operator-performed and are not canonical definitions.
 
 ---
 
@@ -271,6 +271,8 @@ Within the methodology runtime, workflow classification and output preparation d
 
 Validated completion is reached only when the required validation conditions for the active workflow class have been satisfied.
 
+Both statements follow from the methodology's `Producing Output Is Not Completing Work`, which is canonical. They are not defined here.
+
 ---
 
 ## 8. Final Response or Handoff Artifact
@@ -329,7 +331,7 @@ Resulting output characteristics are influenced by:
                         │
                         ▼
         ┌───────────────────────────────┐
-        │ Authority + Execution Controls│
+        │ Authority + Checkpoints       │
         └───────────────┬───────────────┘
                         │
                         ▼
@@ -378,11 +380,12 @@ Deterministic runtime behavior remains governed by the canonical methodology and
 - canonical bootstrap ordering and gating
 - canonical artifact resolution and verification
 - artifact-authority resolution
-- execution-state model
 - workflow classification
 - operation-class constraints
 - reliability validation
 - governance activation behavior
+
+Execution-control posture is not among these. It is established by operator-performed checkpoints rather than by canonical definition.
 
 ---
 
@@ -395,7 +398,7 @@ It summarizes the public-core runtime as a layered system consisting of:
 - bootstrap and canonical assembly
 - runtime configuration
 - workflow and operation-class resolution
-- execution-state and artifact-authority controls
+- artifact-authority controls and operator-performed execution checkpoints
 - structured reasoning
 - validation and workflow-aligned terminal output
 

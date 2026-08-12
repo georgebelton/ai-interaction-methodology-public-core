@@ -1,0 +1,30 @@
+# Line endings
+#
+# All markdown in this repo is already stored in git as LF (verified when this
+# was added: zero CR bytes in every tracked .md).
+#
+# core.autocrlf=true converts these to CRLF in the Windows working tree on
+# checkout. Pinning eol=lf keeps the working copy byte-identical to what git
+# stores and to what the pinned canonical reference resolves to, which matters
+# for a repo whose bootstrap rules turn on exact artifact identity.
+#
+# This changes no stored content and produces no diff.
+*.md text eol=lf
+
+# This file governs its own line endings too, so it does not get converted on
+# checkout while defining the rule that prevents conversion elsewhere.
+.gitattributes text eol=lf
+
+# Remaining tracked text files. Rules are enumerated rather than declared with
+# `* text=auto` on purpose: text=auto checks files out with the platform's
+# native ending, which is CRLF on Windows. That is the opposite of the intent
+# here. The risk being addressed is not a noisy `git status` -- it is raw
+# working-tree bytes being packaged into a static artifact that carries CRLF
+# with no git context to reconcile against. Only eol=lf prevents that on disk.
+.gitignore text eol=lf
+LICENSE text eol=lf
+
+# CI runs these `run:` blocks as bash on ubuntu-latest under `set -euo pipefail`.
+# A CRLF checkout appends \r to every line and breaks the scripts.
+*.yml text eol=lf
+*.yaml text eol=lf

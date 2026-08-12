@@ -14,3 +14,7 @@ Thumbs.db
 # Backup files
 *~
 *.bak
+ai-interaction-methodology-public-core.code-workspace
+
+# Local task-specific working state. Durable process rules live in CLAUDE.md.
+NOTES.md

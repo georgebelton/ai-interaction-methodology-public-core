@@ -1,12 +1,12 @@
 ---
 Status: Canonical
-Version: 1.1.5
+Version: 2.0.0
 Canonical: true
 Canonical File: ai-collaboration-guidelines/ai-collaboration-guidelines.md
 Creator: George Belton
 Maintainer: George Belton
 Created: 2026-03-11
-Last Updated: 2026-04-03
+Last Updated: 2026-08-11
 License: CC-BY-4.0
 ---
 
@@ -258,14 +258,9 @@ Profiles exist to support safe customization while preserving the methodology’
 
 Some aspects of the collaboration model are fundamental to the AI Interaction Methodology and are not intended to be modified by collaboration profiles.
 
-These include:
+The canonical list of these invariants is defined under **Methodology Invariants** in `ai-interaction-methodology/ai-interaction-methodology.md`. Concrete evidence of conformance for each is given under **Required Conformance Criteria** in the same document.
 
-- diagnosis before solutioning
-- structured reasoning before tool recommendation
-- explicit evaluation of assumptions, tradeoffs, and uncertainty
-- critical evaluation rather than automatic validation
-- systems-level reasoning orientation
-- reliability validation before conclusions
+This document does not restate that list locally. The behavioral expectations elaborated in the sections above are the collaboration-level expression of those invariants, not a second definition of them.
 
 These invariants are enforced through the canonical methodology artifacts and do not establish a separate local precedence model within this document.
 
