@@ -58,7 +58,15 @@ it before starting work in this repo.
   The content itself has to be replaced. Note that resolving a duplication by replacing a
   restatement with a pointer — usually the right call, since it removes a copy that can
   drift — converts a drift risk into a dangling-reference risk, and the deletion map is
-  where that debt comes due.
+  where that debt comes due. **Sweep four reference classes, not one: section names,
+  defined terms, references to the *category* a section established, and positional
+  pointers.** The third is the one no term search can reach, because what is referenced is
+  the taxonomy rather than any member of it — a surviving "not a substitute bootstrap
+  state" survives every search for the states themselves. The fourth needs a pattern wider
+  than it looks: `defined separately below` defeats a pattern written for `defined below`.
+  Terms also appear as bare adjectives, so search the one-word form as well as the phrase.
+  **A clean sweep is not a clean result** — do the full read afterward; every time these
+  classes have been added, it was because the earlier sweeps returned clean and were wrong.
 - **A dangling-reference repair is only durable if its new location survives the rest of
   the plan, not just the current commit.** Inlining content into a surviving section
   fixes the break at hand; check that section against the full remaining deletion
@@ -82,7 +90,13 @@ it before starting work in this repo.
     - **concept vs word** — the idea stated without its keyword (searching "downgrade"
       found 3 of 28; searching the concept found the rest)
     - **proximity miscategorization** — content bucketed by the section containing it
-      rather than by what it says, so it does not read as the thing being searched for
+      rather than by what it says, so it does not read as the thing being searched for.
+      The same error occurs one level down: content bucketed by **its own heading** rather
+      than by what it says. A `Purpose` heading held eleven `must` statements; five
+      subsections named for control states turned out to be permissions and
+      non-establishment gates. Classify by reading the body, never by the heading — and
+      treat a scope estimate built from headings as unmeasured, whichever direction it
+      later moves
     - **negative phrasing** — the same obligation stated inverted, sharing no keywords
       with the positive form (`must not silently continue` for a disclosure requirement;
       searching only the positive form found 15 of 32)
