@@ -107,7 +107,28 @@ it before starting work in this repo.
   filters), `tr -dc '\r' | wc -c`, or a direct read in python. Do **not** use `grep` with
   ANSI-C quoted patterns — `$'\r'` can lose its escaping through nested quoting and
   degrade to a pattern matching every line. The result then looks like a plausible count
-  rather than an error, so the failure is silent.
+  rather than an error, so the failure is silent. Two more members of the same family, both
+  where the medium mangles the text before the check sees it:
+    - **The file-editing tool writes CRLF on this platform.** Observed converting two whole
+      files — every line, not just the edited region — where files written by python with
+      `newline='\n'` had none. `.gitattributes` pins `eol=lf`, so the *commit* is clean
+      either way and looks clean; but that file's stated intent is a working copy
+      byte-identical to what git stores, because the risk is raw working-tree bytes being
+      packaged into an artifact. Prefer python writes with `newline='\n'` for tracked files,
+      or byte-check after every edit.
+    - **A newline defeats a grep pattern.** `seven.*against fourteen` returned zero because
+      the text wrapped between `seven` and `paths`. Flatten newlines before grepping
+      multi-line prose, or match a fragment short enough that it cannot wrap. This is the
+      third instance of a pattern narrower than the text it checks.
+  A fourth case shares the outcome but not the mechanism, and is worth separating: in the three
+  above the medium altered the text before the check read it, whereas here **a field name did
+  not describe the field's contents**. A GitHub Release's `created_at` is the *tag object's*
+  date, not when the Release was published — `published_at` is that, and sat in the same
+  response unread. Reading the label as the fact it appears to state produced a reported
+  anomaly that did not exist, and then an explanation for it, which no evidence could have
+  contradicted because there was nothing there. `git status` reporting "ahead by N" against a
+  stale tracking ref is the same shape. **Check what a field measures before building on it,
+  and read the sibling field.**
 - **A verification whose success condition is "no matches" must not be chained on its exit
   status.** `grep`/`grep -c` exit non-zero on zero matches, so the command confirming *"no
   occurrences remain"* reports shell-level failure exactly when the news is good. Chained
@@ -126,6 +147,30 @@ it before starting work in this repo.
   organised, none of which a public repo should reveal. This applies to paraphrase, and to
   counts and enumerations, as much as to titles — stating how many records exist, or of what
   kinds, is the same disclosure by a different route.
+- **Before an operation a server policy could refuse, check the policy — not just the object
+  graph — and attempt the refusable operation first.** Ancestry, ahead/behind, merge-base and
+  `git ls-remote` all read the commit graph; push permission is not a property of the commit
+  graph, and `ls-remote` reads refs, not rules. A fast-forward can be verified as available,
+  repeatedly and against the server, and still be forbidden. Where a sequence contains one
+  step that might be refused, do that step first: a `main` push rejected by branch protection
+  after a tag had already been pushed left a published release the default branch did not
+  contain, *and* foreclosed fixing anything in that release without re-signing the tag. One
+  ordering choice cost both the consistency and the remedy. The cheap form of this is a
+  throwaway attempt — verifying that tag signing worked on a scratch tag, before deleting a
+  published one, is what kept a delete-then-fail-to-recreate out of the sequence.
+- **Release tags must be signed, and every release tag gets a GitHub Release.** `git tag -a`
+  does not sign; `git tag -s` does, and `tag.gpgSign=true` makes it automatic. Verify with
+  `git cat-file -p <tag>` before pushing, and re-verify after, because the signature has to
+  survive the round trip. Release notes live in GitHub's database rather than the tag object,
+  so a signed tag with no Release is still an incomplete release. Signing matters here
+  specifically: `CANONICAL_SOURCE_LOCK.md` makes the release tag the pinned reference for all
+  canonical resolution and the bootstrap rules turn on exact artifact identity, so an unsigned
+  tag is a name anyone with push access could have created.
+  **The general hazard, which is why both of these are written down at all: automating a manual
+  sequence captures the steps and drops the tacit practices attached to them.** Signing and
+  publishing a Release were both habits in a person's hands, so writing down the sequence
+  captured everything except the parts that were never written down. Two independent gaps, one
+  cause, and neither was noticed until someone compared a new release against an old one.
 - If a section's purpose is unclear, ask rather than guess. Getting this repo's own
   epistemics wrong while editing a methodology about reasoning discipline is the kind of
   irony worth avoiding.
