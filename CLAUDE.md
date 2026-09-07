@@ -33,6 +33,32 @@ it before starting work in this repo.
   asking. Work happens on a task branch, never directly on `main`.
 - Don't commit automatically after edits — stage and describe changes, let the operator
   review and commit.
+- **`gh` is authenticated here, so the delegation boundary is a written rule rather than a habit.**
+  The agent **may open PRs and may read anything** — repository settings, rulesets, branch
+  protection, merge methods, releases, workflow runs. **These come to the operator: merging a PR;
+  creating or editing a GitHub Release; anything touching a published ref** (tags, `main`, branch
+  deletions); **any repository settings change — and committing**, which is not new: it is already
+  reserved by *"stage and describe changes, let the operator review and commit."* The rest are what
+  `gh` newly made reachable; **this list is not the whole boundary.** The line is reversibility —
+  *opening a PR is reversible and reviewable; merging is not.* It is written down because the tool
+  removed an enforcement that had been structural: before `gh`, the merge-method choice, the Latest
+  toggle and the linear-history setting each reached a person **because the agent could not reach
+  them**, and each was a point where being forced to stop was load-bearing. `gh pr merge --squash`
+  is now as easy to type as `--rebase`, and the consequence — orphaning a published tag — is **one
+  flag from silent**. Settings are the sharpest case: the agent can now *create* environment
+  changes that leave no trace in the repository rather than only observe them. Stopping at every
+  irreversible step is **part of the safeguard, not a substitute for the rule**, which exists so
+  the boundary does not depend on being remembered.
+  **Pushing a task branch is inside the boundary, and so is force-pushing one** — but a force-push
+  to a branch with an open PR rewrites the object the operator is reviewing against, and nothing on
+  the server notices: `non_fast_forward` covers only the default branch, and no approval is
+  required. So it carries the history-rewrite record below, and **the new head SHA must be stated in
+  conversation**, so the merge is against a known object rather than the latest one.
+  **Where this meets *attempt the refusable operation first*:** the cheap test for whether a policy
+  will refuse something is a throwaway attempt, but **the attempt is sometimes the reserved
+  operation itself** — a merge method can only be shown unavailable by trying to merge. Then the
+  probe comes to the operator, and where the rule already settles the question, decide on the rule
+  rather than wait. **An unrunnable probe is not a blocker.**
 - **A history-rewriting operation must be recorded in `NOTES.md` when it happens**, in the
   same per-commit pattern as any other commit, naming **both** hashes — the new one and the
   one it discarded — and what the rewrite changed and why. Amend, rebase, and reset are the
