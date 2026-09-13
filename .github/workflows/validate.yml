@@ -57,3 +57,103 @@ jobs:
           done
 
           echo "Optional supporting file paths look valid."
+
+  # Both jobs assume python3, which ubuntu-latest ships - a runner-image fact, not a repo fact.
+  structure-block:
+    name: Verify README structure block matches tracked paths
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Compare README structure block against tracked paths
+        run: |
+          set -euo pipefail
+
+          # Compares the SET OF PATHS named in README's structure block against
+          # `git ls-files`. Deliberately not a regenerate-and-string-compare:
+          # sort order, trailing slashes, directory grouping and box-drawing
+          # characters are rendering, and a check that fails for cosmetic
+          # reasons trains its reader to ignore it. Exact on substance,
+          # tolerant of rendering.
+          python3 - <<'PY'
+          import re, subprocess, sys
+
+          readme = open("README.md", encoding="utf-8").read().split("\n")
+          start = next(i for i, l in enumerate(readme)
+                       if l.startswith("## Repository structure"))
+          fence = next(i for i in range(start, len(readme))
+                       if readme[i].startswith("```"))
+          end = next(i for i in range(fence + 1, len(readme))
+                     if readme[i].strip() == "```")
+
+          declared, stack = set(), []
+          for line in readme[fence + 1:end]:
+              if not line.strip() or line.strip() == ".":
+                  continue
+              m = re.match(r"^((?:[\u2502]   |    )*)[\u251c\u2514]\u2500\u2500 (.*)$",
+                           line)
+              if not m:
+                  print("Unparsable line in structure block: %r" % line)
+                  sys.exit(1)
+              depth = len(m.group(1)) // 4
+              name = m.group(2).strip()
+              del stack[depth:]
+              if name.endswith("/"):
+                  stack.append(name.rstrip("/"))
+              else:
+                  declared.add("/".join(stack + [name]))
+
+          listed = subprocess.run(["git", "ls-files"],
+                                  capture_output=True, check=True)
+          tracked = set(listed.stdout.decode("utf-8").split("\n")) - {""}
+
+          missing = sorted(tracked - declared)
+          extra = sorted(declared - tracked)
+          for p in missing:
+              print("Tracked but absent from the README structure block: %s" % p)
+          for p in extra:
+              print("Named in the README structure block but not tracked: %s" % p)
+          if missing or extra:
+              sys.exit(1)
+          print("Structure block matches all %d tracked paths." % len(tracked))
+          PY
+
+  no-cr-bytes:
+    name: Verify committed blobs contain no CR bytes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Assert zero CR bytes in every committed blob
+        run: |
+          set -euo pipefail
+
+          # Reads COMMITTED BLOBS, never the working tree. A working-tree check
+          # cannot fail here: the checkout is fresh under .gitattributes eol=lf,
+          # so the tree is always LF whatever was committed. Only the blob can
+          # carry a CR, so only the blob is worth asserting on.
+          python3 - <<'PY'
+          import subprocess, sys
+
+          names = subprocess.run(["git", "ls-files", "-z"],
+                                 capture_output=True, check=True).stdout
+          paths = [p.decode("utf-8") for p in names.split(b"\0") if p]
+
+          bad = []
+          for p in paths:
+              blob = subprocess.run(["git", "cat-file", "-p", "HEAD:" + p],
+                                    capture_output=True, check=True).stdout
+              n = blob.count(b"\r")
+              if n:
+                  bad.append((p, n))
+
+          for p, n in bad:
+              print("CR bytes in committed blob: %s (%d)" % (p, n))
+          if bad:
+              sys.exit(1)
+          print("Zero CR bytes across %d committed blobs." % len(paths))
+          PY
