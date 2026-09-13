@@ -84,13 +84,22 @@ it before starting work in this repo.
   The content itself has to be replaced. Note that resolving a duplication by replacing a
   restatement with a pointer — usually the right call, since it removes a copy that can
   drift — converts a drift risk into a dangling-reference risk, and the deletion map is
-  where that debt comes due. **Sweep four reference classes, not one: section names,
-  defined terms, references to the *category* a section established, and positional
-  pointers.** The third is the one no term search can reach, because what is referenced is
+  where that debt comes due. **Sweep five reference classes, not one: section names,
+  defined terms, references to the *category* a section established, positional pointers,
+  and indices.** The third is the one no term search can reach, because what is referenced is
   the taxonomy rather than any member of it — a surviving "not a substitute bootstrap
   state" survives every search for the states themselves. The fourth needs a pattern wider
   than it looks: `defined separately below` defeats a pattern written for `defined below`.
   Terms also appear as bare adjectives, so search the one-word form as well as the phrase.
+  The fifth escapes on **the role it plays in the sentence, not its token shape**: a span
+  cited as a *measurement* of a section reads as data rather than as a pointer into it, and
+  two independent sweeps missed one for that reason. **An index is a reference; the content
+  is the locator.** Line numbers, ordinals and counts are all indices, each invalidated by a
+  different operation — **insertion invalidates line numbers and ordinals, compression
+  invalidates counts.** A bare `:NNN` cannot even be swept, since a line number in one file
+  and in another are syntactically identical, so **a citation must name its file** and a rule
+  is cited by its opening words, never its position. A claim about what was *said* names its
+  channel the same way: *"not in my context"* is not *"never said."*
   **A clean sweep is not a clean result** — do the full read afterward; every time these
   classes have been added, it was because the earlier sweeps returned clean and were wrong.
 - **A dangling-reference repair is only durable if its new location survives the rest of
@@ -107,6 +116,18 @@ it before starting work in this repo.
   deletion the table is wrong in precisely the way this rule exists to prevent. The
   asymmetry that makes this easy to miss: placing content feels like an edit and invites
   the durability check, while citing a location feels like an observation and does not.
+- **Correct live statements; annotate dated ones.** A statement making a claim about *now*
+  misdirects the next piece of work if it is wrong, so fix it in place. A dated record *was*
+  true when written, and editing it rewrites the ledger — destroying the evidence of how a
+  figure moved, which is the only thing that makes a corrected figure auditable rather than
+  merely asserted. The test is not "is this current" but **"is this statement making a claim
+  about now."**
+- **A numeric target on a document is a proxy.** When a pass moves the metric without
+  improving the artifact — a rewrap, a separator, a reflow — the target has become the goal.
+  **Report the number and stop rather than finding another line.** The reverse direction
+  needs stating too: when a genuine improvement happens to move the number, say which it was,
+  because a cut made to hit a threshold and a cut made for readability are indistinguishable
+  from outside.
 - After any term-driven cross-reference search, do one full non-term-driven read of the
   affected file before treating the map as complete. Every time this has been done it
   found something the search missed. Keyword search fails in at least four distinct ways,
@@ -126,8 +147,15 @@ it before starting work in this repo.
     - **negative phrasing** — the same obligation stated inverted, sharing no keywords
       with the positive form (`must not silently continue` for a disclosure requirement;
       searching only the positive form found 15 of 32)
-  A count that stops where the first search ended is almost certainly short. State the
-  search that was run, not the conclusion drawn from it.
+- **State the search that was run, not the conclusion drawn from it**, and **a verification
+  predicate must be at least as wide as the defect it has just found.** A count that stops
+  where the first search ended is almost certainly short. A sweep written to catch stale
+  citations required a filename prefix while the site it had just repaired carried a bare
+  one — so the check passed, and could not have caught its own class. The failure is
+  symmetric: too narrow under-reports, too broad over-reports, and **an over-flagging check
+  erodes trust in the check**, which is how a real hit later gets waved through as one more
+  false positive. **Classify sweep hits, do not count them** — that applies to your own
+  guards, not only to the text under review.
 - For byte-level checks (line endings, encoding, whitespace), use methods immune to
   shell-quoting loss: `git cat-file -p` for raw blob content (`git show` can apply
   filters), `tr -dc '\r' | wc -c`, or a direct read in python. Do **not** use `grep` with
@@ -146,15 +174,20 @@ it before starting work in this repo.
       the text wrapped between `seven` and `paths`. Flatten newlines before grepping
       multi-line prose, or match a fragment short enough that it cannot wrap. This is the
       third instance of a pattern narrower than the text it checks.
-  A fourth case shares the outcome but not the mechanism, and is worth separating: in the three
-  above the medium altered the text before the check read it, whereas here **a field name did
-  not describe the field's contents**. A GitHub Release's `created_at` is the *tag object's*
-  date, not when the Release was published — `published_at` is that, and sat in the same
-  response unread. Reading the label as the fact it appears to state produced a reported
-  anomaly that did not exist, and then an explanation for it, which no evidence could have
-  contradicted because there was nothing there. `git status` reporting "ahead by N" against a
-  stale tracking ref is the same shape. **Check what a field measures before building on it,
-  and read the sibling field.**
+- **A measure can be accurate and still answer a different question than the one it is used for.**
+  This case shares the outcome of the shell-quoting family in *"For byte-level checks"* but not
+  its mechanism: there the medium altered the text before the check read it, whereas here **a name
+  did not describe the contents**. A GitHub Release's `created_at` is the *tag object's* date, not
+  when the Release was published — `published_at` is that, and sat in the same response unread.
+  Reading the label as the fact it appears to state produced a reported anomaly that did not
+  exist, and then an explanation for it, which no evidence could have contradicted because there
+  was nothing there. `git status` reporting "ahead by N" against a stale tracking ref is the same
+  shape, and so is a diffstat: **an edit framed as an insertion can carry a deletion, and `N
+  insertions / 0 deletions` against `HEAD` cannot show it** when the whole block is new, so an
+  intra-session cut stays invisible inside a number that is perfectly correct. **Check what a
+  measure measures before building on it, read the sibling field, and diff against the last
+  reviewed state rather than only against `HEAD`** — record the reviewed blob (`git rev-parse
+  :<file>`) so the next check is `git diff <recorded-sha> :<file>`, computed rather than asserted.
 - **A verification whose success condition is "no matches" must not be chained on its exit
   status.** `grep`/`grep -c` exit non-zero on zero matches, so the command confirming *"no
   occurrences remain"* reports shell-level failure exactly when the news is good. Chained
@@ -184,6 +217,15 @@ it before starting work in this repo.
   ordering choice cost both the consistency and the remedy. The cheap form of this is a
   throwaway attempt — verifying that tag signing worked on a scratch tag, before deleting a
   published one, is what kept a delete-then-fail-to-recreate out of the sequence.
+  **Three further checks answer a narrower question than their names suggest.**
+  `--is-ancestor` is **permanently wrong wherever rebase or squash is the merge method**,
+  since both destroy ancestry by construction, so it answers no forever for a fully merged
+  branch; use `git cherry`, which takes any commit-ish and so still works after the branch
+  ref is gone. **A branch-protection endpoint can return 404 while the branch is protected**,
+  because the policy lives in a ruleset at a different endpoint — and two endpoints describing
+  one ruleset return different field sets. **A required status check pins a job's
+  display-name string**: appending jobs is safe, renaming or splitting one leaves PRs pending
+  rather than failing, and the repair is a settings change rather than a file edit.
 - **Release tags must be signed, and every release tag gets a GitHub Release.** `git tag -a`
   does not sign; `git tag -s` does, and `tag.gpgSign=true` makes it automatic. Verify with
   `git cat-file -p <tag>` before pushing, and re-verify after, because the signature has to
